@@ -35,12 +35,12 @@ Event _Build_Quests()
 		MCM._Add_Quest_Data(false, 	10, 40,				"DLC1VQ01", 				"II. Awakening", 				"Main Quests (DG)", 		"Isran", 							"Find out what the vampires are looking for")
 		MCM._Add_Quest_Data(false, 	5, 40,				"DLC1VQ02", 				"III. Bloodline", 				"Main Quests (DG)", 		"Serana", 							"Choose your side!")
 		
-		if MCM._Faction_Choice == 1
+		if MCM.DG_Faction_Choice == 1
 			
 			MCM._Add_Quest_Data(false, 	20, 70,			"DLC1HunterBaseIntro", 		"IV. A New Order", 				"Main Quests (DG)", 		"Isran", 							"Recruit Isran's old allies for the Dawnguard")
 			MCM._Add_Quest_Data(false, 	5, 100,			"DLC1VQ03Hunter", 			"V. Prophet", 					"Main Quests (DG)", 		"Isran", 							"Find and rescue a Moth Priest from the vampires")
 		
-		elseif MCM._Faction_Choice == 2 
+		elseif MCM.DG_Faction_Choice == 2 
 			
 			MCM._Add_Quest_Data(false, 	10, 60,			"DLC1VampireBaseIntro", 	"IV. The Bloodstone Chalice", 	"Main Quests (DG)", 		"Garan Marethi", 					"Fill the Bloodstone Chalice from the Bloodspring at Redwater Den")
 			MCM._Add_Quest_Data(false, 	5, 130,			"DLC1VQ03Vampire", 			"V. Prophet", 					"Main Quests (DG)", 		"Lord Harkon", 						"Locate a Moth Priest for the vampires")
@@ -55,6 +55,50 @@ Event _Build_Quests()
 		MCM._Add_Quest_Data(false, 	10, 150,			"DLC1VQ07", 				"XI. Touching the Sky", 		"Main Quests (DG)", 		"Serana", 							"Find and retrieve Auriel's Bow")
 		MCM._Add_Quest_Data(false, 	10, 60,				"DLC1VQ08", 				"XII. Kindred Judgment", 		"Main Quests (DG)", 		"Serana", 							"Confront Lord Harkon")
 
+;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	elseif MCM._MCM_Page == "Main Quests (CW)"
+		
+		if MCM.CW_Faction_Choice == 1
+
+			MCM._Add_Quest_Data(false, 	-999, 999,		"CW01A", 	"I. Joining the Legion", 				"Main Quests (CW)", 		"Legate Rikke",		"Join the Imperial Legion")
+			MCM._Add_Quest_Data(false, 	-999, 999,		"CW02A", 	"II. The Jagged Crown", 				"Main Quests (CW)", 		"Legate Rikke",		"Retrieve the Jagged Crown")
+			MCM._Add_Quest_Data(false, 	-999, 999,		"CW03", 	"III. Message to Whiterun", 			"Main Quests (CW)", 		"General Tullius",	"Deliver message to Whiterun")
+			
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"IV. Battle for Whiterun", 				"Main Quests (CW)", 		"General Tullius",	"Take Whiterun for the Imperial Legion")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"V. Reunification of Skyrim", 			"Main Quests (CW)", 		"General Tullius", 	"Reunite Skyrim for the Empire")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"VI. Battle for Windhelm", 				"Main Quests (CW)", 		"Legate Rikke",		"Take Windhelm and bring Ulfric to justice")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"A False Front", 						"Main Quests (CW)", 		"Legate Rikke",		"Deliver forged documents to Stormcloaks")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Compelling Tribute", 					"Main Quests (CW)", 		"Legate Rikke",		"Gain intelligence on Stormcloaks")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Rescue from Fort Kastav", 				"Main Quests (CW)", 		"Legate Rikke",		"Rescue prisoners and regain Winterhold")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Amol", 			"Main Quests (CW)", 		"Legate Rikke",		"Take Fort Amol")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Dunstad", 			"Main Quests (CW)", 		"Legate Rikke",		"Take Fort Dunstad")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Greenwall", 		"Main Quests (CW)", 		"Legate Rikke",		"Take Fort Greenwall")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Snowhawk", 		"Main Quests (CW)", 		"Legate Rikke",		"Take Fort Snowhawk")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Sungard", 			"Main Quests (CW)", 		"Legate Rikke",		"Take Fort Sungard")				
+		
+		elseif MCM.CW_Faction_Choice == 2 
+		
+			MCM._Add_Quest_Data(false, 	-999, 999,		"CW01B", 	"I. Joining the Stormcloaks", 			"Main Quests (CW)", 		"Ulfric Stormcloak",		"Join the Stormcloaks")
+			MCM._Add_Quest_Data(false, 	-999, 999,		"CW02B", 	"II. The Jagged Crown", 				"Main Quests (CW)", 		"Galmar Stone-Fist",		"Retrieve the Jagged Crown")
+			MCM._Add_Quest_Data(false, 	-999, 999,		"CW03", 	"III. Message to Whiterun", 			"Main Quests (CW)", 		"Ulfric Stormcloak",		"Deliver axe to Jarl of Whiterun")
+			
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"IV. Battle for Whiterun", 				"Main Quests (CW)", 		"Ulfric Stormcloak",		"Take Whiterun for the Stormcloaks")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"V. Liberation of Skyrim", 				"Main Quests (CW)", 		"Ulfric Stormcloak",		"Drive the Imperials from Skyrim")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"VI. Battle for Solitude", 				"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take solitude and push the Imperials out")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"A False Front", 						"Main Quests (CW)", 		"Galmar Stone-Fist",		"Deliver forged documents to Imperials")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Compelling Tribute", 					"Main Quests (CW)", 		"Galmar Stone-Fist",		"Blackmail Talos worshipper")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Rescue from Fort Neugrad", 			"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Neugrad")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Dunstad", 			"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Dunstad")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Greenwall", 		"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Greenwall")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Hraggstad", 		"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Hraggstad")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Kastav", 			"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Kastav")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Snowhawk", 		"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Snowhawk")
+			MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Sungard", 			"Main Quests (CW)", 		"Galmar Stone-Fist",		"Take Fort Sungard")		
+		
+		endIf
+		
 ;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -340,6 +384,9 @@ Event _Build_Quests()
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Totems of Hircine", 				"Companions", 		"Aela the Huntress",		"Retrieve the Totem of Hircine")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Trouble in Skyrim", 				"Companions", 		"Farkas",					"Clear the troublesome area")
 
+;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	elseIf MCM._MCM_Page == "College of Winterhold"
 	
 		MCM._Add_Quest_Data(false, 	-999, 999,		"MG01", 				"I. First Lessons", 				"College of Winterhold", 		"Faralda",				"Join College of Winterhold")
@@ -397,14 +444,15 @@ Event _Build_Quests()
 		MCM._Add_Quest_Data(false, 	-999, 80,		"TGLarceny", 			"The Litany of Larceny",		"Thieves Guild", 		"Delvin Mallory",				"Find items for Delvin Mallory")
 		MCM._Add_Quest_Data(false, 	-999, 30,		"TGFenceCaravan", 		"Caravan Fence Quest", 			"Thieves Guild", 		"Tonilia",						"Deliver moon sugar to Ri'saad")
 		MCM._Add_Quest_Data(false, 	20, 999,		"FreeformRiften21", 	"Toying With The Dead", 		"Thieves Guild", 		"Vekel the Man",				"Retrieve necromancer's journals")	
-
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Imitation Amnesty", 	"Thieves Guild", 		"Delvin Mallory",				"Help get a convicted prisoner released from jail")
+		
+		MCM._Add_Quest_Data(false, 	-999, 999,		"TGTQ03", 	"Imitation Amnesty", 	"Thieves Guild", 		"Delvin Mallory",				"Help get a convicted prisoner released from jail")
+		MCM._Add_Quest_Data(false, 	-999, 999,		"TGTQ01", 	"Silver Lining", 		"Thieves Guild", 		"Delvin Mallory",				"Recover a stolen silver mold for a silversmith")
+		MCM._Add_Quest_Data(false, 	-999, 999,		"TGTQ04", 	"Summerset Shadows",	"Thieves Guild", 		"Delvin Mallory",				"Remove a rival guild from the picture")
+		MCM._Add_Quest_Data(false, 	-999, 999,		"TGTQ02", 	"The Dainty Sload", 	"Thieves Guild", 		"Delvin Mallory",				"Frame a ship's captain to get revenge for a jilted merchant")
+		
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Reparations", 			"Thieves Guild", 		"Break Thieves Guild rules",	"Make reparations for breaking the Thieves Guild rules")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Silver Lining", 		"Thieves Guild", 		"Delvin Mallory",				"Recover a stolen silver mold for a silversmith")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Summerset Shadows",	"Thieves Guild", 		"Delvin Mallory",				"Remove a rival guild from the picture")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Bedlam Job", 		"Thieves Guild", 		"Delvin Mallory",				"Steal a set amount of gold's worth of items")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Burglary Job", 	"Thieves Guild", 		"Vex",							"Steal a special item from a wealthy home")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Dainty Sload", 	"Thieves Guild", 		"Delvin Mallory",				"Frame a ship's captain to get revenge for a jilted merchant")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Fishing Job", 		"Thieves Guild", 		"Delvin Mallory",				"Steal an item out of a target's pocket")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Heist Job", 		"Thieves Guild", 		"Vex",							"Steal a particular item from a store")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Numbers Job", 		"Thieves Guild", 		"Delvin Mallory",				"Alter the business ledger of a store")
@@ -454,49 +502,6 @@ Event _Build_Quests()
 
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"Honor Thy Family",					"Dark Brotherhood", 		"Attack member of Dark Brotherhood",	"Regain the trust of your fellow Assassins")
 		MCM._Add_Quest_Data(true, 	-999, 999,		"", 	"The Dark Brotherhood Forever", 	"Dark Brotherhood", 		"Night Mother",							"Yet another child has prayed to their mother")
-
-;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	elseIf MCM._MCM_Page == "Imperial Legion"
-	
-		MCM._Add_Quest_Data(false, 	-999, 999,		"CW01A", 	"I. Joining the Legion", 				"Imperial Legion", 		"Legate Rikke",		"Join the Imperial Legion")
-		MCM._Add_Quest_Data(false, 	-999, 999,		"CW02A", 	"II. The Jagged Crown", 				"Imperial Legion", 		"Legate Rikke",		"Retrieve the Jagged Crown")
-		MCM._Add_Quest_Data(false, 	-999, 999,		"CW03", 	"III. Message to Whiterun", 			"Imperial Legion", 		"General Tullius",	"Deliver message to Whiterun")
-		
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"IV. Battle for Whiterun", 				"Imperial Legion", 		"General Tullius",	"Take Whiterun for Imperial Legion")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"V. Reunification of Skyrim", 			"Imperial Legion", 		"General Tullius", 	"Reunite Skyrim for the Empire")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"VI. Battle for Windhelm", 				"Imperial Legion", 		"Legate Rikke",		"Take Windhelm and bring Ulfric to justice")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"A False Front", 						"Imperial Legion", 		"Legate Rikke",		"Deliver forged documents to Stormcloaks")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Compelling Tribute", 					"Imperial Legion", 		"Legate Rikke",		"Gain intelligence on Stormcloaks")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Rescue from Fort Kastav", 				"Imperial Legion", 		"Legate Rikke",		"Rescue prisoners and regain Winterhold")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Amol", 			"Imperial Legion", 		"Legate Rikke",		"Take Fort Amol")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Dunstad", 			"Imperial Legion", 		"Legate Rikke",		"Take Fort Dunstad")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Greenwall", 		"Imperial Legion", 		"Legate Rikke",		"Take Fort Greenwall")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Snowhawk", 		"Imperial Legion", 		"Legate Rikke",		"Take Fort Snowhawk")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Sungard", 			"Imperial Legion", 		"Legate Rikke",		"Take Fort Sungard")
-		
-;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	elseIf MCM._MCM_Page == "Stormcloaks"
-	
-		MCM._Add_Quest_Data(false, 	-999, 999,		"CW01B", 	"I. Joining the Stormcloaks", 			"Stormcloaks", 		"Ulfric Stormcloak",		"Join the Stormcloaks")
-		MCM._Add_Quest_Data(false, 	-999, 999,		"CW02B", 	"II. The Jagged Crown", 				"Stormcloaks", 		"Galmar Stone-Fist",		"Retrieve the Jagged Crown")
-		MCM._Add_Quest_Data(false, 	-999, 999,		"CW03", 	"III. Message to Whiterun", 			"Stormcloaks", 		"Ulfric Stormcloak",		"Deliver axe to Jarl of Whiterun")
-		
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"IV. Battle for Whiterun", 				"Stormcloaks", 		"Ulfric Stormcloak",		"Take Whiterun for Stormcloaks")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"V. Liberation of Skyrim", 				"Stormcloaks", 		"Ulfric Stormcloak",		"Drive the Imperials from Skyrim")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"VI. Battle for Solitude", 				"Stormcloaks", 		"Galmar Stone-Fist",		"Take solitude and push the Imperials out")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"A False Front", 						"Stormcloaks", 		"Galmar Stone-Fist",		"Deliver forged documents to Imperials")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Compelling Tribute", 					"Stormcloaks", 		"Galmar Stone-Fist",		"Blackmail Talos worshipper")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"Rescue from Fort Neugrad", 			"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Neugrad")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Dunstad", 			"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Dunstad")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Greenwall", 		"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Greenwall")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Hraggstad", 		"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Hraggstad")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Kastav", 			"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Kastav")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Snowhawk", 		"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Snowhawk")
-		MCM._Add_Quest_Data(true, 	-999, 999,		"", 		"The Battle for Fort Sungard", 			"Stormcloaks", 		"Galmar Stone-Fist",		"Take Fort Sungard")
 		
 ;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

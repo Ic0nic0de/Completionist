@@ -40,8 +40,7 @@ String[] property _Array_Name_Companions auto hidden
 String[] property _Array_Name_College auto hidden
 String[] property _Array_Name_Thieves auto hidden
 String[] property _Array_Name_Brotherhood auto hidden
-String[] property _Array_Name_Legion auto hidden
-String[] property _Array_Name_Stormcloaks auto hidden
+String[] property _Array_Name_CWMain auto hidden
 
 String[] property _Array_Name_DGMain auto hidden
 String[] property _Array_Name_Dawnguard auto hidden
@@ -78,8 +77,7 @@ Bool[] property _Array_Toggle_Companions auto hidden
 Bool[] property _Array_Toggle_College auto hidden
 Bool[] property _Array_Toggle_Thieves auto hidden
 Bool[] property _Array_Toggle_Brotherhood auto hidden
-Bool[] property _Array_Toggle_Legion auto hidden
-Bool[] property _Array_Toggle_Stormcloaks auto hidden
+Bool[] property _Array_Toggle_CWMain auto hidden
 
 Bool[] property _Array_Toggle_DGMain auto hidden
 Bool[] property _Array_Toggle_Dawnguard auto hidden
@@ -158,11 +156,8 @@ Event OnInit()
 	_Array_Name_Brotherhood = new String[128]
 	_Array_Toggle_Brotherhood = new Bool[128]
 
-	_Array_Name_Legion = new String[128]
-	_Array_Toggle_Legion = new Bool[128]
-
-	_Array_Name_Stormcloaks = new String[128]
-	_Array_Toggle_Stormcloaks = new Bool[128]
+	_Array_Name_CWMain = new String[128]
+	_Array_Toggle_CWMain = new Bool[128]
 
 	_Array_Name_DGMain = new String[128]
 	_Array_Toggle_DGMain = new Bool[128]

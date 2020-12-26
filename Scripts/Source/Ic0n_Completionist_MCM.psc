@@ -15,7 +15,11 @@ Int _Position_Left
 
 String[] _Dawnguard_Faction
 Int _State_Menu_Faction
-Int property _Faction_Choice = 0 auto hidden
+Int property DG_Faction_Choice = 0 auto hidden
+
+String[] _CivilWar_Faction
+Int _State_Menu_Faction2
+Int property CW_Faction_Choice = 0 auto hidden
 
 string _Status_Return
 bool _Debugging
@@ -32,36 +36,35 @@ endEvent
 
 Event _Build_Pages()
 
-	_Array_Page_Dynamic = new String[29]	
+	_Array_Page_Dynamic = new String[28]	
 	_Array_Page_Dynamic[0] = "Main Quests"
-	_Array_Page_Dynamic[1] = "Main Quests (DG)"
-	_Array_Page_Dynamic[2] = "Main Quests (DB)"	
-	_Array_Page_Dynamic[3] = "Whiterun Quests"
-	_Array_Page_Dynamic[4] = "Falkreath Quests"
-	_Array_Page_Dynamic[5] = "Riften Quests"
-	_Array_Page_Dynamic[6] = "Windhelm Quests"	
-	_Array_Page_Dynamic[7] = "Dawnstar Quests"
-	_Array_Page_Dynamic[8] = "Markarth Quests"
-	_Array_Page_Dynamic[9] = "Morthal Quests"
-	_Array_Page_Dynamic[10] = "Solitude Quests"
-	_Array_Page_Dynamic[11] = "Winterhold Quests"
-	_Array_Page_Dynamic[12] = "Raven Rock Quests"
-	_Array_Page_Dynamic[13] = "Skaal Village Quests"
-	_Array_Page_Dynamic[14] = "Tel Mithryn Quests"
-	_Array_Page_Dynamic[15] = "Thirsk Quests"
-	_Array_Page_Dynamic[16] = "Misc Town Quests"
-	_Array_Page_Dynamic[17] = "Companions" 
-	_Array_Page_Dynamic[18] = "College of Winterhold"
-	_Array_Page_Dynamic[19] = "Thieves Guild" 	
-	_Array_Page_Dynamic[20] = "Dark Brotherhood" 
-	_Array_Page_Dynamic[21] = "Stormcloaks" 	
-	_Array_Page_Dynamic[22] = "Imperial Legion" 
-	_Array_Page_Dynamic[23] = "Dawnguard" 
-	_Array_Page_Dynamic[24] = "Vampires" 	
-	_Array_Page_Dynamic[25] = "Dungeon Quests"
-	_Array_Page_Dynamic[26] = "Misc Quests" 
-	_Array_Page_Dynamic[27] = "Misc Quests (DG)" 
-	_Array_Page_Dynamic[28] = "Misc Quests (DB)" 
+	_Array_Page_Dynamic[1] = "Main Quests (CW)"
+	_Array_Page_Dynamic[2] = "Main Quests (DG)"
+	_Array_Page_Dynamic[3] = "Main Quests (DB)"		
+	_Array_Page_Dynamic[4] = "Whiterun Quests"
+	_Array_Page_Dynamic[5] = "Falkreath Quests"
+	_Array_Page_Dynamic[6] = "Riften Quests"
+	_Array_Page_Dynamic[7] = "Windhelm Quests"	
+	_Array_Page_Dynamic[8] = "Dawnstar Quests"
+	_Array_Page_Dynamic[9] = "Markarth Quests"
+	_Array_Page_Dynamic[10] = "Morthal Quests"
+	_Array_Page_Dynamic[11] = "Solitude Quests"
+	_Array_Page_Dynamic[12] = "Winterhold Quests"
+	_Array_Page_Dynamic[13] = "Raven Rock Quests"
+	_Array_Page_Dynamic[14] = "Skaal Village Quests"
+	_Array_Page_Dynamic[15] = "Tel Mithryn Quests"
+	_Array_Page_Dynamic[16] = "Thirsk Quests"
+	_Array_Page_Dynamic[17] = "Misc Town Quests"
+	_Array_Page_Dynamic[18] = "Companions" 
+	_Array_Page_Dynamic[19] = "College of Winterhold"
+	_Array_Page_Dynamic[20] = "Thieves Guild" 	
+	_Array_Page_Dynamic[21] = "Dark Brotherhood" 
+	_Array_Page_Dynamic[22] = "Dawnguard" 
+	_Array_Page_Dynamic[23] = "Vampires" 	
+	_Array_Page_Dynamic[24] = "Dungeon Quests"
+	_Array_Page_Dynamic[25] = "Misc Quests" 
+	_Array_Page_Dynamic[26] = "Misc Quests (DG)" 
+	_Array_Page_Dynamic[27] = "Misc Quests (DB)" 
  	
 endEvent
 
@@ -70,52 +73,51 @@ endEvent
 Event _Build_Pages_Dynamic()
 
 	ModName = "Completionist"
-	_Array_Page_Static = new String[37]	
+	_Array_Page_Static = new String[36]	
 	
 	_Array_Page_Static[0] = "Settings" 
 	_Array_Page_Static[1] = " "
 	
 	_Array_Page_Static[2] = "Main Quests"
-	_Array_Page_Static[3] = "Main Quests (DG)"
-	_Array_Page_Static[4] = "Main Quests (DB)"	
-	_Array_Page_Static[5] = " "
+	_Array_Page_Static[3] = "Main Quests (CW)"
+	_Array_Page_Static[4] = "Main Quests (DG)"
+	_Array_Page_Static[5] = "Main Quests (DB)"	
+	_Array_Page_Static[6] = " "
 	
-	_Array_Page_Static[6] = "~~ Towns & Cities ~~"	
-	_Array_Page_Static[7] = "Whiterun Quests"
-	_Array_Page_Static[8] = "Falkreath Quests"
-	_Array_Page_Static[9] = "Riften Quests"
-	_Array_Page_Static[10] = "Windhelm Quests"	
-	_Array_Page_Static[11] = "Dawnstar Quests"
-	_Array_Page_Static[12] = "Markarth Quests"
-	_Array_Page_Static[13] = "Morthal Quests"
-	_Array_Page_Static[14] = "Solitude Quests"
-	_Array_Page_Static[15] = "Winterhold Quests"
-	_Array_Page_Static[16] = "Raven Rock Quests"
-	_Array_Page_Static[17] = "Skaal Village Quests"
-	_Array_Page_Static[18] = "Tel Mithryn Quests"
-	_Array_Page_Static[19] = "Thirsk Quests"
-	_Array_Page_Static[20] = "Misc Town Quests"
-	_Array_Page_Static[21] = " "
+	_Array_Page_Static[7] = "~~ Towns & Cities ~~"	
+	_Array_Page_Static[8] = "Whiterun Quests"
+	_Array_Page_Static[9] = "Falkreath Quests"
+	_Array_Page_Static[10] = "Riften Quests"
+	_Array_Page_Static[11] = "Windhelm Quests"	
+	_Array_Page_Static[12] = "Dawnstar Quests"
+	_Array_Page_Static[13] = "Markarth Quests"
+	_Array_Page_Static[14] = "Morthal Quests"
+	_Array_Page_Static[15] = "Solitude Quests"
+	_Array_Page_Static[16] = "Winterhold Quests"
+	_Array_Page_Static[17] = "Raven Rock Quests"
+	_Array_Page_Static[18] = "Skaal Village Quests"
+	_Array_Page_Static[19] = "Tel Mithryn Quests"
+	_Array_Page_Static[20] = "Thirsk Quests"
+	_Array_Page_Static[21] = "Misc Town Quests"
+	_Array_Page_Static[22] = " "
 	
-	_Array_Page_Static[22] = "~~ Guilds & Factions ~~"
-	_Array_Page_Static[23] = "Companions" 
-	_Array_Page_Static[24] = "College of Winterhold" 	
-	_Array_Page_Static[25] = "Thieves Guild" 	
-	_Array_Page_Static[26] = "Dark Brotherhood" 
-	_Array_Page_Static[27] = "Stormcloaks" 	
-	_Array_Page_Static[28] = "Imperial Legion" 
-	_Array_Page_Static[29] = "Dawnguard" 
-	_Array_Page_Static[30] = "Vampires" 
-	_Array_Page_Static[31] = " "
+	_Array_Page_Static[23] = "~~ Guilds & Factions ~~"
+	_Array_Page_Static[24] = "Companions" 
+	_Array_Page_Static[25] = "College of Winterhold" 	
+	_Array_Page_Static[26] = "Thieves Guild" 	
+	_Array_Page_Static[27] = "Dark Brotherhood" 
+	_Array_Page_Static[28] = "Dawnguard" 
+	_Array_Page_Static[29] = "Vampires" 
+	_Array_Page_Static[30] = " "
 	
-	_Array_Page_Static[32] = "~~ Dungeons & Misc ~~"	
-	_Array_Page_Static[33] = "Dungeon Quests"
-	_Array_Page_Static[34] = "Misc Quests" 
-	_Array_Page_Static[35] = "Misc Quests (DG)" 
-	_Array_Page_Static[36] = "Misc Quests (DB)" 	
+	_Array_Page_Static[31] = "~~ Dungeons & Misc ~~"	
+	_Array_Page_Static[32] = "Dungeon Quests"
+	_Array_Page_Static[33] = "Misc Quests" 
+	_Array_Page_Static[34] = "Misc Quests (DG)" 
+	_Array_Page_Static[35] = "Misc Quests (DB)" 	
 
 	Int _Index = 0
-	Int _Page = 37
+	Int _Page = 36
 
 	Pages = Utility.CreateStringArray(_Page)
 	
@@ -131,12 +133,6 @@ endEvent
 ;-- Events --------------------------------------
 
 Event OnPageReset(String page)
-	
-	if page == " " || page == ""
-		;;LoadCustomContent("TCC/CuratorSplash.swf", 50, -32)
-	else
-		UnloadCustomContent()
-	endIf
 	
 	_MCM_Page = CurrentPage
 	
@@ -155,9 +151,13 @@ Event _Build_Menu_Faction()
 
 	_Dawnguard_Faction = new string[4]
 	_Dawnguard_Faction[0] = "Make Your Choice!"
-	_Dawnguard_Faction[1] = "Dawnguard"
-	_Dawnguard_Faction[2] = "Vampires"
-
+	_Dawnguard_Faction[1] = "Dawnguard."
+	_Dawnguard_Faction[2] = "Vampires."
+	
+	_CivilWar_Faction = new string[4]
+	_CivilWar_Faction[0] = "Make Your Choice!"
+	_CivilWar_Faction[1] = "Imperial."
+	_CivilWar_Faction[2] = "Stormcloaks."
 endEvent
 
 ;-- Events --------------------------------------
@@ -169,7 +169,8 @@ Event _Build_Page_Settings()
 		SetCursorPosition(0)
 		AddHeaderOption("Mod Settings:")
 		
-		AddMenuOptionST("_State_Menu_Faction", "Dawnguard Faction:", _Dawnguard_Faction[_Faction_Choice])
+		AddMenuOptionST("_State_Menu_Faction", "Dawnguard Faction:", _Dawnguard_Faction[DG_Faction_Choice])
+		AddMenuOptionST("_State_Menu_Faction2", "Civil War Faction:", _CivilWar_Faction[CW_Faction_Choice])
 		AddEmptyOption()
 		AddTextOptionST("_State_Debugging", "Debugging (Show Editor ID)", self.GetDebuggingString())
 		AddEmptyOption()
@@ -200,24 +201,51 @@ endEvent
 State _State_Menu_Faction ; MENU
 
 	Event OnMenuOpenST()
-		SetMenuDialogStartIndex(_Faction_Choice)
+		SetMenuDialogStartIndex(DG_Faction_Choice)
 		SetMenuDialogDefaultIndex(0)
 		SetMenuDialogOptions(_Dawnguard_Faction)
 	endEvent
 					
 	Event OnMenuAcceptST(int index)
-		_Faction_Choice = Index
-		SetMenuOptionValueST(_State_Menu_Faction, _Dawnguard_Faction[_Faction_Choice])
+		DG_Faction_Choice = Index
+		SetMenuOptionValueST(_State_Menu_Faction, _Dawnguard_Faction[DG_Faction_Choice])
 		ForcePageReset()
 	endEvent
 
 	Event OnDefaultST()
-		_Faction_Choice = 0
-		SetMenuOptionValueST(_Dawnguard_Faction[_Faction_Choice])
+		DG_Faction_Choice = 0
+		SetMenuOptionValueST(_Dawnguard_Faction[DG_Faction_Choice])
 	endEvent
 
 	Event OnHighlightST()
 		SetInfoText("Use this menu to show the correct quests from the faction you joined during the Dawnguard quest 'Bloodline'")
+	endEvent
+	
+endState
+
+;-- Faction Menu State -----------------------------------------
+
+State _State_Menu_Faction2 ; MENU
+
+	Event OnMenuOpenST()
+		SetMenuDialogStartIndex(CW_Faction_Choice)
+		SetMenuDialogDefaultIndex(0)
+		SetMenuDialogOptions(_CivilWar_Faction)
+	endEvent
+					
+	Event OnMenuAcceptST(int index)
+		CW_Faction_Choice = Index
+		SetMenuOptionValueST(_State_Menu_Faction2, _CivilWar_Faction[CW_Faction_Choice])
+		ForcePageReset()
+	endEvent
+
+	Event OnDefaultST()
+		CW_Faction_Choice = 0
+		SetMenuOptionValueST(_CivilWar_Faction[CW_Faction_Choice])
+	endEvent
+
+	Event OnHighlightST()
+		SetInfoText("Use this menu to show the correct quests from the faction you joined during the Civil War quest line")
 	endEvent
 	
 endState
@@ -320,12 +348,6 @@ Event _Build_Quests_Pages()
 	_Allocate_Quests("Dark Brotherhood", _ArrayHolder._Array_Name_Brotherhood, _ArrayHolder._Array_Toggle_Brotherhood)
 	_Build_Page_Layout("Dark Brotherhood")
 	
-	_Allocate_Quests("Imperial Legion", _ArrayHolder._Array_Name_Legion, _ArrayHolder._Array_Toggle_Legion)
-	_Build_Page_Layout("Imperial Legion")
-	
-	_Allocate_Quests("Stormcloaks", _ArrayHolder._Array_Name_Stormcloaks, _ArrayHolder._Array_Toggle_Stormcloaks)
-	_Build_Page_Layout("Stormcloaks")
-	
 	_Allocate_Quests("Main Quests (DG)", _ArrayHolder._Array_Name_DGMain, _ArrayHolder._Array_Toggle_DGMain)
 	_Build_Page_Layout("Main Quests (DG)")	   
 
@@ -355,7 +377,9 @@ Event _Build_Quests_Pages()
 	
 	_Allocate_Quests("Misc Quests (DB)", _ArrayHolder._Array_Name_DBMisc, _ArrayHolder._Array_Toggle_DBMisc)
 	_Build_Page_Layout("Misc Quests (DB)")
-	
+
+	_Allocate_Quests("Main Quests (CW)", _ArrayHolder._Array_Name_CWMain, _ArrayHolder._Array_Toggle_CWMain)
+	_Build_Page_Layout("Main Quests (CW)")	
 endEvent
 
 ;-- Events --------------------------------------
@@ -369,7 +393,7 @@ Event _Build_Page_Layout(String _Cur_Quest_Page)
 		_Position_Left = 0
 		_Position_Right = 1
 		_Build_Section_Left("Available Quests (Main & Side)", 0, _ArrayHolder._M_Quest_Title_Incomplete, false)
-		_Build_Section_Left("Available Quests (Radiant)", 1, _ArrayHolder._R_Quest_Title_Incomplete, false)	
+		_Build_Section_Left("Available Quests (Radiant & Favour)", 1, _ArrayHolder._R_Quest_Title_Incomplete, false)	
 		
 		_Build_Section_Right("Quests (In Progress)", 0, _ArrayHolder._M_Quest_Title_Ongoing, false)			
 		_Build_Section_Right("Quests (Completed)", 1, _ArrayHolder._M_Quest_Title_Completed, true)		
@@ -423,7 +447,7 @@ endEvent
 
 ;-- Events --------------------------------------
 
-Event MaintainCurrentToggleStateValue(String _QuestName, Bool _Quest_Toggle_State)
+Event _SwitchToggleState(String _QuestName, Bool _Quest_Toggle_State)
 
 	if CurrentPage == "Main Quests"
 		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Main, _ArrayHolder._Array_Toggle_Main)
@@ -476,12 +500,6 @@ Event MaintainCurrentToggleStateValue(String _QuestName, Bool _Quest_Toggle_Stat
 	elseIf CurrentPage == "Dark Brotherhood"
 		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Brotherhood, _ArrayHolder._Array_Toggle_Brotherhood)
 		
-	elseIf CurrentPage == "Imperial Legion"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Legion, _ArrayHolder._Array_Toggle_Legion)
-	
-	elseIf CurrentPage == "Stormcloaks"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Stormcloaks, _ArrayHolder._Array_Toggle_Stormcloaks)
-		
 	elseIf CurrentPage == "Main Quests (DG)"
 		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_DGMain, _ArrayHolder._Array_Toggle_DGMain)	
 
@@ -511,13 +529,15 @@ Event MaintainCurrentToggleStateValue(String _QuestName, Bool _Quest_Toggle_Stat
 		
 	elseIf CurrentPage == "Misc Quests (DB)"
 		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_DBMisc, _ArrayHolder._Array_Toggle_DBMisc)
-					
+
+	elseIf CurrentPage == "Main Quests (CW)"
+		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_CWMain, _ArrayHolder._Array_Toggle_CWMain)					
 	endIf
 endEvent
 
 ;-- Events --------------------------------------
 
-Bool Function PageIsDynamicQuestPage()
+Bool Function _DynamicPageAlloc()
 
 	Int _Index = _Array_Page_Dynamic.find(CurrentPage, 0)
 	   return _Index >= 0
@@ -594,7 +614,7 @@ EndFunction
 
 Event OnOptionHighlight(Int _Value)
 		   
-    if PageIsDynamicQuestPage()
+    if _DynamicPageAlloc()
 		String _QuestName = _Get_Quest_Name(_Value)
 		String _QuestOverview = _Get_Quest_Overview(_Value, _QuestName)
 		String _QuestGiver = _Get_Quest_Giver(_Value, _QuestName)
@@ -615,14 +635,14 @@ Event OnOptionSelect(Int _Value)
     String _QuestName = _Get_Quest_Name(_Value)
 	Bool _Quest_State = _Get_Quest_State(_Value)
 	SetToggleOptionValue(_Value, !_Quest_State, false)
-	TogglefromID(_Value, !_Quest_State)
-	MaintainCurrentToggleStateValue(_QuestName, !_Quest_State)
+	_IDToggleState(_Value, !_Quest_State)
+	_SwitchToggleState(_QuestName, !_Quest_State)
 	ForcePageReset()	
 endEvent
 
 ;-- Events --------------------------------------
 
-Event TogglefromID(Int _Value, Bool _Quest_State)
+Event _IDToggleState(Int _Value, Bool _Quest_State)
 
 	Int _Index = 0
 	Int _Array_Length = _ArrayHolder._Array_Quest_Option_ID.length
