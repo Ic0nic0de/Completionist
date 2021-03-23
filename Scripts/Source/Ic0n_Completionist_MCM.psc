@@ -2,773 +2,650 @@ scriptName Ic0n_Completionist_MCM extends SKI_ConfigBase
 
 ;-- Variables ---------------------------------------
 
-Ic0n_Completionist_Quests property _QuestHolder auto
-Ic0n_Completionist_Arrays property _ArrayHolder auto
+Ic0n_Completionist_Quests property QST auto
+Ic0n_Completionist_Arrays property Util auto
+Ic0n_CompletionistSM_Arrays property SMUtil auto
 
-String property _MCM_Page auto hidden
+message property UpdateMessage auto
 
-String[] _Array_Page_Static
-String[] _Array_Page_Dynamic
+string[] Dawnguard_Faction
+int State_Menu_Faction
+int property DG_Faction_Choice = 0 auto hidden
 
-Int _Position_Right
-Int _Position_Left
+string[] CivilWar_Faction
+int State_Menu_Faction2
+int property CW_Faction_Choice = 0 auto hidden
 
-String[] _Dawnguard_Faction
-Int _State_Menu_Faction
-Int property DG_Faction_Choice = 0 auto hidden
+Float property fVersion auto hidden 
 
-String[] _CivilWar_Faction
-Int _State_Menu_Faction2
-Int property CW_Faction_Choice = 0 auto hidden
+bool property DevDebugVal auto hidden
+bool property ResetPage auto hidden
 
-string _Status_Return
-bool _Debugging
+int posRight
+int posLeft
 
-;-- Events --------------------------------------
-
-Event OnConfigInit()
-	
-	_Build_Pages()
-	_Build_Pages_Dynamic()
-endEvent
+string[] staticPage	
+string[] dynamicPage	
 
 ;-- Events --------------------------------------
 
-Event _Build_Pages()
+event OnConfigInit()
 
-	_Array_Page_Dynamic = new String[28]	
-	_Array_Page_Dynamic[0] = "Main Quests"
-	_Array_Page_Dynamic[1] = "Main Quests (CW)"
-	_Array_Page_Dynamic[2] = "Main Quests (DG)"
-	_Array_Page_Dynamic[3] = "Main Quests (DB)"		
-	_Array_Page_Dynamic[4] = "Whiterun Quests"
-	_Array_Page_Dynamic[5] = "Falkreath Quests"
-	_Array_Page_Dynamic[6] = "Riften Quests"
-	_Array_Page_Dynamic[7] = "Windhelm Quests"	
-	_Array_Page_Dynamic[8] = "Dawnstar Quests"
-	_Array_Page_Dynamic[9] = "Markarth Quests"
-	_Array_Page_Dynamic[10] = "Morthal Quests"
-	_Array_Page_Dynamic[11] = "Solitude Quests"
-	_Array_Page_Dynamic[12] = "Winterhold Quests"
-	_Array_Page_Dynamic[13] = "Raven Rock Quests"
-	_Array_Page_Dynamic[14] = "Skaal Village Quests"
-	_Array_Page_Dynamic[15] = "Tel Mithryn Quests"
-	_Array_Page_Dynamic[16] = "Thirsk Quests"
-	_Array_Page_Dynamic[17] = "Misc Town Quests"
-	_Array_Page_Dynamic[18] = "Companions" 
-	_Array_Page_Dynamic[19] = "College of Winterhold"
-	_Array_Page_Dynamic[20] = "Thieves Guild" 	
-	_Array_Page_Dynamic[21] = "Dark Brotherhood" 
-	_Array_Page_Dynamic[22] = "Dawnguard" 
-	_Array_Page_Dynamic[23] = "Vampires" 	
-	_Array_Page_Dynamic[24] = "Dungeon Quests"
-	_Array_Page_Dynamic[25] = "Misc Quests" 
-	_Array_Page_Dynamic[26] = "Misc Quests (DG)" 
-	_Array_Page_Dynamic[27] = "Misc Quests (DB)" 
- 	
-endEvent
+	Maintenance()
+	Build_Pages()
+	Build_Pages_Dynamic()
+endevent
 
-;-- Events --------------------------------------
+;-- Functions --------------------------------------
 
-Event _Build_Pages_Dynamic()
+function Maintenance()
+	
+	Float curVersion = 2.6
+	
+	if (fVersion < curVersion)
+		if (fVersion < 2.6)
+			fVersion = curVersion
+			Util._Build_Quest_Toggles(fVersion, true)
+			SMUtil._Build_Quest_Toggles(fVersion, true)
+			While Utility.IsInMenuMode()
+				Utility.Wait(1)
+			endWhile
+			UpdateMessage.Show(fVersion)
+		endif
+		
+	endif
+	
+	Build_Pages()
+	Build_Pages_Dynamic()		
 
-	ModName = "Completionist"
-	_Array_Page_Static = new String[36]	
+	Util._Reset_Arrays()
+	Util._Build_Quest_Arrays()
 	
-	_Array_Page_Static[0] = "Settings" 
-	_Array_Page_Static[1] = " "
-	
-	_Array_Page_Static[2] = "Main Quests"
-	_Array_Page_Static[3] = "Main Quests (CW)"
-	_Array_Page_Static[4] = "Main Quests (DG)"
-	_Array_Page_Static[5] = "Main Quests (DB)"	
-	_Array_Page_Static[6] = " "
-	
-	_Array_Page_Static[7] = "~~ Towns & Cities ~~"	
-	_Array_Page_Static[8] = "Whiterun Quests"
-	_Array_Page_Static[9] = "Falkreath Quests"
-	_Array_Page_Static[10] = "Riften Quests"
-	_Array_Page_Static[11] = "Windhelm Quests"	
-	_Array_Page_Static[12] = "Dawnstar Quests"
-	_Array_Page_Static[13] = "Markarth Quests"
-	_Array_Page_Static[14] = "Morthal Quests"
-	_Array_Page_Static[15] = "Solitude Quests"
-	_Array_Page_Static[16] = "Winterhold Quests"
-	_Array_Page_Static[17] = "Raven Rock Quests"
-	_Array_Page_Static[18] = "Skaal Village Quests"
-	_Array_Page_Static[19] = "Tel Mithryn Quests"
-	_Array_Page_Static[20] = "Thirsk Quests"
-	_Array_Page_Static[21] = "Misc Town Quests"
-	_Array_Page_Static[22] = " "
-	
-	_Array_Page_Static[23] = "~~ Guilds & Factions ~~"
-	_Array_Page_Static[24] = "Companions" 
-	_Array_Page_Static[25] = "College of Winterhold" 	
-	_Array_Page_Static[26] = "Thieves Guild" 	
-	_Array_Page_Static[27] = "Dark Brotherhood" 
-	_Array_Page_Static[28] = "Dawnguard" 
-	_Array_Page_Static[29] = "Vampires" 
-	_Array_Page_Static[30] = " "
-	
-	_Array_Page_Static[31] = "~~ Dungeons & Misc ~~"	
-	_Array_Page_Static[32] = "Dungeon Quests"
-	_Array_Page_Static[33] = "Misc Quests" 
-	_Array_Page_Static[34] = "Misc Quests (DG)" 
-	_Array_Page_Static[35] = "Misc Quests (DB)" 	
+	SMUtil._Reset_Arrays()
+	SMUtil._Build_Quest_Arrays()
+endfunction
 
-	Int _Index = 0
-	Int _Page = 36
+;-- Functions --------------------------------------
 
-	Pages = Utility.CreateStringArray(_Page)
+function Build_Pages()
 	
-	Int x = _Page
+	dynamicPage = new string[28]	
+	dynamicPage[0] = "Main Quests"
+	dynamicPage[1] = "Main Quests (CW)"
+	dynamicPage[2] = "Main Quests (DG)"
+	dynamicPage[3] = "Main Quests (DB)"	
+	dynamicPage[4] = "Whiterun"
+	dynamicPage[5] = "Falkreath"
+	dynamicPage[6] = "Riften"
+	dynamicPage[7] = "Windhelm"	
+	dynamicPage[8] = "Dawnstar"
+	dynamicPage[9] = "Markarth"
+	dynamicPage[10] = "Morthal"
+	dynamicPage[11] = "Solitude"
+	dynamicPage[12] = "Winterhold"
+	dynamicPage[13] = "Raven Rock"
+	dynamicPage[14] = "Skaal Village"
+	dynamicPage[15] = "Tel Mithryn"
+	dynamicPage[16] = "Thirsk"
+	dynamicPage[17] = "Small Towns / Villages"
+	dynamicPage[18] = "Companions" 
+	dynamicPage[19] = "College of Winterhold"
+	dynamicPage[20] = "Thieves Guild" 	
+	dynamicPage[21] = "Dark Brotherhood" 
+	dynamicPage[22] = "Dawnguard" 
+	dynamicPage[23] = "Vampires" 	
+	dynamicPage[24] = "Dungeons"
+	dynamicPage[25] = "Miscellaneous" 
+	dynamicPage[26] = "Miscellaneous (DG)" 
+	dynamicPage[27] = "Miscellaneous (DB)" 
+endfunction
+
+;-- Functions --------------------------------------
+
+function Build_Pages_Dynamic()
+
+	ModName = "Completionist: Quest Tracker"
+	staticPage = new string[128]	
+	
+	staticPage[0] = "Settings" 
+	staticPage[1] = " "
+	
+	staticPage[2] = "Main Quests"
+	staticPage[3] = "Main Quests (CW)"
+	staticPage[4] = "Main Quests (DG)"
+	staticPage[5] = "Main Quests (DB)"
+	staticPage[6] = " "
+	
+	staticPage[7] = "~~ Towns & Cities ~~"	
+	staticPage[8] = "Whiterun"
+	staticPage[9] = "Falkreath"
+	staticPage[10] = "Riften"
+	staticPage[11] = "Windhelm"	
+	staticPage[12] = "Dawnstar"
+	staticPage[13] = "Markarth"
+	staticPage[14] = "Morthal"
+	staticPage[15] = "Solitude"
+	staticPage[16] = "Winterhold"
+	staticPage[17] = "Raven Rock"
+	staticPage[18] = "Skaal Village"
+	staticPage[19] = "Tel Mithryn"
+	staticPage[20] = "Thirsk"
+	staticPage[21] = "Small Towns / Villages"
+	staticPage[22] = " "
+	
+	staticPage[23] = "~~ Guilds & Factions ~~"
+	staticPage[24] = "Companions" 
+	staticPage[25] = "College of Winterhold" 	
+	staticPage[26] = "Thieves Guild" 	
+	staticPage[27] = "Dark Brotherhood" 
+	staticPage[28] = "Dawnguard" 
+	staticPage[29] = "Vampires" 
+	staticPage[30] = " "
+	
+	staticPage[31] = "~~ Dungeons & Misc ~~"	
+	staticPage[32] = "Dungeons"
+	staticPage[33] = "Miscellaneous" 
+	staticPage[34] = "Miscellaneous (DG)" 
+	staticPage[35] = "Miscellaneous (DB)" 
+
+	int Page = 36
+
+	Pages = Utility.CreateStringArray(page)
+	
+	int x = Page
 	
 	While x >= 1
 		x -= 1 
-		Pages[x] = _Array_Page_Static[x]  
+		Pages[x] = staticPage[x]  
 	EndWhile
-	
-endEvent
+endfunction
 
 ;-- Events --------------------------------------
 
-Event OnPageReset(String page)
+event OnPageReset(string page)
 	
-	_MCM_Page = CurrentPage
-	
-	_Build_Pages()
-	_Build_Pages_Dynamic()
-	_Build_Menu_Faction()
-	_Build_Page_Settings()
-	_ArrayHolder._Build_Arrays()
-	_QuestHolder._Build_Quests()
-	_Build_Quests_Pages()
-endEvent
+	Build_Pages()
+	Build_Pages_Dynamic()
+	Build_Page_Settings()
+	Build_Menu_Faction()
+
+	if CurrentPage != "Settings" 
+		Util._Reset_Arrays()
+		QST._Build_Quests(CurrentPage)
+	endif
+endevent
 
 ;-- Menu Events ---------------------------------
 
-Event _Build_Menu_Faction()
+function Build_Menu_Faction()
 
-	_Dawnguard_Faction = new string[4]
-	_Dawnguard_Faction[0] = "Make Your Choice!"
-	_Dawnguard_Faction[1] = "Dawnguard."
-	_Dawnguard_Faction[2] = "Vampires."
+	Dawnguard_Faction = new string[3]
+	Dawnguard_Faction[0] = "Make Your Choice!"
+	Dawnguard_Faction[1] = "Dawnguard."
+	Dawnguard_Faction[2] = "Vampires."
 	
-	_CivilWar_Faction = new string[4]
-	_CivilWar_Faction[0] = "Make Your Choice!"
-	_CivilWar_Faction[1] = "Imperial."
-	_CivilWar_Faction[2] = "Stormcloaks."
-endEvent
+	CivilWar_Faction = new string[3]
+	CivilWar_Faction[0] = "Make Your Choice!"
+	CivilWar_Faction[1] = "Imperial."
+	CivilWar_Faction[2] = "Stormcloaks."
+endfunction
 
-;-- Events --------------------------------------
+;-- Functions --------------------------------------
 
-Event _Build_Page_Settings()
+function Build_Page_Settings()
 
 	if CurrentPage == "Settings"
 		SetCursorFillMode(TOP_TO_BOTTOM)
 		SetCursorPosition(0)
 		AddHeaderOption("Mod Settings:")
 		
-		AddMenuOptionST("_State_Menu_Faction", "Dawnguard Faction:", _Dawnguard_Faction[DG_Faction_Choice])
-		AddMenuOptionST("_State_Menu_Faction2", "Civil War Faction:", _CivilWar_Faction[CW_Faction_Choice])
+		AddMenuOptionST("State_Menu_Faction", "Dawnguard Faction:", Dawnguard_Faction[DG_Faction_Choice])
+		AddMenuOptionST("State_Menu_Faction2", "Civil War Faction:", CivilWar_Faction[CW_Faction_Choice])
 		AddEmptyOption()
-		AddTextOptionST("_State_Debugging", "Debugging (Show Editor ID)", self.GetDebuggingString())
-		AddEmptyOption()
-		AddEmptyOption()
+		AddToggleOptionST("ForceReset", "Immediate Refresh:", ResetPage)
+		AddToggleOptionST("Dev_Alerts", "Developer Debugging", DevDebugVal)
+		AddTextOptionST("RefreshMCM", "Something not working?", "Reload MCM", 0)
 		AddEmptyOption()
 		AddHeaderOption("Section Information:")
 		AddTextOption("Quests in the 'Available Quests (Main)' section", "", 0)
 		AddTextOption("will update automatically when a quest is either", "", 0)
-		AddTextOption("started or completed.", "", 0)		
+		AddTextOption("started or completed.", "", 0)
 		SetCursorPosition(1)	
 		AddHeaderOption("")
 		AddTextOption("Thanks for downloading Completionist: Quest Tracker", "", 0)
 		AddTextOption("an automatic MCM quest tracker for Skyrim & its DLC.", "", 0)
 		AddEmptyOption()
-		AddTextOption("", "Completionist Version: 1.0.0", 0)
-		AddTextOption("", "Developed by Ic0nic0de", 0)
+		AddEmptyOption()
+		AddTextOption("", "Completionist Version: 2.6", 0)
+		AddTextOption("", "Developed by [Ic0n]ic0de", 0)
 		AddEmptyOption()		
 		AddHeaderOption("")
 		AddTextOption("Quests in 'Available Quests (Radiant)' section", "", 0)
 		AddTextOption("will not update automatically and will need to", "", 0)
 		AddTextOption("toggled manually when completed.", "", 0)
-		
-	endIf
-endEvent
+	endif
+endfunction
 
+;-- Refresh MCM State -----------------------------------------
+
+state RefreshMCM
+
+	event OnSelectST()
+		bool bRefresh = True
+		SetTitleText("===PLEASE WAIT===")
+		While bRefresh
+			Build_Pages()
+			Build_Pages_Dynamic()
+
+			Util._Reset_Arrays()
+			Util._Build_Quest_Toggles(fVersion, true)
+			Util._Build_Quest_Arrays()
+
+			SMUtil._Reset_Arrays()
+			SMUtil._Build_Quest_Toggles(fVersion, true)
+			SMUtil._Build_Quest_Arrays()
+			
+			bRefresh = false
+			ShowMessage("MCM Reload Complete", false, "Ok") 
+			ForcePageReset()
+		endWhile
+	endevent
+
+	function OnHighlightST()
+
+		SetInfoText("Force reload the MCM - use if quest data is missing or incorrect \nReloading the MCM will revert all manually completed quests to their default state, it is advised you make a note of which quests are completed before reloading the MCM.")
+	endfunction
+endState
+	
 ;-- Faction Menu State -----------------------------------------
 
-State _State_Menu_Faction ; MENU
+State State_Menu_Faction ; MENU
 
-	Event OnMenuOpenST()
+	event OnMenuOpenST()
 		SetMenuDialogStartIndex(DG_Faction_Choice)
 		SetMenuDialogDefaultIndex(0)
-		SetMenuDialogOptions(_Dawnguard_Faction)
-	endEvent
+		SetMenuDialogOptions(Dawnguard_Faction)
+	endevent
 					
-	Event OnMenuAcceptST(int index)
+	event OnMenuAcceptST(int index)
 		DG_Faction_Choice = Index
-		SetMenuOptionValueST(_State_Menu_Faction, _Dawnguard_Faction[DG_Faction_Choice])
+		SetMenuOptionValueST(State_Menu_Faction, Dawnguard_Faction[DG_Faction_Choice])
 		ForcePageReset()
-	endEvent
+	endevent
 
-	Event OnDefaultST()
+	event OnDefaultST()
 		DG_Faction_Choice = 0
-		SetMenuOptionValueST(_Dawnguard_Faction[DG_Faction_Choice])
-	endEvent
+		SetMenuOptionValueST(Dawnguard_Faction[DG_Faction_Choice])
+	endevent
 
-	Event OnHighlightST()
+	event OnHighlightST()
 		SetInfoText("Use this menu to show the correct quests from the faction you joined during the Dawnguard quest 'Bloodline'")
-	endEvent
+	endevent
 	
 endState
 
 ;-- Faction Menu State -----------------------------------------
 
-State _State_Menu_Faction2 ; MENU
+State State_Menu_Faction2 ; MENU
 
-	Event OnMenuOpenST()
+	event OnMenuOpenST()
 		SetMenuDialogStartIndex(CW_Faction_Choice)
 		SetMenuDialogDefaultIndex(0)
-		SetMenuDialogOptions(_CivilWar_Faction)
-	endEvent
+		SetMenuDialogOptions(CivilWar_Faction)
+	endevent
 					
-	Event OnMenuAcceptST(int index)
+	event OnMenuAcceptST(int index)
 		CW_Faction_Choice = Index
-		SetMenuOptionValueST(_State_Menu_Faction2, _CivilWar_Faction[CW_Faction_Choice])
+		SetMenuOptionValueST(State_Menu_Faction2, CivilWar_Faction[CW_Faction_Choice])
 		ForcePageReset()
-	endEvent
+	endevent
 
-	Event OnDefaultST()
+	event OnDefaultST()
 		CW_Faction_Choice = 0
-		SetMenuOptionValueST(_CivilWar_Faction[CW_Faction_Choice])
-	endEvent
+		SetMenuOptionValueST(CivilWar_Faction[CW_Faction_Choice])
+	endevent
 
-	Event OnHighlightST()
+	event OnHighlightST()
 		SetInfoText("Use this menu to show the correct quests from the faction you joined during the Civil War quest line")
-	endEvent
+	endevent
 	
 endState
 
-;-- Hide Incomplete Toggle State -----------------------------------------
+;-- Page Refresh State -------------------------------------
 
-State _State_Debugging
+state ForceReset
 
-	Event OnSelectST()
-		_Debugging = !_Debugging
-		SetToggleOptionValueST(Self.SetDebuggingString(), false, "")
-		ForcePageReset()
-	endEvent
-
-	Event OnHighlightST()
-
-		SetInfoText("Enable this to show EditorID in Highlight box.\n Default: Disabled")
-	endEvent
+	event OnSelectST()
 	
+		ResetPage = !ResetPage
+		SetToggleOptionValueST(ResetPage)	
+	endevent
+	
+	event OnDefaultST()
+	
+		ResetPage = false
+		SetToggleOptionValueST(ResetPage)
+	endevent
+
+	event OnHighlightST()
+
+		self.SetInfoText("By default when manually toggling a quest complete the MCM will wait and move the quests to the correct sections when the page is next opened, having this option checked will force the page to process the toggled quest immediately.\n Default: OFF")
+	endevent
 endState
 
-String Function SetDebuggingString()
+;-- Developer Debug State -------------------------------------
 
-	if _Debugging
-		_Status_Return = "Enabled"
+state Dev_Alerts
+
+	event OnSelectST()
 	
+		DevDebugVal = !DevDebugVal
+		SetToggleOptionValueST(DevDebugVal)	
+	endevent
+	
+	event OnDefaultST()
+	
+		DevDebugVal = false
+		SetToggleOptionValueST(DevDebugVal)
+	endevent
+
+	event OnHighlightST()
+
+		self.SetInfoText("Enables Developer Debugging\n Default: OFF")
+	endevent
+endState
+	
+;;-- Functions ---------------------------------------
+
+function switchToggle(string questName, bool curToggleState)
+
+	updateToggle("Main Quests", 				questName, CurToggleState, Util._Array_Name_Main, 			Util._Array_Toggle_Main)
+	updateToggle("Main Quests (CW)", 			questName, CurToggleState, Util._Array_Name_CWMain, 		Util._Array_Toggle_CWMain)
+	updateToggle("Main Quests (DG)", 			questName, CurToggleState, Util._Array_Name_DGMain, 		Util._Array_Toggle_DGMain)
+	updateToggle("Main Quests (DB)", 			questName, CurToggleState, Util._Array_Name_DBMain, 		Util._Array_Toggle_DBMain)
+	updateToggle("Whiterun", 					questName, CurToggleState, Util._Array_Name_Whiterun, 		Util._Array_Toggle_Whiterun)	
+	updateToggle("Falkreath", 					questName, CurToggleState, Util._Array_Name_Falkreath, 		Util._Array_Toggle_Falkreath)
+	updateToggle("Riften", 						questName, CurToggleState, Util._Array_Name_Riften, 		Util._Array_Toggle_Riften)
+	updateToggle("Windhelm", 					questName, CurToggleState, Util._Array_Name_Windhelm, 		Util._Array_Toggle_Windhelm)	
+	updateToggle("Dawnstar", 					questName, CurToggleState, Util._Array_Name_Dawnstar, 		Util._Array_Toggle_Dawnstar)
+	updateToggle("Markarth", 					questName, CurToggleState, Util._Array_Name_Markarth, 		Util._Array_Toggle_Markarth)
+	updateToggle("Morthal", 					questName, CurToggleState, Util._Array_Name_Morthal, 		Util._Array_Toggle_Morthal)
+	updateToggle("Solitude", 					questName, CurToggleState, Util._Array_Name_Solitude, 		Util._Array_Toggle_Solitude)	
+	updateToggle("Winterhold", 					questName, CurToggleState, Util._Array_Name_Winterhold, 	Util._Array_Toggle_Winterhold)	
+	updateToggle("Raven Rock", 					questName, CurToggleState, Util._Array_Name_RavenRock, 		Util._Array_Toggle_RavenRock)
+	updateToggle("Skaal Village", 				questName, CurToggleState, Util._Array_Name_SkaalVillage, 	Util._Array_Toggle_SkaalVillage)
+	updateToggle("Tel Mithryn", 				questName, CurToggleState, Util._Array_Name_TelMithryn, 	Util._Array_Toggle_TelMithryn)
+	updateToggle("Thirsk", 						questName, CurToggleState, Util._Array_Name_Thirsk, 		Util._Array_Toggle_Thirsk)
+	updateToggle("Small Towns / Villages", 		questName, CurToggleState, Util._Array_Name_Towns, 			Util._Array_Toggle_Towns)
+	updateToggle("Companions", 					questName, CurToggleState, Util._Array_Name_Companions, 	Util._Array_Toggle_Companions)
+	updateToggle("College of Winterhold", 		questName, CurToggleState, Util._Array_Name_College, 		Util._Array_Toggle_College)
+	updateToggle("Thieves Guild", 				questName, CurToggleState, Util._Array_Name_Thieves, 		Util._Array_Toggle_Thieves)
+	updateToggle("Dark Brotherhood", 			questName, CurToggleState, Util._Array_Name_Brotherhood, 	Util._Array_Toggle_Brotherhood)
+	updateToggle("Dawnguard", 					questName, CurToggleState, Util._Array_Name_Dawnguard, 		Util._Array_Toggle_Dawnguard)		
+	updateToggle("Vampires", 					questName, CurToggleState, Util._Array_Name_Vampires, 		Util._Array_Toggle_Vampires)
+	updateToggle("Dungeons", 					questName, CurToggleState, Util._Array_Name_Dungeons, 		Util._Array_Toggle_Dungeons)
+	updateToggle("Miscellaneous", 				questName, CurToggleState, Util._Array_Name_Misc, 			Util._Array_Toggle_Misc)
+	updateToggle("Miscellaneous (DG)", 			questName, CurToggleState, Util._Array_Name_DGMisc, 		Util._Array_Toggle_DGMisc)
+	updateToggle("Miscellaneous (DB)", 			questName, CurToggleState, Util._Array_Name_DBMisc, 		Util._Array_Toggle_DBMisc)
+endfunction
+
+;;-- Functions ---------------------------------------
+
+function buildpageLayout(string sectionInfo)
+	
+	SetCursorFillMode(LEFT_TO_RIGHT)
+	posLeft = 0
+	posRight = 1					
+	if sectionInfo == ("Main")
+		buildSection(true, "Available Quests (Main)", 0, Util._M_Quest_Title_Incomplete, false)	
+		buildSection(false, "Quests (In Progress)", 0, Util._M_Quest_Title_Ongoing, false)			
+		buildSection(false, "Quests (Completed)", 1, Util._M_Quest_Title_Completed, true)
+		
 	else
-		_Status_Return = "Disabled"
-		
+		buildSection(true, "Available Quests (Main & Side)", 0, Util._M_Quest_Title_Incomplete, false)
+		buildSection(true, "Available Quests (Radiant)", 1, Util._R_Quest_Title_Incomplete, false)			
+		buildSection(false, "Quests (In Progress)", 0, Util._M_Quest_Title_Ongoing, false)			
+		buildSection(false, "Quests (Completed)", 1, Util._M_Quest_Title_Completed, true)
 	endif
-	
-	return _Status_Return
-endFunction
+endfunction
 
-String Function GetDebuggingString()
+;;-- Functions ---------------------------------------
 
-	if _Debugging
-		_Status_Return = "Enabled"
-	
+function buildSection(bool pageLeft, string headerString, int intPos, string[] questArray, bool completed)
+
+	int Index = 0
+	if pageLeft
+		posLeft += intPos * 2
+		SetCursorPosition(posLeft)
+		AddHeaderOption(headerString)
+		posLeft += 2
+		while Index < questArray.length && questArray[Index] != ""
+			SetCursorPosition(posLeft)
+			Util.OptionSlot[Util.OptionIndex] = AddTextOption(questArray[Index], convertToggle(completed, questArray[Index]), 0)
+			Util.OptionName[Util.OptionIndex] = questArray[Index]
+			Util.OptionToggle[Util.OptionIndex] = completed
+			Util.OptionIndex += 1
+			posLeft += 2
+			Index += 1
+		endWhile
 	else
-		_Status_Return = "Disabled"
-		
-	endif
-	
-	return _Status_Return
-endFunction
-
-;-- Events --------------------------------------
-
-Event _Build_Quests_Pages()
-	
-	_Allocate_Quests("Main Quests", _ArrayHolder._Array_Name_Main, _ArrayHolder._Array_Toggle_Main)
-	_Build_Page_Layout("Main Quests")
-	
-	_Allocate_Quests("Dawnstar Quests", _ArrayHolder._Array_Name_Dawnstar, _ArrayHolder._Array_Toggle_Dawnstar)
-	_Build_Page_Layout("Dawnstar Quests")
-	
-	_Allocate_Quests("Falkreath Quests", _ArrayHolder._Array_Name_Falkreath, _ArrayHolder._Array_Toggle_Falkreath)
-	_Build_Page_Layout("Falkreath Quests")
-	
-	_Allocate_Quests("Markarth Quests", _ArrayHolder._Array_Name_Markarth, _ArrayHolder._Array_Toggle_Markarth)
-	_Build_Page_Layout("Markarth Quests")
-	
-	_Allocate_Quests("Morthal Quests", _ArrayHolder._Array_Name_Morthal, _ArrayHolder._Array_Toggle_Morthal)
-	_Build_Page_Layout("Morthal Quests")
-	
-	_Allocate_Quests("Riften Quests", _ArrayHolder._Array_Name_Riften, _ArrayHolder._Array_Toggle_Riften)
-	_Build_Page_Layout("Riften Quests")
-	
-	_Allocate_Quests("Solitude Quests", _ArrayHolder._Array_Name_Solitude, _ArrayHolder._Array_Toggle_Solitude)
-	_Build_Page_Layout("Solitude Quests")
-	
-	_Allocate_Quests("Whiterun Quests", _ArrayHolder._Array_Name_Whiterun, _ArrayHolder._Array_Toggle_Whiterun)
-	_Build_Page_Layout("Whiterun Quests")
-	
-	_Allocate_Quests("Windhelm Quests", _ArrayHolder._Array_Name_Windhelm, _ArrayHolder._Array_Toggle_Windhelm)
-	_Build_Page_Layout("Windhelm Quests")
-	
-	_Allocate_Quests("Winterhold Quests", _ArrayHolder._Array_Name_Winterhold, _ArrayHolder._Array_Toggle_Winterhold)
-	_Build_Page_Layout("Winterhold Quests")
-
-	_Allocate_Quests("Misc Town Quests", _ArrayHolder._Array_Name_Towns, _ArrayHolder._Array_Toggle_Towns)
-	_Build_Page_Layout("Misc Town Quests")
-	
-	_Allocate_Quests("Dungeon Quests", _ArrayHolder._Array_Name_Dungeons, _ArrayHolder._Array_Toggle_Dungeons)
-	_Build_Page_Layout("Dungeon Quests")
-	
-	_Allocate_Quests("Misc Quests", _ArrayHolder._Array_Name_Misc, _ArrayHolder._Array_Toggle_Misc)
-	_Build_Page_Layout("Misc Quests")
-	
-	_Allocate_Quests("Companions", _ArrayHolder._Array_Name_Companions, _ArrayHolder._Array_Toggle_Companions)
-	_Build_Page_Layout("Companions")
-
-	_Allocate_Quests("College of Winterhold", _ArrayHolder._Array_Name_College, _ArrayHolder._Array_Toggle_College)
-	_Build_Page_Layout("College of Winterhold")
-	
-	_Allocate_Quests("Thieves Guild", _ArrayHolder._Array_Name_Thieves, _ArrayHolder._Array_Toggle_Thieves)
-	_Build_Page_Layout("Thieves Guild")
-	
-	_Allocate_Quests("Dark Brotherhood", _ArrayHolder._Array_Name_Brotherhood, _ArrayHolder._Array_Toggle_Brotherhood)
-	_Build_Page_Layout("Dark Brotherhood")
-	
-	_Allocate_Quests("Main Quests (DG)", _ArrayHolder._Array_Name_DGMain, _ArrayHolder._Array_Toggle_DGMain)
-	_Build_Page_Layout("Main Quests (DG)")	   
-
-	_Allocate_Quests("Dawnguard", _ArrayHolder._Array_Name_Dawnguard, _ArrayHolder._Array_Toggle_Dawnguard)
-	_Build_Page_Layout("Dawnguard")
-	
-	_Allocate_Quests("Vampires", _ArrayHolder._Array_Name_Vampires, _ArrayHolder._Array_Toggle_Vampires)
-	_Build_Page_Layout("Vampires")
-	
-	_Allocate_Quests("Misc Quests (DG)", _ArrayHolder._Array_Name_DGMisc, _ArrayHolder._Array_Toggle_DGMisc)
-	_Build_Page_Layout("Misc Quests (DG)")
-	
-	_Allocate_Quests("Main Quests (DB)", _ArrayHolder._Array_Name_DBMain, _ArrayHolder._Array_Toggle_DBMain)
-	_Build_Page_Layout("Main Quests (DB)")
-	
-	_Allocate_Quests("Raven Rock Quests", _ArrayHolder._Array_Name_RavenRock, _ArrayHolder._Array_Toggle_RavenRock)
-	_Build_Page_Layout("Raven Rock Quests")
-	
-	_Allocate_Quests("Skaal Village Quests", _ArrayHolder._Array_Name_SkaalVillage, _ArrayHolder._Array_Toggle_SkaalVillage)
-	_Build_Page_Layout("Skaal Village Quests")
-	
-	_Allocate_Quests("Tel Mithryn Quests", _ArrayHolder._Array_Name_TelMithryn, _ArrayHolder._Array_Toggle_TelMithryn)
-	_Build_Page_Layout("Tel Mithryn Quests")
-	
-	_Allocate_Quests("Thirsk Quests", _ArrayHolder._Array_Name_Thirsk, _ArrayHolder._Array_Toggle_Thirsk)
-	_Build_Page_Layout("Thirsk Quests")
-	
-	_Allocate_Quests("Misc Quests (DB)", _ArrayHolder._Array_Name_DBMisc, _ArrayHolder._Array_Toggle_DBMisc)
-	_Build_Page_Layout("Misc Quests (DB)")
-
-	_Allocate_Quests("Main Quests (CW)", _ArrayHolder._Array_Name_CWMain, _ArrayHolder._Array_Toggle_CWMain)
-	_Build_Page_Layout("Main Quests (CW)")	
-endEvent
-
-;-- Events --------------------------------------
-
-Event _Build_Page_Layout(String _Cur_Quest_Page)
-
-	if CurrentPage == _Cur_Quest_Page
-	
-		SetCursorFillMode(LEFT_TO_RIGHT)
-		
-		_Position_Left = 0
-		_Position_Right = 1
-		_Build_Section_Left("Available Quests (Main & Side)", 0, _ArrayHolder._M_Quest_Title_Incomplete, false)
-		_Build_Section_Left("Available Quests (Radiant & Favour)", 1, _ArrayHolder._R_Quest_Title_Incomplete, false)	
-		
-		_Build_Section_Right("Quests (In Progress)", 0, _ArrayHolder._M_Quest_Title_Ongoing, false)			
-		_Build_Section_Right("Quests (Completed)", 1, _ArrayHolder._M_Quest_Title_Completed, true)		
-		
-	endIf
-endEvent
-
-;-- Events --------------------------------------
-
-Event _Build_Section_Left(String TitleOfSectionHeader, Int HeaderSectionLayoutOnPage, String[] CurrentQuestNames, Bool CurrentQuestState)
-
-	Int _Index = 0
-	Int _Array_Length = CurrentQuestNames.length
-	_Position_Left += HeaderSectionLayoutOnPage * 2
-	SetCursorPosition(_Position_Left)
-	AddHeaderOption(TitleOfSectionHeader, 0)
-	_Position_Left += 2
-	
-	while _Index < _Array_Length && CurrentQuestNames[_Index] != ""
-		SetCursorPosition(_Position_Left)
-		_ArrayHolder._Array_Quest_Option_ID[_ArrayHolder._Array_Quest_Index] = self.AddToggleOption(CurrentQuestNames[_Index], CurrentQuestState, 0)
-		_ArrayHolder._Array_Quest_Option_Name[_ArrayHolder._Array_Quest_Index] = CurrentQuestNames[_Index]
-		_ArrayHolder._Array_Quest_ToggleState[_ArrayHolder._Array_Quest_Index] = CurrentQuestState
-		_ArrayHolder._Array_Quest_Index += 1
-		_Position_Left += 2
-		_Index += 1
-	endWhile
-endEvent
-
-;-- Events --------------------------------------
-
-Event _Build_Section_Right(String TitleOfSectionHeader, Int HeaderSectionLayoutOnPage, String[] CurrentQuestNames, Bool CurrentQuestState)
-
-	Int _Index = 0
-	Int _Array_Length = CurrentQuestNames.length
-	_Position_Right += HeaderSectionLayoutOnPage * 2
-	SetCursorPosition(_Position_Right)
-	AddHeaderOption(TitleOfSectionHeader, 0)
-	_Position_Right += 2
-	
-	while _Index < _Array_Length && CurrentQuestNames[_Index] != ""
-		SetCursorPosition(_Position_Right)
-		_ArrayHolder._Array_Quest_Option_ID[_ArrayHolder._Array_Quest_Index] = self.AddToggleOption(CurrentQuestNames[_Index], CurrentQuestState, 0)
-		_ArrayHolder._Array_Quest_Option_Name[_ArrayHolder._Array_Quest_Index] = CurrentQuestNames[_Index]
-		_ArrayHolder._Array_Quest_ToggleState[_ArrayHolder._Array_Quest_Index] = CurrentQuestState
-		_ArrayHolder._Array_Quest_Index += 1
-		_Position_Right += 2
-	_Index += 1
-	endWhile	
-endEvent
-
-;-- Events --------------------------------------
-
-Event _SwitchToggleState(String _QuestName, Bool _Quest_Toggle_State)
-
-	if CurrentPage == "Main Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Main, _ArrayHolder._Array_Toggle_Main)
-		
-	elseIf CurrentPage == "Dawnstar Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Dawnstar, _ArrayHolder._Array_Toggle_Dawnstar)
-		
-	elseIf CurrentPage == "Falkreath Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Falkreath, _ArrayHolder._Array_Toggle_Falkreath)	
-	
-	elseIf CurrentPage == "Markarth Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Markarth, _ArrayHolder._Array_Toggle_Markarth)
-		
-	elseIf CurrentPage == "Morthal Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Morthal, _ArrayHolder._Array_Toggle_Morthal)
-		
-	elseIf CurrentPage == "Riften Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Riften, _ArrayHolder._Array_Toggle_Riften)
-		
-	elseIf CurrentPage == "Solitude Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Solitude, _ArrayHolder._Array_Toggle_Solitude)
-		
-	elseIf CurrentPage == "Whiterun Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Whiterun, _ArrayHolder._Array_Toggle_Whiterun)
-		
-	elseIf CurrentPage == "Windhelm Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Windhelm, _ArrayHolder._Array_Toggle_Windhelm)
-		
-	elseIf CurrentPage == "Winterhold Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Winterhold, _ArrayHolder._Array_Toggle_Winterhold)
-
-	elseIf CurrentPage == "Misc Town Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Towns, _ArrayHolder._Array_Toggle_Towns)
-	
-	elseIf CurrentPage == "Dungeon Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Dungeons, _ArrayHolder._Array_Toggle_Dungeons)
-		
-	elseIf CurrentPage == "Misc Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Misc, _ArrayHolder._Array_Toggle_Misc)
-		
-	elseIf CurrentPage == "Companions" 
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Companions, _ArrayHolder._Array_Toggle_Companions)
-
-	elseIf CurrentPage == "College of Winterhold" 
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_College, _ArrayHolder._Array_Toggle_College)
-		
-	elseIf CurrentPage == "Thieves Guild"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Thieves, _ArrayHolder._Array_Toggle_Thieves)
-		
-	elseIf CurrentPage == "Dark Brotherhood"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Brotherhood, _ArrayHolder._Array_Toggle_Brotherhood)
-		
-	elseIf CurrentPage == "Main Quests (DG)"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_DGMain, _ArrayHolder._Array_Toggle_DGMain)	
-
-	elseIf CurrentPage == "Dawnguard" 
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Dawnguard, _ArrayHolder._Array_Toggle_Dawnguard)
-		
-	elseIf CurrentPage == "Vampires" 
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Vampires, _ArrayHolder._Array_Toggle_Vampires)
-		
-	elseIf CurrentPage == "Misc Quests (DG)"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_DGMisc, _ArrayHolder._Array_Toggle_DGMisc)
-		
-	elseIf CurrentPage == "Main Quests (DB)"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_DBMain, _ArrayHolder._Array_Toggle_DBMain)
-		
-	elseIf CurrentPage == "Raven Rock Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_RavenRock, _ArrayHolder._Array_Toggle_RavenRock)
-
-	elseIf CurrentPage == "Skaal Village Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_SkaalVillage, _ArrayHolder._Array_Toggle_SkaalVillage)
-		
-	elseIf CurrentPage == "Tel Mithryn Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_TelMithryn, _ArrayHolder._Array_Toggle_TelMithryn)
-		
-	elseIf CurrentPage == "Thirsk Quests"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_Thirsk, _ArrayHolder._Array_Toggle_Thirsk)
-		
-	elseIf CurrentPage == "Misc Quests (DB)"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_DBMisc, _ArrayHolder._Array_Toggle_DBMisc)
-
-	elseIf CurrentPage == "Main Quests (CW)"
-		_Update_Quest_State(_QuestName, _Quest_Toggle_State, _ArrayHolder._Array_Name_CWMain, _ArrayHolder._Array_Toggle_CWMain)					
-	endIf
-endEvent
-
-;-- Events --------------------------------------
-
-Bool Function _DynamicPageAlloc()
-
-	Int _Index = _Array_Page_Dynamic.find(CurrentPage, 0)
-	   return _Index >= 0
-EndFunction
-
-;-- Events --------------------------------------
-
-Event _Allocate_Quests(String _Cur_Quest_Page, String[] _New_QuestName, Bool[] _New_Toggle_State)
-
-	if CurrentPage == _Cur_Quest_Page
-		Int _Index = 0
-		Int _Array_Length = _ArrayHolder._Array_Quest_ID.length	
-		while _Index < _Array_Length && _ArrayHolder._Array_Quest_Name[_Index] != ""
-			Bool userManuallyCompleted = _Player_Toggled(_ArrayHolder._Array_Quest_Name[_Index], _New_QuestName, _New_Toggle_State)	
-				if !_ArrayHolder._Array_Quest_Radiant[_Index]
-					if !userManuallyCompleted
-					quest curQuest = quest.getquest(_ArrayHolder._Array_Quest_ID[_Index])
-					Int curQuestStage = curQuest.GetStage()
-					Bool isCompleteBasedOnStage = curQuestStage > _ArrayHolder._Array_Stage_Final[_Index]						
-						if !curQuest.IsCompleted() && !isCompleteBasedOnStage
-							if curQuestStage == 0 || curQuestStage < _ArrayHolder._Array_Stage_First[_Index]
-								_ArrayHolder._M_Quest_ID_Incomplete[_ArrayHolder._M_Quest_ID_Index_Incomplete] = _ArrayHolder._Array_Quest_ID[_Index] as String
-								_ArrayHolder._M_Quest_Title_Incomplete[_ArrayHolder._M_Quest_Title_Index_Incomplete] = _ArrayHolder._Array_Quest_Name[_Index]
-								_ArrayHolder._M_Quest_ID_Index_Incomplete += 1
-								_ArrayHolder._M_Quest_Title_Index_Incomplete += 1
-							else
-								_ArrayHolder._M_Quest_ID_Ongoing[_ArrayHolder._M_Quest_ID_Index_Ongoing] = _ArrayHolder._Array_Quest_ID[_Index] as String
-								_ArrayHolder._M_Quest_Title_Ongoing[_ArrayHolder._M_Quest_Title_Index_Ongoing] = _ArrayHolder._Array_Quest_Name[_Index]
-								_ArrayHolder._M_Quest_ID_Index_Ongoing += 1
-								_ArrayHolder._M_Quest_Title_Index_Ongoing += 1
-							endIf
-						else
-							_ArrayHolder._M_Quest_ID_Completed[_ArrayHolder._M_Quest_ID_Index_Completed] = _ArrayHolder._Array_Quest_ID[_Index] as String
-							_ArrayHolder._M_Quest_Title_Completed[_ArrayHolder._M_Quest_Title_Index_Completed] = _ArrayHolder._Array_Quest_Name[_Index]
-							_ArrayHolder._M_Quest_ID_Index_Completed += 1
-							_ArrayHolder._M_Quest_Title_Index_Completed += 1
-						endIf
-					else
-						_ArrayHolder._M_Quest_ID_Completed[_ArrayHolder._M_Quest_ID_Index_Completed] = _ArrayHolder._Array_Quest_ID[_Index] as String
-						_ArrayHolder._M_Quest_Title_Completed[_ArrayHolder._M_Quest_Title_Index_Completed] = _ArrayHolder._Array_Quest_Name[_Index]
-						_ArrayHolder._M_Quest_ID_Index_Completed += 1
-						_ArrayHolder._M_Quest_Title_Index_Completed += 1
-					endIf
-					
-				elseIf !userManuallyCompleted
-					_ArrayHolder._R_Quest_ID_Incomplete[_ArrayHolder._R_Quest_ID_Index_Incomplete] = _ArrayHolder._Array_Quest_ID[_Index] as String
-					_ArrayHolder._R_Quest_Title_Incomplete[_ArrayHolder._R_Quest_ID_Index_Incomplete] = _ArrayHolder._Array_Quest_Name[_Index]
-					_ArrayHolder._R_Quest_ID_Index_Incomplete += 1
-				else
-					_ArrayHolder._M_Quest_ID_Completed[_ArrayHolder._M_Quest_ID_Index_Completed] = _ArrayHolder._Array_Quest_ID[_Index] as String
-					_ArrayHolder._M_Quest_Title_Completed[_ArrayHolder._M_Quest_Title_Index_Completed] = _ArrayHolder._Array_Quest_Name[_Index]
-					_ArrayHolder._M_Quest_Title_Index_Completed += 1
-				endIf
-			_Index += 1
+		posRight += intPos * 2
+		SetCursorPosition(posRight)
+		AddHeaderOption(headerString)
+		posRight += 2
+		while Index < questArray.length && questArray[Index] != ""
+			SetCursorPosition(posRight)
+			Util.OptionSlot[Util.OptionIndex] = AddTextOption(questArray[Index], convertToggle(completed, questArray[Index]), 0)
+			Util.OptionName[Util.OptionIndex] = questArray[Index]
+			Util.OptionToggle[Util.OptionIndex] = completed
+			Util.OptionIndex += 1
+			posRight += 2
+			Index += 1
 		endWhile	
-	endIf
-endEvent
+	endif	
+endfunction
 
-;-- Events --------------------------------------
+;;-- Functions ---------------------------------------
 
-Bool Function _Player_Toggled(String _QuestName, String[] _New_QuestName, Bool[] _New_Toggle_State)
+function questAlloc(string[] questNames, bool[] toggleStates, string sectionInfo = "", string[] manualToggles)
+	
+	Util._Array_Quest_Toggle = manualToggles
+	
+	int Index = 0
+	while Index < Util._Array_Quest_Name.length && Util._Array_Quest_Name[Index] != ""
+		
+		if !Util._Array_Quest_Radiant[Index]
+			Quest _Quest = Quest.GetQuest(Util._Array_Quest_ID[Index])
+			if (_Quest)
+				if (_Quest.IsCompleted()) || (_Quest.GetStage() > Util._Array_Stage_Final[Index]) || (Player_Toggled(Util._Array_Quest_Name[Index], questNames, toggleStates))
+					Util._M_Quest_Title_Completed[Util._M_Quest_Title_Index_Completed] = Util._Array_Quest_Name[Index]
+					Util._M_Quest_Title_Index_Completed += 1
 
-	Bool _Manual_Toggle
-	Int _Quest_Form = _New_QuestName.find(_QuestName, 0)
-		if _Quest_Form >= 0
-			_Manual_Toggle = _New_Toggle_State[_Quest_Form]
+				elseif (!_Quest.IsCompleted()) && (_Quest.GetStage() == 0) || (!_Quest.IsCompleted()) && ((_Quest.GetStage()) < Util._Array_Stage_First[Index])
+					Util._M_Quest_Title_Incomplete[Util._M_Quest_Title_Index_Incomplete] = Util._Array_Quest_Name[Index]
+					Util._M_Quest_Title_Index_Incomplete += 1	
+					
+				else
+					Util._M_Quest_Title_Ongoing[Util._M_Quest_Title_Index_Ongoing] = Util._Array_Quest_Name[Index]
+					Util._M_Quest_Title_Index_Ongoing += 1
+				endif
+			endif
 		else
-			_Manual_Toggle = false
-		endIf
-			return _Manual_Toggle
-EndFunction
+			if Player_Toggled(Util._Array_Quest_Name[Index], questNames, toggleStates)
+				Util._M_Quest_Title_Completed[Util._M_Quest_Title_Index_Completed] = Util._Array_Quest_Name[Index]
+				Util._M_Quest_Title_Index_Completed += 1
+			else
+				Util._R_Quest_Title_Incomplete[Util._R_Quest_Title_Index_Incomplete] = Util._Array_Quest_Name[Index]
+				Util._R_Quest_Title_Index_Incomplete += 1					
+			endif
+		endif
+		Index += 1
+	endWhile	
+	
+	buildpageLayout(sectionInfo)	
+endfunction		
 
 ;-- Events --------------------------------------
 
-Event OnOptionHighlight(Int _Value)
+event OnOptionHighlight(int val)
 		   
-    if _DynamicPageAlloc()
-		String _QuestName = _Get_Quest_Name(_Value)
-		String _QuestOverview = _Get_Quest_Overview(_Value, _QuestName)
-		String _QuestGiver = _Get_Quest_Giver(_Value, _QuestName)
-		String _EditorID = _Get_Quest_ID(_Value, _QuestName)
-		
-		if !_Debugging
-			SetInfoText("Quest Giver: " + _QuestGiver + "\nDetails: " + _QuestOverview)
+    int Index = dynamicPage.find(CurrentPage)
+	if Index != -1
+		SetInfoText("Quest Giver: " + Get_Quest_Info(val, Get_Quest_Name(val), "Giver") + "\nOverview: " + Get_Quest_Info(val, Get_Quest_Name(val), "Overview") + "\n" + Get_Quest_Info(val, Get_Quest_Name(val), "Notes"))
+	endif
+endevent
+
+;-- Events --------------------------------------
+
+event OnOptionSelect(int val)
+	
+	if CurrentPage != "Settings"
+		if DevDebugVal
+			if ShowMessage("Quest Name: " + Get_Quest_Name(val) + "\nQuest ID: " + Get_Quest_Info(val, Get_Quest_Name(val), "ID") + "\nQuest Stages: " + Get_Quest_Info(val, Get_Quest_Name(val), "Stages"), True, "Move", "Cancel")
+				ContinueSelect(val)
+			endif
 		else
-			SetInfoText("Quest Giver: " + _QuestGiver + "\nDetails: " + _QuestOverview + "\nEditorID: " + _EditorID)
-		endIf
-	endIf
-endEvent
-
-;-- Events --------------------------------------
-
-Event OnOptionSelect(Int _Value)
-
-    String _QuestName = _Get_Quest_Name(_Value)
-	Bool _Quest_State = _Get_Quest_State(_Value)
-	SetToggleOptionValue(_Value, !_Quest_State, false)
-	_IDToggleState(_Value, !_Quest_State)
-	_SwitchToggleState(_QuestName, !_Quest_State)
-	ForcePageReset()	
-endEvent
-
-;-- Events --------------------------------------
-
-Event _IDToggleState(Int _Value, Bool _Quest_State)
-
-	Int _Index = 0
-	Int _Array_Length = _ArrayHolder._Array_Quest_Option_ID.length
-	while _Index < _Array_Length
-		if _ArrayHolder._Array_Quest_Option_ID[_Index] == _Value
-			_ArrayHolder._Array_Quest_ToggleState[_Index] = _Quest_State
-		endIf
-	_Index += 1
-	endWhile
-endEvent
-
-;-- Events --------------------------------------
-
-String Function _Get_Quest_Giver(Int _Value, String _QuestName)
-
-	String _QuestGiver = ""
-	Int _Index = 0
-	Int _Array_Length = _ArrayHolder._Array_Quest_Name.length
-	while _Index < _Array_Length
-		if _ArrayHolder._Array_Quest_Name[_Index] == _QuestName
-			_QuestGiver = _ArrayHolder._Array_Quest_Giver[_Index]
+			ContinueSelect(val)
 		endif
-		_Index += 1
-	endWhile
-		return _QuestGiver
-EndFunction
+	endif
+endevent
 
-;-- Events --------------------------------------
+;;-- Functions ---------------------------------------
 
-String Function _Get_Quest_ID(Int _Value, String _QuestName)
+function ContinueSelect(int val)
 
-	String _EditorID = ""
-	Int _Index = 0
-	Int _Array_Length = _ArrayHolder._Array_Quest_Name.length
-	while _Index < _Array_Length
-		if _ArrayHolder._Array_Quest_Name[_Index] == _QuestName
-			_EditorID = _ArrayHolder._Array_Quest_ID[_Index]
-		endif
-		_Index += 1
-	endWhile
-		return _EditorID
-EndFunction
-
-;-- Events --------------------------------------
-
-String Function _Get_Quest_Overview(Int _Value, String _QuestName)
-
-	String _QuestOverview = ""
-	Int _Index = 0
-	Int _Array_Length = _ArrayHolder._Array_Quest_Name.length
-	while _Index < _Array_Length
-		if _ArrayHolder._Array_Quest_Name[_Index] == _QuestName
-			_QuestOverview = _ArrayHolder._Array_Quest_Overview[_Index]
-		endIf
-		_Index += 1
-	endWhile
-		return _QuestOverview
-EndFunction
-
-;-- Events --------------------------------------
-
-String Function _Get_Quest_Name(Int _Value)
-
-	Int _Index = 0
-	Int _Array_Length = _ArrayHolder._Array_Quest_Option_ID.length
-	String _QuestName = ""
-	while _Index < _Array_Length
-		if _ArrayHolder._Array_Quest_Option_ID[_Index] == _Value
-			_QuestName = _ArrayHolder._Array_Quest_Option_Name[_Index]
-		endIf
-		_Index += 1
-	endWhile
-		return _QuestName
-EndFunction
-
-;-- Events --------------------------------------
-
-Bool Function _Get_Quest_State(Int _Value)
-
-	Int _Index = 0
-	Int _Array_Length = _ArrayHolder._Array_Quest_Option_ID.length
-	Bool _Quest_State = false
-	while _Index < _Array_Length
-		if _ArrayHolder._Array_Quest_Option_ID[_Index] == _Value
-			_Quest_State = _ArrayHolder._Array_Quest_ToggleState[_Index]
-		endIf
-		_Index += 1
-	endWhile
-		return _Quest_State
-EndFunction
-
-;-- Events --------------------------------------
-
-Event _Update_Quest_State(String _QuestName, Bool _Quest_Toggle_State, String[] _New_QuestName, Bool[] _New_Toggle_State)
-
-	Int _Index_Quest = _New_QuestName.find(_QuestName, 0)
-	
-	if _Index_Quest >= 0
-	
-		_New_Toggle_State[_Index_Quest] = _Quest_Toggle_State
-	  
+	string questName = Get_Quest_Name(val)
+	bool Toggle = Get_Quest_State(val, questName, "Auto")
+	bool ToggleM = Get_Quest_State(val, questName, "")
+	if Toggle && !ToggleM
+		showmessage("Unable to move (" + questName + ") as it has already been completed", false, "Ok")
+		return
+	endif
+	switchToggle(questName, !Toggle)
+	SetToggleState(val, !Toggle, questName)
+	if ResetPage
+		SetTextOptionValue(val, "Processing")
+		ForcePageReset()
 	else
+		SetTextOptionValue(val, "Queued")
+	endif
+endfunction
+
+;;-- Functions ---------------------------------------
+
+function SetToggleState(int val, bool _Quest_State, string questName)
+
+	int Index = Util.OptionSlot.Find(val)
+	Util.OptionToggle[Index] = _Quest_State
 	
-		Int _Index_Empty = _New_QuestName.find("", 0)
-		_New_QuestName[_Index_Empty] = _QuestName
-		_New_Toggle_State[_Index_Empty] = _Quest_Toggle_State
+	Index = Util._Array_Quest_Toggle.Find(questName)
+	if Index != -1		
+		Util._Array_Quest_Toggle[Index] = ""
+		if DevDebugVal
+			ShowMessage("Quest found in array at position " + Index + " Quest name set to (" + Util._Array_Quest_Toggle[Index] + ")", false, "Ok")
+		endif
+	else	
+		Index = Util._Array_Quest_Toggle.Find("")
+		Util._Array_Quest_Toggle[Index] = questName
+		if DevDebugVal
+			ShowMessage("Quest not found in array, position " + Index + " set to (" + Util._Array_Quest_Toggle[Index] + ")", false, "Ok")
+		endif
+	endif
+endfunction
+
+;;-- Functions ---------------------------------------
+
+function updateToggle(string curPage, string questName, bool curToggleState, string[] questNames, bool[] toggleStates)
+	
+	if CurrentPage == curPage
+		int Index = questNames.find(questName)
 		
-	endIf 
-endEvent
+		if Index != -1
+			toggleStates[Index] = curToggleState
+		else
+			Index = questNames.find("")
+			questNames[Index] = questName
+			toggleStates[Index] = curToggleState
+		endif 
+	endif
+endfunction
 
-;-- Events --------------------------------------
+;;-- Functions ---------------------------------------
 
-Event _Add_Quest_Data(Bool _RadiantQuests, Int _StageFirst, Int _StageFinal, String _EditorID, String _QuestName, String _Cur_Quest_Page, String _QuestGiver, String _QuestOverview)
+bool function Player_Toggled(string questName, string[] questNames, bool[] toggleStates)
 
-	if CurrentPage == _Cur_Quest_Page 
+	int Index = questNames.find(questName)
+	if Index != -1
+		return toggleStates[Index]
+	endif
+	
+	return false
+endfunction
+
+;;-- Functions ---------------------------------------
+
+string function Get_Quest_Name(int val)
+	
+	int Index = Util.OptionSlot.Find(val)
+	if Index != -1
+		return Util.OptionName[Index]
+	endif
 		
-		_ArrayHolder._Array_Quest_Radiant[_ArrayHolder._Array_Int] = _RadiantQuests
-		_ArrayHolder._Array_Stage_First[_ArrayHolder._Array_Int] = _StageFirst
-		_ArrayHolder._Array_Stage_Final[_ArrayHolder._Array_Int] = _StageFinal
-		_ArrayHolder._Array_Quest_ID[_ArrayHolder._Array_Int] = _EditorID
-		_ArrayHolder._Array_Quest_Name[_ArrayHolder._Array_Int] = _QuestName
-		_ArrayHolder._Array_Quest_Giver[_ArrayHolder._Array_Int] = _QuestGiver
-		_ArrayHolder._Array_Quest_Overview[_ArrayHolder._Array_Int] = _QuestOverview
-		_ArrayHolder._Array_Int += 1
-		
-	endIf
-endEvent
+	return ""
+endfunction
 
-;-- EVENTS END ------------------------------------------------------------------------------------------------------------------------------------------------------------
+;;-- Functions ---------------------------------------
+
+bool function Get_Quest_State(int val, string questName, string _section)
+	
+	if _Section == "Auto"
+		int Index = Util.OptionSlot.Find(val)
+		if Index != -1
+			return Util.OptionToggle[Index]
+		endif
+	else
+		int Index = Util._Array_Quest_Toggle.Find(questName)
+		if Index != -1
+			return true
+		endif	
+	endif
+	
+	return false
+endfunction
+
+;;-- Functions ---------------------------------------
+
+string function Get_Quest_Info(int val, string questName, string _Info)
+	
+	int Index = Util._Array_Quest_Name.Find(questName)
+	if Index != -1
+		if _Info == "Stages"
+			return Util._Array_Stage_First[Index] + " , " + Util._Array_Stage_Final[Index]
+		elseif _Info == "ID"
+			return Util._Array_Quest_ID[Index]
+		elseif _Info == "Notes"
+			return Util._Array_Quest_Notes[Index]	
+		elseif _Info == "Overview"
+			return Util._Array_Quest_Overview[Index]
+		elseif _Info == "Giver"
+			return Util._Array_Quest_Giver[Index]	
+		endif
+	endif
+	
+	return ""
+endfunction
+
+;;-- Functions ---------------------------------------
+
+string function convertToggle(bool completed, string questname)
+
+	int Index = Util._Array_Quest_Toggle.Find(questName)
+	if Index != -1
+		return "Complete(M)"
+		
+	elseif completed
+		return "Complete"
+	endif
+	
+	return ""
+endfunction
