@@ -466,14 +466,12 @@ endFunction
 	
 ;-- Functions --------------------------------------
 
-Function _Build_Quest_Toggles(float fVersion, bool resetall)
+Function _Build_Quest_Toggles(bool resetall)
 
-	if (fVersion == 2.6) 
-		if !resetall
-			;New Arrays Here
-		else
-			_InitAll()
-		endif
+	if !resetall
+		;New Arrays Here
+	else
+		_InitAll()
 	endif
 endFunction
 
@@ -1561,7 +1559,7 @@ Function _Build_Quest_Arrays()
 	MainWheelsofLull_Overview[11] = "No Requirements"
 	MainWheelsofLull_Overview[12] = "No Requirements"
 	MainWheelsofLull_Overview[13] = "No Requirements"
-	MainWheelsofLull_Overview[14] = "No Requirements"
+	MainWheelsofLull_Overview[14] = "Completion of 'IV. The Boiling Foundry'"
 	MainWheelsofLull_Overview[15] = "No Requirements"	
 
 	MainWheelsofLull_Notes = new string[16]
@@ -2642,7 +2640,7 @@ Function _Build_Quest_Arrays()
 	VigilantMain_Overview[16] = "Completion of 'Empty Cells'"
 	VigilantMain_Overview[17] = "Completion of 'Child Of Oblivion'"
 	VigilantMain_Overview[18] = "Completion of 'Coldharbour'"
-	VigilantMain_Overview[19] = "Completion of 'Exsultate Jubilate'"
+	VigilantMain_Overview[19] = "Completion of 'Aetherius'"
 	VigilantMain_Overview[20] = "Completion of 'Exsultate Jubilate'"
 	VigilantMain_Overview[21] = "Finished Act IV"
 	

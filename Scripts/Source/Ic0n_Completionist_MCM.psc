@@ -40,19 +40,18 @@ endevent
 
 function Maintenance()
 	
-	Float curVersion = 2.6
+	Float curVersion = 2.7
 	
 	if (fVersion < curVersion)
-		if (fVersion < 2.6)
-			fVersion = curVersion
-			Util._Build_Quest_Toggles(fVersion, true)
-			SMUtil._Build_Quest_Toggles(fVersion, true)
+		if (fVersion < 2.7)
+			fVersion = 2.7
+			Util._Build_Quest_Toggles(true)
+			SMUtil._Build_Quest_Toggles(true)
 			While Utility.IsInMenuMode()
 				Utility.Wait(1)
 			endWhile
-			UpdateMessage.Show(fVersion)
 		endif
-		
+		UpdateMessage.Show(fVersion)
 	endif
 	
 	Build_Pages()
@@ -238,11 +237,11 @@ state RefreshMCM
 			Build_Pages_Dynamic()
 
 			Util._Reset_Arrays()
-			Util._Build_Quest_Toggles(fVersion, true)
+			Util._Build_Quest_Toggles(true)
 			Util._Build_Quest_Arrays()
 
 			SMUtil._Reset_Arrays()
-			SMUtil._Build_Quest_Toggles(fVersion, true)
+			SMUtil._Build_Quest_Toggles(true)
 			SMUtil._Build_Quest_Arrays()
 			
 			bRefresh = false
@@ -253,7 +252,7 @@ state RefreshMCM
 
 	function OnHighlightST()
 
-		SetInfoText("Force reload the MCM - use if quest data is missing or incorrect \nReloading the MCM will revert all manually completed quests to their default state, it is advised you make a note of which quests are completed before reloading the MCM.")
+		SetInfoText("Force reload the MCM - use if quest data is missing or incorrect \nReloading the MCM will revert all manually completed quests to their default state, it is advised you make a note of any quests which are 'Complete(M)' before reloading the MCM.")
 	endfunction
 endState
 	
@@ -527,7 +526,11 @@ function ContinueSelect(int val)
 		SetTextOptionValue(val, "Processing")
 		ForcePageReset()
 	else
-		SetTextOptionValue(val, "Queued")
+		if (Util._Array_Quest_Toggle.Find(questName) != -1)
+			SetTextOptionValue(val, "Queued")
+		else
+			SetTextOptionValue(val, "")
+		endif
 	endif
 endfunction
 

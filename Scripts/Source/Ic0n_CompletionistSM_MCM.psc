@@ -555,13 +555,19 @@ function ContinueSelect(int val)
 		showmessage("Unable to move (" + questName + ") as it has already been completed", false, "Ok")
 		return
 	endif
+	
 	switchToggle(questName, !Toggle)
 	SetToggleState(val, !Toggle, questName)
+	
 	if MCM.ResetPage
 		SetTextOptionValue(val, "Processing")
 		ForcePageReset()
 	else
-		SetTextOptionValue(val, "Queued")
+		if (Util._Array_Quest_Toggle.Find(questName) != -1)
+			SetTextOptionValue(val, "Queued")
+		else
+			SetTextOptionValue(val, "")
+		endif
 	endif
 endfunction
 

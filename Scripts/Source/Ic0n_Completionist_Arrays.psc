@@ -507,15 +507,13 @@ endFunction
 	
 ;-- Functions --------------------------------------
 
-Function _Build_Quest_Toggles(float fVersion, bool resetall)
+Function _Build_Quest_Toggles(bool resetall)
 
-	if (fVersion == 2.6) 
-		if !resetall
-			;New Arrays Here
-		else
-			_InitAll()
-		endif
-	endif	
+	if !resetall
+		;New Arrays Here
+	else
+		_InitAll()
+	endif
 endFunction
 
 ;-- Functions --------------------------------------
