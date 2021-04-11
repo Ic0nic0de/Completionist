@@ -40,18 +40,23 @@ endevent
 
 function Maintenance()
 	
-	Float curVersion = 2.7
+	Float curVersion = 2.8
 	
 	if (fVersion < curVersion)
+	
 		if (fVersion < 2.7)
 			fVersion = 2.7
 			Util._Build_Quest_Toggles(true)
 			SMUtil._Build_Quest_Toggles(true)
+		endif
+		
+		if (fVersion < 2.8)
+			fVersion = 2.8
 			While Utility.IsInMenuMode()
 				Utility.Wait(1)
 			endWhile
 		endif
-		UpdateMessage.Show(fVersion)
+		UpdateMessage.Show(fVersion)			
 	endif
 	
 	Build_Pages()
@@ -215,7 +220,7 @@ function Build_Page_Settings()
 		AddTextOption("an automatic MCM quest tracker for Skyrim & its DLC.", "", 0)
 		AddEmptyOption()
 		AddEmptyOption()
-		AddTextOption("", "Completionist Version: 2.7", 0)
+		AddTextOption("", "Completionist Version: 2.8", 0)
 		AddTextOption("", "Developed by [Ic0n]ic0de", 0)
 		AddEmptyOption()		
 		AddHeaderOption("")

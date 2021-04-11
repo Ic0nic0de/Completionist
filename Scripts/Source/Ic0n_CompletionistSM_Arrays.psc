@@ -3210,12 +3210,20 @@ Function _Build_Quest_Arrays()
 	
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MainMuseum_Reqs[6] = "Completion of 'An Interesting Prospect' and have reached a display count of 600."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MainMuseum_Reqs[6] = "Completion of 'An Interesting Prospect' and have reached a display count of 1200."
+		
 	else
 		MainMuseum_Reqs[6] = "Completion of 'An Interesting Prospect' and have reached a display count of 400."
 	endif
 
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MainMuseum_Reqs[7] = "Completion of 'Shadows of One's Past' and have reached a display count of 1200."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MainMuseum_Reqs[6] = "Completion of 'An Interesting Prospect' and have reached a display count of 2400."
+		
 	else
 		MainMuseum_Reqs[7] = "Completion of 'Shadows of One's Past' and have reached a display count of 550."
 	endif
@@ -3225,6 +3233,11 @@ Function _Build_Quest_Arrays()
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MainMuseum_Reqs[9] = "Completion of 'An Interesting Prospect' and have reached a display count of 200."
 		MainMuseum_Reqs[10] = "Completion of 'An Interesting Prospect' and have reached a display count of 200."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MainMuseum_Reqs[9] = "Completion of 'An Interesting Prospect' and have reached a display count of 400."
+		MainMuseum_Reqs[10] = "Completion of 'An Interesting Prospect' and have reached a display count of 400."
+		
 	else
 		MainMuseum_Reqs[9] = "Completion of 'An Interesting Prospect' and have reached a display count of 75."
 		MainMuseum_Reqs[10] = "Completion of 'An Interesting Prospect' and have reached a display count of 75."
@@ -3363,12 +3376,20 @@ Function _Build_Quest_Arrays()
 
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MuseumExplorer_Reqs[2] = "Completion of 'Shadows of One's Past' and have reached a display count of 950."
+		
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MuseumExplorer_Reqs[2] = "Completion of 'Shadows of One's Past' and have reached a display count of 1900."
+		
 	else
 		MuseumExplorer_Reqs[2] = "Completion of 'Shadows of One's Past' and have reached a display count of 400."
 	endif
 
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MuseumExplorer_Reqs[3] = "Quest available 10 days after 'The Excavation of Windcaller Pass' and have reached a display count of 1150."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MuseumExplorer_Reqs[3] = "Quest available 10 days after 'The Excavation of Windcaller Pass' and have reached a display count of 2300."
+		
 	else
 		MuseumExplorer_Reqs[3] = "Quest available 10 days after 'The Excavation of Windcaller Pass' and have reached a display count of 400."
 	endif
@@ -3376,6 +3397,11 @@ Function _Build_Quest_Arrays()
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MuseumExplorer_Reqs[4] = "Completion of 'Much Ado About Snow Elves' and 'The Excavation of the Ruins of Rkund' and have reached a display count of 1350."
 		MuseumExplorer_Reqs[5] = "Quest available three days after the end of 'The Visage' with a display count of 1350."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MuseumExplorer_Reqs[4] = "Completion of 'Much Ado About Snow Elves' and 'The Excavation of the Ruins of Rkund' and have reached a display count of 2700."
+		MuseumExplorer_Reqs[5] = "Quest available three days after the end of 'The Visage' with a display count of 2700."
+		
 	else
 		MuseumExplorer_Reqs[4] = "Completion of 'Much Ado About Snow Elves' and 'The Excavation of the Ruins of Rkund' and have reached a display count of 400."
 		MuseumExplorer_Reqs[5] = "Quest available three days after the end of 'The Visage' with a display count of 400."
@@ -3387,19 +3413,31 @@ Function _Build_Quest_Arrays()
 	MuseumExplorer_Reqs[9] = "Completion of 'A Room with a View' and 'Digging Up Explorers'."
 
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
-		MuseumExplorer_Reqs[10] = "Completion of 'Under Saarthal', 'Digging Up Explorers' and a Display count of 350."
+		MuseumExplorer_Reqs[10] = "Completion of 'Under Saarthal', 'Digging Up Explorers' and a Display count of 150."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MuseumExplorer_Reqs[10] = "Completion of 'Under Saarthal', 'Digging Up Explorers' and a Display count of 300."
+		
 	else
 		MuseumExplorer_Reqs[10] = "Completion of 'Under Saarthal' and 'Digging Up Explorers'."
 	endif
 	
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MuseumExplorer_Reqs[11] = "Completion of 'Escape from Cidhna Mine' and a Display count of 350."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MuseumExplorer_Reqs[11] = "Completion of 'Escape from Cidhna Mine' and a Display count of 700."
+		
 	else
 		MuseumExplorer_Reqs[11] = "Completion of 'Escape from Cidhna Mine'."
 	endif
 
 	if Game.GetModByName("KRI_DBMDelayPatch.esp") != 255
 		MuseumExplorer_Reqs[12] = "Completion of 'Forbidden Legend' and a Display count of 750."
+
+	elseif Game.GetModByName("KRI_DBM_EXTRA_DelayPatch.esp") != 255
+		MuseumExplorer_Reqs[12] = "Completion of 'Forbidden Legend' and a Display count of 1500."
+		
 	else
 		MuseumExplorer_Reqs[12] = "Completion of 'Forbidden Legend'."
 	endif
