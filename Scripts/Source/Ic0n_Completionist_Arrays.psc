@@ -1,5 +1,9 @@
 scriptname Ic0n_Completionist_Arrays extends quest
 
+Bool[] TempToggle
+String[] TempName
+String[] TempManual
+
 String[] property _M_Quest_Title_Ongoing auto hidden
 String[] property _M_Quest_Title_Completed auto hidden
 String[] property _M_Quest_Title_Incomplete auto hidden
@@ -465,16 +469,46 @@ Bool[] property MiscDB_Radiant auto hidden
 Int[] property MiscDB_First auto hidden
 Int[] property MiscDB_Final auto hidden
 	
-;-- Functions --------------------------------------
+;-- functions --------------------------------------
 
 Event OnInit()
 	
-	_InitAll()
+	InitialiseAll(false)
 endEvent
 
-;-- Functions --------------------------------------
+;-- functions -------------------------------------
+	
+function SaveState(String[] Name, String[] Manual, Bool[] Toggle)
 
-Function _Reset_Arrays()
+	TempName = new String[128]
+	TempManual = new string[128]
+	TempToggle = new bool[128]
+	
+	Int Index = 0
+	While Index < Name.length
+		TempName[Index] = Name[Index]
+		TempManual[Index] = Manual[Index]
+		TempToggle[Index] = Toggle[Index]
+		Index += 1
+	endwhile
+endfunction
+
+;-- functions -------------------------------------
+
+function LoadState(String[] Name, String[] Manual, Bool[] Toggle)
+	
+	Int Index = 0
+	While Index < Name.length
+		Name[Index] = TempName[Index]
+		Manual[Index] = TempManual[Index]
+		Toggle[Index] = TempToggle[Index]
+		Index += 1
+	endwhile
+endfunction
+
+;-- functions --------------------------------------
+
+function Reset_Arrays()
 
 	OptionSlot = new Int[128]
 	OptionName = new String[128]
@@ -503,139 +537,406 @@ Function _Reset_Arrays()
 	
 	_R_Quest_Title_Incomplete = new String[128]
 	_R_Quest_Title_Index_Incomplete = 0
-endFunction
+endfunction
 	
-;-- Functions --------------------------------------
-
-Function _Build_Quest_Toggles(bool resetall)
-
-	if !resetall
-		;New Arrays Here
-	else
-		_InitAll()
+;-- functions --------------------------------------
+	
+function InitialiseAll(bool saveData)
+	
+	if saveData
+		SaveState(_Array_Name_Main, _Array_Manual_Main, _Array_Toggle_Main)
 	endif
-endFunction
-
-;-- Functions --------------------------------------
-	
-Function _InitAll()
 	
 	_Array_Name_Main = new String[128]
 	_Array_Manual_Main = new string[128]
 	_Array_Toggle_Main = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Main, _Array_Manual_Main, _Array_Toggle_Main)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Dawnstar, _Array_Manual_Dawnstar, _Array_Toggle_Dawnstar)
+	endif
+	
 	_Array_Name_Dawnstar = new String[128]
-	_Array_Manual_Dawnstar = new String[128]
-	_Array_Toggle_Dawnstar = new Bool[128]
+	_Array_Manual_Dawnstar = new string[128]
+	_Array_Toggle_Dawnstar = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Dawnstar, _Array_Manual_Dawnstar, _Array_Toggle_Dawnstar)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Falkreath, _Array_Manual_Falkreath, _Array_Toggle_Falkreath)
+	endif
+	
 	_Array_Name_Falkreath = new String[128]
-	_Array_Manual_Falkreath = new String[128]
-	_Array_Toggle_Falkreath = new Bool[128]
+	_Array_Manual_Falkreath = new string[128]
+	_Array_Toggle_Falkreath = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Falkreath, _Array_Manual_Falkreath, _Array_Toggle_Falkreath)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Markarth, _Array_Manual_Markarth, _Array_Toggle_Markarth)
+	endif
 	
 	_Array_Name_Markarth = new String[128]
-	_Array_Manual_Markarth = new String[128]
-	_Array_Toggle_Markarth = new Bool[128]
+	_Array_Manual_Markarth = new string[128]
+	_Array_Toggle_Markarth = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Markarth, _Array_Manual_Markarth, _Array_Toggle_Markarth)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Morthal, _Array_Manual_Morthal, _Array_Toggle_Morthal)
+	endif
+	
 	_Array_Name_Morthal = new String[128]
-	_Array_Manual_Morthal = new String[128]
-	_Array_Toggle_Morthal = new Bool[128]
+	_Array_Manual_Morthal = new string[128]
+	_Array_Toggle_Morthal = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Morthal, _Array_Manual_Morthal, _Array_Toggle_Morthal)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Riften, _Array_Manual_Riften, _Array_Toggle_Riften)
+	endif
+	
 	_Array_Name_Riften = new String[128]
-	_Array_Manual_Riften = new String[128]
-	_Array_Toggle_Riften = new Bool[128]
+	_Array_Manual_Riften = new string[128]
+	_Array_Toggle_Riften = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Riften, _Array_Manual_Riften, _Array_Toggle_Riften)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Solitude, _Array_Manual_Solitude, _Array_Toggle_Solitude)
+	endif
+	
 	_Array_Name_Solitude = new String[128]
-	_Array_Manual_Solitude = new String[128]
-	_Array_Toggle_Solitude = new Bool[128]
+	_Array_Manual_Solitude = new string[128]
+	_Array_Toggle_Solitude = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Solitude, _Array_Manual_Solitude, _Array_Toggle_Solitude)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Whiterun, _Array_Manual_Whiterun, _Array_Toggle_Whiterun)
+	endif
+	
 	_Array_Name_Whiterun = new String[128]
-	_Array_Manual_Whiterun = new String[128]
-	_Array_Toggle_Whiterun = new Bool[128]
+	_Array_Manual_Whiterun = new string[128]
+	_Array_Toggle_Whiterun = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Whiterun, _Array_Manual_Whiterun, _Array_Toggle_Whiterun)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Windhelm, _Array_Manual_Windhelm, _Array_Toggle_Windhelm)
+	endif
+	
 	_Array_Name_Windhelm = new String[128]
-	_Array_Manual_Windhelm = new String[128]
-	_Array_Toggle_Windhelm = new Bool[128]
+	_Array_Manual_Windhelm = new string[128]
+	_Array_Toggle_Windhelm = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Windhelm, _Array_Manual_Windhelm, _Array_Toggle_Windhelm)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Winterhold, _Array_Manual_Winterhold, _Array_Toggle_Winterhold)
+	endif
+	
 	_Array_Name_Winterhold = new String[128]
-	_Array_Manual_Winterhold = new String[128]
-	_Array_Toggle_Winterhold = new Bool[128]
+	_Array_Manual_Winterhold = new string[128]
+	_Array_Toggle_Winterhold = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Winterhold, _Array_Manual_Winterhold, _Array_Toggle_Winterhold)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Towns, _Array_Manual_Towns, _Array_Toggle_Towns)
+	endif
+	
 	_Array_Name_Towns = new String[128]
-	_Array_Manual_Towns = new String[128]
-	_Array_Toggle_Towns = new Bool[128]
+	_Array_Manual_Towns = new string[128]
+	_Array_Toggle_Towns = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Towns, _Array_Manual_Towns, _Array_Toggle_Towns)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Dungeons, _Array_Manual_Dungeons, _Array_Toggle_Dungeons)
+	endif
+	
 	_Array_Name_Dungeons = new String[128]
-	_Array_Manual_Dungeons = new String[128]
-	_Array_Toggle_Dungeons = new Bool[128]
+	_Array_Manual_Dungeons = new string[128]
+	_Array_Toggle_Dungeons = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Dungeons, _Array_Manual_Dungeons, _Array_Toggle_Dungeons)
+	endif
+	
+;-- Quest Data --------------
 
+	if saveData
+		SaveState(_Array_Name_Misc, _Array_Manual_Misc, _Array_Toggle_Misc)
+	endif
+	
 	_Array_Name_Misc = new String[128]
-	_Array_Manual_Misc = new String[128]
-	_Array_Toggle_Misc = new Bool[128]
+	_Array_Manual_Misc = new string[128]
+	_Array_Toggle_Misc = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Misc, _Array_Manual_Misc, _Array_Toggle_Misc)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_College, _Array_Manual_College, _Array_Toggle_College)
+	endif
+	
 	_Array_Name_College = new String[128]
-	_Array_Manual_College = new String[128]
-	_Array_Toggle_College = new Bool[128]
+	_Array_Manual_College = new string[128]
+	_Array_Toggle_College = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_College, _Array_Manual_College, _Array_Toggle_College)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Companions, _Array_Manual_Companions, _Array_Toggle_Companions)
+	endif
 	
 	_Array_Name_Companions = new String[128]
-	_Array_Manual_Companions = new String[128]
-	_Array_Toggle_Companions = new Bool[128]
+	_Array_Manual_Companions = new string[128]
+	_Array_Toggle_Companions = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Companions, _Array_Manual_Companions, _Array_Toggle_Companions)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Thieves, _Array_Manual_Thieves, _Array_Toggle_Thieves)
+	endif
+	
 	_Array_Name_Thieves = new String[128]
-	_Array_Manual_Thieves = new String[128]
-	_Array_Toggle_Thieves = new Bool[128]
+	_Array_Manual_Thieves = new string[128]
+	_Array_Toggle_Thieves = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Thieves, _Array_Manual_Thieves, _Array_Toggle_Thieves)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Brotherhood, _Array_Manual_Brotherhood, _Array_Toggle_Brotherhood)
+	endif
+	
 	_Array_Name_Brotherhood = new String[128]
-	_Array_Manual_Brotherhood = new String[128]
-	_Array_Toggle_Brotherhood = new Bool[128]
+	_Array_Manual_Brotherhood = new string[128]
+	_Array_Toggle_Brotherhood = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Brotherhood, _Array_Manual_Brotherhood, _Array_Toggle_Brotherhood)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_CWMain, _Array_Manual_CWMain, _Array_Toggle_CWMain)
+	endif
+	
 	_Array_Name_CWMain = new String[128]
-	_Array_Manual_CWMain = new String[128]
-	_Array_Toggle_CWMain = new Bool[128]
+	_Array_Manual_CWMain = new string[128]
+	_Array_Toggle_CWMain = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_CWMain, _Array_Manual_CWMain, _Array_Toggle_CWMain)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_DGMain, _Array_Manual_DGMain, _Array_Toggle_DGMain)
+	endif
 	
 	_Array_Name_DGMain = new String[128]
-	_Array_Manual_DGMain = new String[128]
-	_Array_Toggle_DGMain = new Bool[128]
+	_Array_Manual_DGMain = new string[128]
+	_Array_Toggle_DGMain = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_DGMain, _Array_Manual_DGMain, _Array_Toggle_DGMain)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Dawnguard, _Array_Manual_Dawnguard, _Array_Toggle_Dawnguard)
+	endif
 	
 	_Array_Name_Dawnguard = new String[128]
-	_Array_Manual_Dawnguard = new String[128]
-	_Array_Toggle_Dawnguard = new Bool[128]
+	_Array_Manual_Dawnguard = new string[128]
+	_Array_Toggle_Dawnguard = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Dawnguard, _Array_Manual_Dawnguard, _Array_Toggle_Dawnguard)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Vampires, _Array_Manual_Vampires, _Array_Toggle_Vampires)
+	endif
+	
 	_Array_Name_Vampires = new String[128]
-	_Array_Manual_Vampires = new String[128]
-	_Array_Toggle_Vampires = new Bool[128]
+	_Array_Manual_Vampires = new string[128]
+	_Array_Toggle_Vampires = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Vampires, _Array_Manual_Vampires, _Array_Toggle_Vampires)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_DGMisc, _Array_Manual_DGMisc, _Array_Toggle_DGMisc)
+	endif
+	
 	_Array_Name_DGMisc = new String[128]
-	_Array_Manual_DGMisc = new String[128]
-	_Array_Toggle_DGMisc = new Bool[128]
+	_Array_Manual_DGMisc = new string[128]
+	_Array_Toggle_DGMisc = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_DGMisc, _Array_Manual_DGMisc, _Array_Toggle_DGMisc)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_DBMain, _Array_Manual_DBMain, _Array_Toggle_DBMain)
+	endif
+	
 	_Array_Name_DBMain = new String[128]
-	_Array_Manual_DBMain = new String[128]
-	_Array_Toggle_DBMain = new Bool[128]
+	_Array_Manual_DBMain = new string[128]
+	_Array_Toggle_DBMain = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_DBMain, _Array_Manual_DBMain, _Array_Toggle_DBMain)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_RavenRock, _Array_Manual_RavenRock, _Array_Toggle_RavenRock)
+	endif
 	
 	_Array_Name_RavenRock = new String[128]
-	_Array_Manual_RavenRock = new String[128]
-	_Array_Toggle_RavenRock = new Bool[128]
-
-	_Array_Name_SkaalVillage = new String[128]
-	_Array_Manual_SkaalVillage = new String[128]
-	_Array_Toggle_SkaalVillage = new Bool[128]
-
-	_Array_Name_TelMithryn = new String[128]
-	_Array_Manual_TelMithryn = new String[128]
-	_Array_Toggle_TelMithryn = new Bool[128]
-
-	_Array_Name_Thirsk = new String[128]
-	_Array_Manual_Thirsk = new String[128]
-	_Array_Toggle_Thirsk = new Bool[128]
-
-	_Array_Name_DBMisc = new String[128]
-	_Array_Manual_DBMisc = new String[128]
-	_Array_Toggle_DBMisc = new Bool[128]
-endFunction
+	_Array_Manual_RavenRock = new string[128]
+	_Array_Toggle_RavenRock = new bool[128]
 	
-;-- Functions --------------------------------------
+	if saveData
+		LoadState(_Array_Name_RavenRock, _Array_Manual_RavenRock, _Array_Toggle_RavenRock)
+	endif
 
-Function _Build_Quest_Arrays()	
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_SkaalVillage, _Array_Manual_SkaalVillage, _Array_Toggle_SkaalVillage)
+	endif
+	
+	_Array_Name_SkaalVillage = new String[128]
+	_Array_Manual_SkaalVillage = new string[128]
+	_Array_Toggle_SkaalVillage = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_SkaalVillage, _Array_Manual_SkaalVillage, _Array_Toggle_SkaalVillage)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_TelMithryn, _Array_Manual_TelMithryn, _Array_Toggle_TelMithryn)
+	endif
+	
+	_Array_Name_TelMithryn = new String[128]
+	_Array_Manual_TelMithryn = new string[128]
+	_Array_Toggle_TelMithryn = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_TelMithryn, _Array_Manual_TelMithryn, _Array_Toggle_TelMithryn)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Thirsk, _Array_Manual_Thirsk, _Array_Toggle_Thirsk)
+	endif
+	
+	_Array_Name_Thirsk = new String[128]
+	_Array_Manual_Thirsk = new string[128]
+	_Array_Toggle_Thirsk = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Thirsk, _Array_Manual_Thirsk, _Array_Toggle_Thirsk)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_DBMisc, _Array_Manual_DBMisc, _Array_Toggle_DBMisc)
+	endif
+	
+	_Array_Name_DBMisc = new String[128]
+	_Array_Manual_DBMisc = new string[128]
+	_Array_Toggle_DBMisc = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_DBMisc, _Array_Manual_DBMisc, _Array_Toggle_DBMisc)
+	endif
+endfunction
+	
+;-- functions --------------------------------------
+
+function InitialiseQuests()
 	
 	Main_ID = new string[19]
 	Main_ID[0] = "MQ101"
@@ -943,14 +1244,14 @@ Function _Build_Quest_Arrays()
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 
-	MainCW_ID = new string[29]
+	MainCW_ID = new string[30]
 	MainCW_ID[0] = "CW01A"
 	MainCW_ID[1] = "CW02A"
 	MainCW_ID[2] = "CW03"
 	MainCW_ID[3] = ""
 	MainCW_ID[4] = ""
 	MainCW_ID[5] = ""
-	MainCW_ID[6] = ""
+	MainCW_ID[6] = "CW01AOutfitImperial"
 	MainCW_ID[7] = ""
 	MainCW_ID[8] = ""
 	MainCW_ID[9] = ""
@@ -958,10 +1259,10 @@ Function _Build_Quest_Arrays()
 	MainCW_ID[11] = ""
 	MainCW_ID[12] = ""
 	MainCW_ID[13] = ""
-	MainCW_ID[14] = "CW01B"
-	MainCW_ID[15] = "CW02B"
-	MainCW_ID[16] = "CW03"
-	MainCW_ID[17] = ""
+	MainCW_ID[14] = ""
+	MainCW_ID[15] = "CW01B"
+	MainCW_ID[16] = "CW02B"
+	MainCW_ID[17] = "CW03"
 	MainCW_ID[18] = ""
 	MainCW_ID[19] = ""
 	MainCW_ID[20] = ""
@@ -973,46 +1274,48 @@ Function _Build_Quest_Arrays()
 	MainCW_ID[26] = ""
 	MainCW_ID[27] = ""
 	MainCW_ID[28] = ""
+	MainCW_ID[29] = ""
 	
-	MainCW_Name = new string[29]
+	MainCW_Name = new string[30]
 	MainCW_Name[0] = "I. Joining the Legion"
 	MainCW_Name[1] = "II. The Jagged Crown"
 	MainCW_Name[2] = "III. Message to Whiterun"
 	MainCW_Name[3] = "IV. Battle for Whiterun"
 	MainCW_Name[4] = "V. Reunification of Skyrim"
 	MainCW_Name[5] = "VI. Battle for Windhelm"
-	MainCW_Name[6] = "A False Front"
-	MainCW_Name[7] = "Compelling Tribute"
-	MainCW_Name[8] = "Rescue from Fort Kastav"
-	MainCW_Name[9] = "The Battle for Fort Amol"
-	MainCW_Name[10] = "The Battle for Fort Dunstad"
-	MainCW_Name[11] = "The Battle for Fort Greenwall"
-	MainCW_Name[12] = "The Battle for Fort Snowhawk"
-	MainCW_Name[13] = "The Battle for Fort Sungard"
-	MainCW_Name[14] = "I. Joining the Stormcloaks"
-	MainCW_Name[15] = "II. The Jagged Crown"
-	MainCW_Name[16] = "III. Message to Whiterun"
-	MainCW_Name[17] = "IV. Battle for Whiterun"
-	MainCW_Name[18] = "V. Liberation of Skyrim"
-	MainCW_Name[19] = "VI. Battle for Solitude"
-	MainCW_Name[20] = "A False Front"
-	MainCW_Name[21] = "Compelling Tribute"
-	MainCW_Name[22] = "Rescue from Fort Neugrad"
-	MainCW_Name[23] = "The Battle for Fort Dunstad"
-	MainCW_Name[24] = "The Battle for Fort Greenwall"
-	MainCW_Name[25] = "The Battle for Fort Hraggstad"
-	MainCW_Name[26] = "The Battle for Fort Kastav"
-	MainCW_Name[27] = "The Battle for Fort Snowhawk"
-	MainCW_Name[28] = "The Battle for Fort Sungard"
+	MainCW_Name[6] = "Get Outfitted"
+	MainCW_Name[7] = "A False Front"
+	MainCW_Name[8] = "Compelling Tribute"
+	MainCW_Name[9] = "Rescue from Fort Kastav"
+	MainCW_Name[10] = "The Battle for Fort Amol"
+	MainCW_Name[11] = "The Battle for Fort Dunstad"
+	MainCW_Name[12] = "The Battle for Fort Greenwall"
+	MainCW_Name[13] = "The Battle for Fort Snowhawk"
+	MainCW_Name[14] = "The Battle for Fort Sungard"
+	MainCW_Name[15] = "I. Joining the Stormcloaks"
+	MainCW_Name[16] = "II. The Jagged Crown"
+	MainCW_Name[17] = "III. Message to Whiterun"
+	MainCW_Name[18] = "IV. Battle for Whiterun"
+	MainCW_Name[19] = "V. Liberation of Skyrim"
+	MainCW_Name[20] = "VI. Battle for Solitude"
+	MainCW_Name[21] = "A False Front"
+	MainCW_Name[22] = "Compelling Tribute"
+	MainCW_Name[23] = "Rescue from Fort Neugrad"
+	MainCW_Name[24] = "The Battle for Fort Dunstad"
+	MainCW_Name[25] = "The Battle for Fort Greenwall"
+	MainCW_Name[26] = "The Battle for Fort Hraggstad"
+	MainCW_Name[27] = "The Battle for Fort Kastav"
+	MainCW_Name[28] = "The Battle for Fort Snowhawk"
+	MainCW_Name[29] = "The Battle for Fort Sungard"
 	
-	MainCW_Giver = new string[29]
+	MainCW_Giver = new string[30]
 	MainCW_Giver[0] = "Legate Rikke"
 	MainCW_Giver[1] = "Legate Rikke"
 	MainCW_Giver[2] = "General Tullius"
 	MainCW_Giver[3] = "General Tullius"
 	MainCW_Giver[4] = "General Tullius"
 	MainCW_Giver[5] = "Legate Rikke"
-	MainCW_Giver[6] = "Legate Rikke"
+	MainCW_Giver[6] = "General Tullius"
 	MainCW_Giver[7] = "Legate Rikke"
 	MainCW_Giver[8] = "Legate Rikke"
 	MainCW_Giver[9] = "Legate Rikke"
@@ -1020,12 +1323,12 @@ Function _Build_Quest_Arrays()
 	MainCW_Giver[11] = "Legate Rikke"
 	MainCW_Giver[12] = "Legate Rikke"
 	MainCW_Giver[13] = "Legate Rikke"
-	MainCW_Giver[14] = "Ulfric Stormcloak"
-	MainCW_Giver[15] = "Galmar Stone-Fist"
-	MainCW_Giver[16] = "Ulfric Stormcloak"
+	MainCW_Giver[14] = "Legate Rikke"
+	MainCW_Giver[15] = "Ulfric Stormcloak"
+	MainCW_Giver[16] = "Galmar Stone-Fist"
 	MainCW_Giver[17] = "Ulfric Stormcloak"
 	MainCW_Giver[18] = "Ulfric Stormcloak"
-	MainCW_Giver[19] = "Galmar Stone-Fist"
+	MainCW_Giver[19] = "Ulfric Stormcloak"
 	MainCW_Giver[20] = "Galmar Stone-Fist"
 	MainCW_Giver[21] = "Galmar Stone-Fist"
 	MainCW_Giver[22] = "Galmar Stone-Fist"
@@ -1035,39 +1338,41 @@ Function _Build_Quest_Arrays()
 	MainCW_Giver[26] = "Galmar Stone-Fist"
 	MainCW_Giver[27] = "Galmar Stone-Fist"
 	MainCW_Giver[28] = "Galmar Stone-Fist"
+	MainCW_Giver[29] = "Galmar Stone-Fist"
 			
-	MainCW_Overview = new string[29]
+	MainCW_Overview = new string[30]
 	MainCW_Overview[0] = "Join the Imperial Legion"
 	MainCW_Overview[1] = "Retrieve the Jagged Crown"
 	MainCW_Overview[2] = "Deliver a message to Whiterun"
 	MainCW_Overview[3] = "Take Whiterun for the Imperial Legion"
 	MainCW_Overview[4] = "Reunite Skyrim for the Empire"
 	MainCW_Overview[5] = "Take Windhelm and bring Ulfric to justice"
-	MainCW_Overview[6] = "Deliver some forged documents to the Stormcloaks"
-	MainCW_Overview[7] = "Collect intelligence on the Stormcloaks"
-	MainCW_Overview[8] = "Rescue the prisoners and regain Winterhold"
-	MainCW_Overview[9] = "Take Fort Amol for the Imperial Legion"
-	MainCW_Overview[10] = "Take Fort Dunstad for the Imperial Legion"
-	MainCW_Overview[11] = "Take Fort Greenwall for the Imperial Legion"
-	MainCW_Overview[12] = "Take Fort Snowhawk for the Imperial Legion"
-	MainCW_Overview[13] = "Take Fort Sungard for the Imperial Legion"
-	MainCW_Overview[14] = "Join the Stormcloaks"
-	MainCW_Overview[15] = "Retrieve the Jagged Crown"
-	MainCW_Overview[16] = "Deliver the axe to the Jarl of Whiterun"
-	MainCW_Overview[17] = "Take Whiterun for the Stormcloaks"
-	MainCW_Overview[18] = "Drive the Imperials out of Skyrim"
-	MainCW_Overview[19] = "Take solitude and push the Imperials out"
-	MainCW_Overview[20] = "Deliver some forged documents to the Imperials"
-	MainCW_Overview[21] = "Blackmail the Talos worshipper"
-	MainCW_Overview[22] = "Take Fort Neugrad for the Stormcloaks"
-	MainCW_Overview[23] = "Take Fort Dunstad for the Stormcloaks"
-	MainCW_Overview[24] = "Take Fort Greenwall for the Stormcloaks"
-	MainCW_Overview[25] = "Take Fort Hraggstad for the Stormcloaks"
-	MainCW_Overview[26] = "Take Fort Kastav for the Stormcloaks"
-	MainCW_Overview[27] = "Take Fort Snowhawk for the Stormcloaks"
-	MainCW_Overview[28] = "Take Fort Sungard for the Stormcloaks"
+	MainCW_Overview[6] = "Get a free set of armor"
+	MainCW_Overview[7] = "Deliver some forged documents to the Stormcloaks"
+	MainCW_Overview[8] = "Collect intelligence on the Stormcloaks"
+	MainCW_Overview[9] = "Rescue the prisoners and regain Winterhold"
+	MainCW_Overview[10] = "Take Fort Amol for the Imperial Legion"
+	MainCW_Overview[11] = "Take Fort Dunstad for the Imperial Legion"
+	MainCW_Overview[12] = "Take Fort Greenwall for the Imperial Legion"
+	MainCW_Overview[13] = "Take Fort Snowhawk for the Imperial Legion"
+	MainCW_Overview[14] = "Take Fort Sungard for the Imperial Legion"
+	MainCW_Overview[15] = "Join the Stormcloaks"
+	MainCW_Overview[16] = "Retrieve the Jagged Crown"
+	MainCW_Overview[17] = "Deliver the axe to the Jarl of Whiterun"
+	MainCW_Overview[18] = "Take Whiterun for the Stormcloaks"
+	MainCW_Overview[19] = "Drive the Imperials out of Skyrim"
+	MainCW_Overview[20] = "Take solitude and push the Imperials out"
+	MainCW_Overview[21] = "Deliver some forged documents to the Imperials"
+	MainCW_Overview[22] = "Blackmail the Talos worshipper"
+	MainCW_Overview[23] = "Take Fort Neugrad for the Stormcloaks"
+	MainCW_Overview[24] = "Take Fort Dunstad for the Stormcloaks"
+	MainCW_Overview[25] = "Take Fort Greenwall for the Stormcloaks"
+	MainCW_Overview[26] = "Take Fort Hraggstad for the Stormcloaks"
+	MainCW_Overview[27] = "Take Fort Kastav for the Stormcloaks"
+	MainCW_Overview[28] = "Take Fort Snowhawk for the Stormcloaks"
+	MainCW_Overview[29] = "Take Fort Sungard for the Stormcloaks"
 	
-	MainCW_Notes = new string[29]
+	MainCW_Notes = new string[30]
 	MainCW_Notes[0] = ""
 	MainCW_Notes[1] = ""
 	MainCW_Notes[2] = ""
@@ -1097,8 +1402,9 @@ Function _Build_Quest_Arrays()
 	MainCW_Notes[26] = ""
 	MainCW_Notes[27] = ""
 	MainCW_Notes[28] = ""
+	MainCW_Notes[29] = ""
 	
-	MainCW_First = new int[29]	
+	MainCW_First = new int[30]	
 	MainCW_First[0] = -999
 	MainCW_First[1] = -999
 	MainCW_First[2] = -999
@@ -1128,8 +1434,9 @@ Function _Build_Quest_Arrays()
 	MainCW_First[26] = -999
 	MainCW_First[27] = -999
 	MainCW_First[28] = -999
+	MainCW_First[29] = -999
 	
-	MainCW_Final = new int[29]	
+	MainCW_Final = new int[30]	
 	MainCW_Final[0] = 999
 	MainCW_Final[1] = 999
 	MainCW_Final[2] = 999
@@ -1159,37 +1466,39 @@ Function _Build_Quest_Arrays()
 	MainCW_Final[26] = 999
 	MainCW_Final[27] = 999
 	MainCW_Final[28] = 999	
+	MainCW_Final[29] = 999	
 	
-	MainCW_Radiant = new bool[29]
+	MainCW_Radiant = new bool[30]
 	MainCW_Radiant[0] = false
 	MainCW_Radiant[1] = false
 	MainCW_Radiant[2] = false
 	MainCW_Radiant[3] = true
 	MainCW_Radiant[4] = true
 	MainCW_Radiant[5] = true
-	MainCW_Radiant[6] = true
+	MainCW_Radiant[6] = false
 	MainCW_Radiant[7] = true
 	MainCW_Radiant[8] = true
 	MainCW_Radiant[9] = true
 	MainCW_Radiant[10] = true
 	MainCW_Radiant[11] = true
 	MainCW_Radiant[12] = true
-	MainCW_Radiant[13] = true				
-	MainCW_Radiant[14] = false
+	MainCW_Radiant[13] = true
+	MainCW_Radiant[14] = true				
 	MainCW_Radiant[15] = false
 	MainCW_Radiant[16] = false
-	MainCW_Radiant[17] = true
+	MainCW_Radiant[17] = false
 	MainCW_Radiant[18] = true
 	MainCW_Radiant[19] = true
 	MainCW_Radiant[20] = true
 	MainCW_Radiant[21] = true
 	MainCW_Radiant[22] = true
-	MainCW_Radiant[23] = true				
-	MainCW_Radiant[24] = true
+	MainCW_Radiant[23] = true
+	MainCW_Radiant[24] = true				
 	MainCW_Radiant[25] = true
 	MainCW_Radiant[26] = true
 	MainCW_Radiant[27] = true
 	MainCW_Radiant[28] = true
+	MainCW_Radiant[29] = true
 		
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1401,7 +1710,7 @@ Function _Build_Quest_Arrays()
 	MainWhiterun_Final[4] = 999
 	MainWhiterun_Final[5] = 999
 	MainWhiterun_Final[6] = 999
-	MainWhiterun_Final[7] = 999
+	MainWhiterun_Final[7] = 2
 	MainWhiterun_Final[8] = 999
 	MainWhiterun_Final[9] = 999
 	MainWhiterun_Final[10] = 999
@@ -2256,7 +2565,7 @@ Function _Build_Quest_Arrays()
 	MainMarkarth_Final[8] = 15
 	MainMarkarth_Final[9] = 10
 	MainMarkarth_Final[10] = 999
-	MainMarkarth_Final[11] = 100
+	MainMarkarth_Final[11] = 90
 	MainMarkarth_Final[12] = 999
 	MainMarkarth_Final[13] = 999
 	MainMarkarth_Final[14] = 999
@@ -2396,23 +2705,23 @@ Function _Build_Quest_Arrays()
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 		
-	MainSolitude_ID = new string[24]
+	MainSolitude_ID = new string[23]
 	MainSolitude_ID[0] = "SolitudeFreeform04"
 	MainSolitude_ID[1] = "SolitudeFreeform07"
 	MainSolitude_ID[2] = "BardsCollegeLute"
 	MainSolitude_ID[3] = "SolitudeFreeform02"
-	MainSolitude_ID[4] = "CW01AOutfitImperial"
-	MainSolitude_ID[5] = "Favor109"
-	MainSolitude_ID[6] = "MS07"
-	MainSolitude_ID[7] = "SolitudeFreeform01"
-	MainSolitude_ID[8] = "BardsCollegeFlute"
-	MainSolitude_ID[9] = "SolitudeFreeform03"
-	MainSolitude_ID[10] = "BardsCollegeDrum"
-	MainSolitude_ID[11] = "MS05"
-	MainSolitude_ID[12] = "MS06Start"
-	MainSolitude_ID[13] = "DA15"
-	MainSolitude_ID[14] = "SolitudeFreeform06"
-	MainSolitude_ID[15] = "MS06"
+	MainSolitude_ID[4] = "Favor109"
+	MainSolitude_ID[5] = "MS07"
+	MainSolitude_ID[6] = "SolitudeFreeform01"
+	MainSolitude_ID[7] = "BardsCollegeFlute"
+	MainSolitude_ID[8] = "SolitudeFreeform03"
+	MainSolitude_ID[9] = "BardsCollegeDrum"
+	MainSolitude_ID[10] = "MS05"
+	MainSolitude_ID[11] = "MS06Start"
+	MainSolitude_ID[12] = "DA15"
+	MainSolitude_ID[13] = "SolitudeFreeform06"
+	MainSolitude_ID[14] = "MS06"
+	MainSolitude_ID[15] = ""
 	MainSolitude_ID[16] = ""
 	MainSolitude_ID[17] = ""
 	MainSolitude_ID[18] = ""
@@ -2420,113 +2729,108 @@ Function _Build_Quest_Arrays()
 	MainSolitude_ID[20] = ""
 	MainSolitude_ID[21] = ""
 	MainSolitude_ID[22] = ""
-	MainSolitude_ID[23] = ""
 		
-	MainSolitude_Name = new string[24]
+	MainSolitude_Name = new string[23]
 	MainSolitude_Name[0] = "Delivery (Sorex)"
 	MainSolitude_Name[1] = "Elisif's Tribute"
 	MainSolitude_Name[2] = "Finn's Lute"
 	MainSolitude_Name[3] = "Fit for a Jarl"
-	MainSolitude_Name[4] = "Get Outfitted"
-	MainSolitude_Name[5] = "Kill the Vampire"
-	MainSolitude_Name[6] = "Lights Out!"
-	MainSolitude_Name[7] = "No News is Good News"
-	MainSolitude_Name[8] = "Pantea's Flute"
-	MainSolitude_Name[9] = "Return to Grace"
-	MainSolitude_Name[10] = "Rjorn's Drum"
-	MainSolitude_Name[11] = "Tending the Flames"
-	MainSolitude_Name[12] = "The Man Who Cried Wolf"
-	MainSolitude_Name[13] = "The Mind of Madness"
-	MainSolitude_Name[14] = "The Spiced Wine"
-	MainSolitude_Name[15] = "The Wolf Queen Awakened"
-	MainSolitude_Name[16] = "A Few Words With You (Octieve)"
-	MainSolitude_Name[17] = "Dungeon Delving (Noster)"
-	MainSolitude_Name[18] = "Kill the Bandit Leader (Ahtar)"
-	MainSolitude_Name[19] = "Have a septim (Dervenin)"
-	MainSolitude_Name[20] = "Have a septim (Noster)"
-	MainSolitude_Name[21] = "Have a septim (Svari)"
-	MainSolitude_Name[22] = "Rare Gifts (Aldis)"
-	MainSolitude_Name[23] = "Thane of Haafingar"
+	MainSolitude_Name[4] = "Kill the Vampire"
+	MainSolitude_Name[5] = "Lights Out!"
+	MainSolitude_Name[6] = "No News is Good News"
+	MainSolitude_Name[7] = "Pantea's Flute"
+	MainSolitude_Name[8] = "Return to Grace"
+	MainSolitude_Name[9] = "Rjorn's Drum"
+	MainSolitude_Name[10] = "Tending the Flames"
+	MainSolitude_Name[11] = "The Man Who Cried Wolf"
+	MainSolitude_Name[12] = "The Mind of Madness"
+	MainSolitude_Name[13] = "The Spiced Wine"
+	MainSolitude_Name[14] = "The Wolf Queen Awakened"
+	MainSolitude_Name[15] = "A Few Words With You (Octieve)"
+	MainSolitude_Name[16] = "Dungeon Delving (Noster)"
+	MainSolitude_Name[17] = "Kill the Bandit Leader (Ahtar)"
+	MainSolitude_Name[18] = "Have a septim (Dervenin)"
+	MainSolitude_Name[19] = "Have a septim (Noster)"
+	MainSolitude_Name[20] = "Have a septim (Svari)"
+	MainSolitude_Name[21] = "Rare Gifts (Aldis)"
+	MainSolitude_Name[22] = "Thane of Haafingar"
 	
-	MainSolitude_Giver = new string[24]
+	MainSolitude_Giver = new string[23]
 	MainSolitude_Giver[0] = "Sorex Vinius"
 	MainSolitude_Giver[1] = "Elisif the Fair"
 	MainSolitude_Giver[2] = "Inge Six Fingers"
 	MainSolitude_Giver[3] = "Taarie"
-	MainSolitude_Giver[4] = "General Tullius"
-	MainSolitude_Giver[5] = "Sybille Stentor"
-	MainSolitude_Giver[6] = "Jaree-Ra"
-	MainSolitude_Giver[7] = "Angeline Morrard"
-	MainSolitude_Giver[8] = "Pantea Ateia"
-	MainSolitude_Giver[9] = "Svari"
-	MainSolitude_Giver[10] = "Giraud Gemane"
-	MainSolitude_Giver[11] = "Viarmo"
-	MainSolitude_Giver[12] = "Falk Firebeard"
-	MainSolitude_Giver[13] = "Dervenin"
-	MainSolitude_Giver[14] = "Evette San"
-	MainSolitude_Giver[15] = "Falk Firebeard"
-	MainSolitude_Giver[16] = "Octieve San"
-	MainSolitude_Giver[17] = "Noster Eagle-Eye"
-	MainSolitude_Giver[18] = "Ahtar"
-	MainSolitude_Giver[19] = "Dervenin"
-	MainSolitude_Giver[20] = "Noster Eagle-Eye"
-	MainSolitude_Giver[21] = "Svari"
-	MainSolitude_Giver[22] = "Captain Aldis"
-	MainSolitude_Giver[23] = "Jarl of Solitude"
+	MainSolitude_Giver[4] = "Sybille Stentor"
+	MainSolitude_Giver[5] = "Jaree-Ra"
+	MainSolitude_Giver[6] = "Angeline Morrard"
+	MainSolitude_Giver[7] = "Pantea Ateia"
+	MainSolitude_Giver[8] = "Svari"
+	MainSolitude_Giver[9] = "Giraud Gemane"
+	MainSolitude_Giver[10] = "Viarmo"
+	MainSolitude_Giver[11] = "Falk Firebeard"
+	MainSolitude_Giver[12] = "Dervenin"
+	MainSolitude_Giver[13] = "Evette San"
+	MainSolitude_Giver[14] = "Falk Firebeard"
+	MainSolitude_Giver[15] = "Octieve San"
+	MainSolitude_Giver[16] = "Noster Eagle-Eye"
+	MainSolitude_Giver[17] = "Ahtar"
+	MainSolitude_Giver[18] = "Dervenin"
+	MainSolitude_Giver[19] = "Noster Eagle-Eye"
+	MainSolitude_Giver[20] = "Svari"
+	MainSolitude_Giver[21] = "Captain Aldis"
+	MainSolitude_Giver[22] = "Jarl of Solitude"
 		
-	MainSolitude_Overview = new string[24]
+	MainSolitude_Overview = new string[23]
 	MainSolitude_Overview[0] = "Deliver rum to Falk Firebeard"
 	MainSolitude_Overview[1] = "Deliver Torygg's War Horn to Shrine of Talos"
 	MainSolitude_Overview[2] = "Retrieve Finn's Lute"
 	MainSolitude_Overview[3] = "Model clothes for Elisif the Fair"
-	MainSolitude_Overview[4] = "Get a free set of armor"
-	MainSolitude_Overview[5] = "Assault a vampire lair"
-	MainSolitude_Overview[6] = "Help run a cargo ship aground"
-	MainSolitude_Overview[7] = "Find information on Angeline's daughter"
-	MainSolitude_Overview[8] = "Retrieve a flute for Pantea"
-	MainSolitude_Overview[9] = "Convince Greta to go to temple"
-	MainSolitude_Overview[10] = "Retrieve a drum for Giraud"
-	MainSolitude_Overview[11] = "Become a member of the Bards College"
-	MainSolitude_Overview[12] = "Investigate Wolfskull Cave"
-	MainSolitude_Overview[13] = "Solve the mystery of the Pelagius Wing"
-	MainSolitude_Overview[14] = "Retrieve the spices from Vittoria"
-	MainSolitude_Overview[15] = "Potema must be stopped"
-	MainSolitude_Overview[16] = "Talk to Irnskar Ironhand for Octieve San"
-	MainSolitude_Overview[17] = "Retrieve Noster's Helmet"
-	MainSolitude_Overview[18] = "Kill the bandit leader"
-	MainSolitude_Overview[19] = "Give a septim to Dervenin"
-	MainSolitude_Overview[20] = "Give a septim to Noster Eagle-Eye"
-	MainSolitude_Overview[21] = "Give a septim to Svari"
-	MainSolitude_Overview[22] = "Retrieve the book 'The Mirror' for Captain Aldis"
-	MainSolitude_Overview[23] = "Become the Thane of Haafingar"
+	MainSolitude_Overview[4] = "Assault a vampire lair"
+	MainSolitude_Overview[5] = "Help run a cargo ship aground"
+	MainSolitude_Overview[6] = "Find information on Angeline's daughter"
+	MainSolitude_Overview[7] = "Retrieve a flute for Pantea"
+	MainSolitude_Overview[8] = "Convince Greta to go to temple"
+	MainSolitude_Overview[9] = "Retrieve a drum for Giraud"
+	MainSolitude_Overview[10] = "Become a member of the Bards College"
+	MainSolitude_Overview[11] = "Investigate Wolfskull Cave"
+	MainSolitude_Overview[12] = "Solve the mystery of the Pelagius Wing"
+	MainSolitude_Overview[13] = "Retrieve the spices from Vittoria"
+	MainSolitude_Overview[14] = "Potema must be stopped"
+	MainSolitude_Overview[15] = "Talk to Irnskar Ironhand for Octieve San"
+	MainSolitude_Overview[16] = "Retrieve Noster's Helmet"
+	MainSolitude_Overview[17] = "Kill the bandit leader"
+	MainSolitude_Overview[18] = "Give a septim to Dervenin"
+	MainSolitude_Overview[19] = "Give a septim to Noster Eagle-Eye"
+	MainSolitude_Overview[20] = "Give a septim to Svari"
+	MainSolitude_Overview[21] = "Retrieve the book 'The Mirror' for Captain Aldis"
+	MainSolitude_Overview[22] = "Become the Thane of Haafingar"
 	
-	MainSolitude_Notes = new string[24]
+	MainSolitude_Notes = new string[23]
 	MainSolitude_Notes[0] = ""
 	MainSolitude_Notes[1] = ""
 	MainSolitude_Notes[2] = ""
 	MainSolitude_Notes[3] = ""
 	MainSolitude_Notes[4] = ""
-	MainSolitude_Notes[5] = ""
-	MainSolitude_Notes[6] = "Note Do not start this quest until 'Kill the Bandit Leader (Ahtar)' is completed"
+	MainSolitude_Notes[5] = "Note Do not start this quest until 'Kill the Bandit Leader (Ahtar)' is completed"
+	MainSolitude_Notes[6] = ""
 	MainSolitude_Notes[7] = ""
 	MainSolitude_Notes[8] = ""
 	MainSolitude_Notes[9] = ""
 	MainSolitude_Notes[10] = ""
 	MainSolitude_Notes[11] = ""
 	MainSolitude_Notes[12] = ""
-	MainSolitude_Notes[13] = ""
-	MainSolitude_Notes[14] = "NOTE: This quest should be completed before starting 'Bound until Death'"
-	MainSolitude_Notes[15] = "NOTE: This quest rewards a levelled Item (Best reward at level 40+)"
+	MainSolitude_Notes[13] = "NOTE: This quest should be completed before starting 'Bound until Death'"
+	MainSolitude_Notes[14] = "NOTE: This quest rewards a levelled Item (Best reward at level 40+)"
+	MainSolitude_Notes[15] = ""
 	MainSolitude_Notes[16] = ""
-	MainSolitude_Notes[17] = ""
-	MainSolitude_Notes[18] = "NOTE: This quest should be completed before starting 'Lights Out!'"
+	MainSolitude_Notes[17] = "NOTE: This quest should be completed before starting 'Lights Out!'"
+	MainSolitude_Notes[18] = ""
 	MainSolitude_Notes[19] = ""
 	MainSolitude_Notes[20] = ""
 	MainSolitude_Notes[21] = ""
 	MainSolitude_Notes[22] = ""
-	MainSolitude_Notes[23] = ""
 	
-	MainSolitude_First = new int[24]	
+	MainSolitude_First = new int[23]	
 	MainSolitude_First[0] = -999
 	MainSolitude_First[1] = -999
 	MainSolitude_First[2] = -999
@@ -2538,11 +2842,11 @@ Function _Build_Quest_Arrays()
 	MainSolitude_First[8] = -999
 	MainSolitude_First[9] = -999
 	MainSolitude_First[10] = -999
-	MainSolitude_First[11] = -999
-	MainSolitude_First[12] = 50
+	MainSolitude_First[11] = 50
+	MainSolitude_First[12] = -999
 	MainSolitude_First[13] = -999
-	MainSolitude_First[14] = -999
-	MainSolitude_First[15] = 50
+	MainSolitude_First[14] = 50
+	MainSolitude_First[15] = -999
 	MainSolitude_First[16] = -999
 	MainSolitude_First[17] = -999
 	MainSolitude_First[18] = -999
@@ -2550,25 +2854,24 @@ Function _Build_Quest_Arrays()
 	MainSolitude_First[20] = -999
 	MainSolitude_First[21] = -999
 	MainSolitude_First[22] = -999
-	MainSolitude_First[23] = -999
 	
-	MainSolitude_Final = new int[24]	
+	MainSolitude_Final = new int[23]	
 	MainSolitude_Final[0] = 10
 	MainSolitude_Final[1] = 20
 	MainSolitude_Final[2] = 999
 	MainSolitude_Final[3] = 20
 	MainSolitude_Final[4] = 999
-	MainSolitude_Final[5] = 999
-	MainSolitude_Final[6] = 225
+	MainSolitude_Final[5] = 225
+	MainSolitude_Final[6] = 999
 	MainSolitude_Final[7] = 999
 	MainSolitude_Final[8] = 999
 	MainSolitude_Final[9] = 999
 	MainSolitude_Final[10] = 999
 	MainSolitude_Final[11] = 999
 	MainSolitude_Final[12] = 999
-	MainSolitude_Final[13] = 999
-	MainSolitude_Final[14] = 20
-	MainSolitude_Final[15] = 150
+	MainSolitude_Final[13] = 20
+	MainSolitude_Final[14] = 150
+	MainSolitude_Final[15] = 999
 	MainSolitude_Final[16] = 999
 	MainSolitude_Final[17] = 999
 	MainSolitude_Final[18] = 999
@@ -2576,9 +2879,8 @@ Function _Build_Quest_Arrays()
 	MainSolitude_Final[20] = 999
 	MainSolitude_Final[21] = 999
 	MainSolitude_Final[22] = 999
-	MainSolitude_Final[23] = 999
 	
-	MainSolitude_Radiant = new bool[24]
+	MainSolitude_Radiant = new bool[23]
 	MainSolitude_Radiant[0] = false
 	MainSolitude_Radiant[1] = false
 	MainSolitude_Radiant[2] = false
@@ -2591,18 +2893,17 @@ Function _Build_Quest_Arrays()
 	MainSolitude_Radiant[9] = false
 	MainSolitude_Radiant[10] = false
 	MainSolitude_Radiant[11] = false
-	MainSolitude_Radiant[12] = false
-	MainSolitude_Radiant[13] = false				
+	MainSolitude_Radiant[12] = false				
+	MainSolitude_Radiant[13] = false
 	MainSolitude_Radiant[14] = false
-	MainSolitude_Radiant[15] = false
+	MainSolitude_Radiant[15] = true
 	MainSolitude_Radiant[16] = true
 	MainSolitude_Radiant[17] = true
 	MainSolitude_Radiant[18] = true
 	MainSolitude_Radiant[19] = true
 	MainSolitude_Radiant[20] = true
 	MainSolitude_Radiant[21] = true
-	MainSolitude_Radiant[22] = true
-	MainSolitude_Radiant[23] = true				
+	MainSolitude_Radiant[22] = true				
 
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4618,7 +4919,7 @@ Function _Build_Quest_Arrays()
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 		
-	MainMisc_ID = new string[60]
+	MainMisc_ID = new string[61]
 	MainMisc_ID[0] = "FreeformCaravansA"
 	MainMisc_ID[1] = "DarkwaterCrossingDerkeethusRescueQuest"
 	MainMisc_ID[2] = "FreeformDushnikhYalA"
@@ -4679,8 +4980,9 @@ Function _Build_Quest_Arrays()
 	MainMisc_ID[57] = ""
 	MainMisc_ID[58] = ""
 	MainMisc_ID[59] = ""	
+	MainMisc_ID[60] = "NN01"
 		
-	MainMisc_Name = new string[60]
+	MainMisc_Name = new string[61]
 	MainMisc_Name[0] = "Amulet of the Moon"
 	MainMisc_Name[1] = "Extracting an Argonian"
 	MainMisc_Name[2] = "Gharol's Message"
@@ -4741,8 +5043,9 @@ Function _Build_Quest_Arrays()
 	MainMisc_Name[57] = "Fight! (Chief Mauhulakh)"
 	MainMisc_Name[58] = "Tag, you're it!"
 	MainMisc_Name[59] = "Wizard Duel"
-		
-	MainMisc_Giver = new string[60]
+	MainMisc_Name[60] = "A Return To Your Roots"
+	
+	MainMisc_Giver = new string[61]
 	MainMisc_Giver[0] = "Kharjo"
 	MainMisc_Giver[1] = "World Encounter"
 	MainMisc_Giver[2] = "Gharol"
@@ -4803,8 +5106,10 @@ Function _Build_Quest_Arrays()
 	MainMisc_Giver[57] = "Chief Mauhulakh"
 	MainMisc_Giver[58] = "Children"
 	MainMisc_Giver[59] = "World Encounter"
-	
-	MainMisc_Overview = new string[60]
+	MainMisc_Giver[60] = "Sinderion's Field Journal in his Field Laboratory, Blackreach or picking up a Crimson Nirnroot"
+		
+		
+	MainMisc_Overview = new string[61]
 	MainMisc_Overview[0] = "Retrieve the Moon Amulet for Kharjo\n Location: Khajit Caravan"
 	MainMisc_Overview[1] = "Rescue Derkeethus\n Location: Darkwater Crossing"
 	MainMisc_Overview[2] = "Deliver Gharol's sword to Lash\n Location: Dushnikh Yal"
@@ -4865,8 +5170,9 @@ Function _Build_Quest_Arrays()
 	MainMisc_Overview[57] = "Fight Chief Mauhulakh and prove your worth!\n Location: Narzulbur"
 	MainMisc_Overview[58] = "Play a round of Tag with the children of a city\n Location: Any City"
 	MainMisc_Overview[59] = "Fend off and defeat a challenger\n Location: Any City"
-		
-	MainMisc_Notes = new string[60]
+	MainMisc_Overview[60] = "Collect thirty samples of the mysterious Crimson Nirnroot"
+	
+	MainMisc_Notes = new string[61]
 	MainMisc_Notes[0] = ""
 	MainMisc_Notes[1] = ""
 	MainMisc_Notes[2] = ""
@@ -4927,8 +5233,9 @@ Function _Build_Quest_Arrays()
 	MainMisc_Notes[57] = ""
 	MainMisc_Notes[58] = ""
 	MainMisc_Notes[59] = ""
-	
-	MainMisc_First = new int[60]	
+	MainMisc_Notes[60] = ""
+		
+	MainMisc_First = new int[61]	
 	MainMisc_First[0] = -999
 	MainMisc_First[1] = -999
 	MainMisc_First[2] = -999
@@ -4989,8 +5296,9 @@ Function _Build_Quest_Arrays()
 	MainMisc_First[57] = -999
 	MainMisc_First[58] = -999
 	MainMisc_First[59] = -999
+	MainMisc_First[60] = 15
 	
-	MainMisc_Final = new int[60]	
+	MainMisc_Final = new int[61]	
 	MainMisc_Final[0] = 15
 	MainMisc_Final[1] = 999
 	MainMisc_Final[2] = 10
@@ -4999,8 +5307,8 @@ Function _Build_Quest_Arrays()
 	MainMisc_Final[5] = 999
 	MainMisc_Final[6] = 10
 	MainMisc_Final[7] = 35
-	MainMisc_Final[8] = 999
-	MainMisc_Final[9] = 999
+	MainMisc_Final[8] = 90
+	MainMisc_Final[9] = 190
 	MainMisc_Final[10] = 999
 	MainMisc_Final[11] = 999
 	MainMisc_Final[12] = 50
@@ -5051,8 +5359,9 @@ Function _Build_Quest_Arrays()
 	MainMisc_Final[57] = 999
 	MainMisc_Final[58] = 999
 	MainMisc_Final[59] = 999
+	MainMisc_Final[60] = 190
 	
-	MainMisc_Radiant = new bool[60]
+	MainMisc_Radiant = new bool[61]
 	MainMisc_Radiant[0] = false
 	MainMisc_Radiant[1] = false
 	MainMisc_Radiant[2] = false
@@ -5113,6 +5422,7 @@ Function _Build_Quest_Arrays()
 	MainMisc_Radiant[57] = true
 	MainMisc_Radiant[58] = true
 	MainMisc_Radiant[59] = true
+	MainMisc_Radiant[60] = false
 	
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
@@ -5291,4 +5601,4 @@ Function _Build_Quest_Arrays()
 	MiscDB_Radiant[8] = false
 	MiscDB_Radiant[9] = false
 	MiscDB_Radiant[10] = false
-endFunction		
+endfunction		

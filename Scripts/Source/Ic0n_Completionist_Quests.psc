@@ -47,11 +47,11 @@ Function _Build_Quests(string mcmpage)
 		Lngth = Array.MainCW_ID.length
 		While Index < Lngth
 		
-			if Index < 14 && MCM.CW_Faction_Choice == 1
-				Lngth = 14
+			if Index < 15 && MCM.CW_Faction_Choice == 1
+				Lngth = 15
 				addQuestData(Array.MainCW_Radiant[Index], Array.MainCW_First[Index], Array.MainCW_Final[Index], Array.MainCW_ID[Index], Array.MainCW_Name[Index], Array.MainCW_Giver[Index], Array.MainCW_Overview[Index], Array.MainCW_Notes[Index])
 
-			elseif Index >= 14 && MCM.CW_Faction_Choice == 2
+			elseif Index >= 15 && MCM.CW_Faction_Choice == 2
 				addQuestData(Array.MainCW_Radiant[Index], Array.MainCW_First[Index], Array.MainCW_Final[Index], Array.MainCW_ID[Index], Array.MainCW_Name[Index], Array.MainCW_Giver[Index], Array.MainCW_Overview[Index], Array.MainCW_Notes[Index])
 	
 			elseif MCM.CW_Faction_Choice == 0

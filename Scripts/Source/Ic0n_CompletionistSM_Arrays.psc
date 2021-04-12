@@ -1,5 +1,9 @@
 scriptname Ic0n_CompletionistSM_Arrays extends quest
 
+Bool[] TempToggle
+String[] TempName
+String[] TempManual
+
 String[] property _M_Quest_Title_Ongoing auto hidden
 String[] property _M_Quest_Title_Completed auto hidden
 String[] property _M_Quest_Title_Incomplete auto hidden
@@ -423,17 +427,47 @@ String[] property MainTeldryn_Notes auto hidden
 Bool[] property MainTeldryn_Radiant auto hidden
 Int[] property MainTeldryn_First auto hidden
 Int[] property MainTeldryn_Final auto hidden
-	
-;-- Functions --------------------------------------
+
+;-- functions --------------------------------------
 
 Event OnInit()
 	
-	_InitAll()
+	InitialiseAll(false)
 endEvent
+
+;-- functions -------------------------------------
+	
+function SaveState(String[] Name, String[] Manual, Bool[] Toggle)
+
+	TempName = new String[128]
+	TempManual = new string[128]
+	TempToggle = new bool[128]
+	
+	Int Index = 0
+	While Index < Name.length
+		TempName[Index] = Name[Index]
+		TempManual[Index] = Manual[Index]
+		TempToggle[Index] = Toggle[Index]
+		Index += 1
+	endwhile
+endfunction
+
+;-- functions -------------------------------------
+
+function LoadState(String[] Name, String[] Manual, Bool[] Toggle)
+	
+	Int Index = 0
+	While Index < Name.length
+		Name[Index] = TempName[Index]
+		Manual[Index] = TempManual[Index]
+		Toggle[Index] = TempToggle[Index]
+		Index += 1
+	endwhile
+endfunction
 
 ;-- Functions --------------------------------------
 
-Function _Reset_Arrays()
+Function Reset_Arrays()
 
 	OptionSlot = new Int[128]
 	OptionName = new String[128]
@@ -463,124 +497,363 @@ Function _Reset_Arrays()
 	_R_Quest_Title_Incomplete = new String[128]
 	_R_Quest_Title_Index_Incomplete = 0
 endFunction
+
+;-- functions --------------------------------------
 	
-;-- Functions --------------------------------------
+function InitialiseAll(bool saveData)
 
-Function _Build_Quest_Toggles(bool resetall)
-
-	if !resetall
-		;New Arrays Here
-	else
-		_InitAll()
+	if saveData
+		SaveState(_Array_Name_Museum, _Array_Manual_Museum, _Array_Toggle_Museum)
 	endif
-endFunction
-
-;-- Functions --------------------------------------
 	
-Function _InitAll()
-
 	_Array_Name_Museum = new String[128]
-	_Array_Manual_Museum = new String[128]
-	_Array_Toggle_Museum = new Bool[128]
+	_Array_Manual_Museum = new string[128]
+	_Array_Toggle_Museum = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Museum, _Array_Manual_Museum, _Array_Toggle_Museum)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Guild, _Array_Manual_Guild, _Array_Toggle_Guild)
+	endif
 	
 	_Array_Name_Guild = new String[128]
-	_Array_Manual_Guild = new String[128]
-	_Array_Toggle_Guild = new Bool[128]
+	_Array_Manual_Guild = new string[128]
+	_Array_Toggle_Guild = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Guild, _Array_Manual_Guild, _Array_Toggle_Guild)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Misc, _Array_Manual_Misc, _Array_Toggle_Misc)
+	endif
 	
 	_Array_Name_Misc = new String[128]
-	_Array_Manual_Misc = new String[128]
-	_Array_Toggle_Misc = new Bool[128]
+	_Array_Manual_Misc = new string[128]
+	_Array_Toggle_Misc = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Misc, _Array_Manual_Misc, _Array_Toggle_Misc)
+	endif
+	
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Notes, _Array_Manual_Notes, _Array_Toggle_Notes)
+	endif
 	
 	_Array_Name_Notes = new String[128]
-	_Array_Manual_Notes = new String[128]
-	_Array_Toggle_Notes = new Bool[128]
+	_Array_Manual_Notes = new string[128]
+	_Array_Toggle_Notes = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Notes, _Array_Manual_Notes, _Array_Toggle_Notes)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Sanamia, _Array_Manual_Sanamia, _Array_Toggle_Sanamia)
+	endif
 	
 	_Array_Name_Sanamia = new String[128]
-	_Array_Manual_Sanamia = new String[128]
-	_Array_Toggle_Sanamia = new Bool[128]	
+	_Array_Manual_Sanamia = new string[128]
+	_Array_Toggle_Sanamia = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Sanamia, _Array_Manual_Sanamia, _Array_Toggle_Sanamia)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Clockwork, _Array_Manual_Clockwork, _Array_Toggle_Clockwork)
+	endif
 	
 	_Array_Name_Clockwork = new String[128]
-	_Array_Manual_Clockwork = new String[128]
-	_Array_Toggle_Clockwork = new Bool[128]
+	_Array_Manual_Clockwork = new string[128]
+	_Array_Toggle_Clockwork = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Clockwork, _Array_Manual_Clockwork, _Array_Toggle_Clockwork)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Falskaar, _Array_Manual_Falskaar, _Array_Toggle_Falskaar)
+	endif
 	
 	_Array_Name_Falskaar = new String[128]
-	_Array_Manual_Falskaar = new String[128]
-	_Array_Toggle_Falskaar = new Bool[128]
+	_Array_Manual_Falskaar = new string[128]
+	_Array_Toggle_Falskaar = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Falskaar, _Array_Manual_Falskaar, _Array_Toggle_Falskaar)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_HelgenReborn, _Array_Manual_HelgenReborn, _Array_Toggle_HelgenReborn)
+	endif
+	
 	_Array_Name_HelgenReborn = new String[128]
-	_Array_Manual_HelgenReborn = new String[128]
-	_Array_Toggle_HelgenReborn = new Bool[128]
+	_Array_Manual_HelgenReborn = new string[128]
+	_Array_Toggle_HelgenReborn = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_HelgenReborn, _Array_Manual_HelgenReborn, _Array_Toggle_HelgenReborn)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Moonpath, _Array_Manual_Moonpath, _Array_Toggle_Moonpath)
+	endif
+	
 	_Array_Name_Moonpath = new String[128]
-	_Array_Manual_Moonpath = new String[128]
-	_Array_Toggle_Moonpath = new Bool[128]
+	_Array_Manual_Moonpath = new string[128]
+	_Array_Toggle_Moonpath = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Moonpath, _Array_Manual_Moonpath, _Array_Toggle_Moonpath)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_MoonStar, _Array_Manual_MoonStar, _Array_Toggle_MoonStar)
+	endif
 	
 	_Array_Name_MoonStar = new String[128]
-	_Array_Manual_MoonStar = new String[128]
-	_Array_Toggle_MoonStar = new Bool[128]
+	_Array_Manual_MoonStar = new string[128]
+	_Array_Toggle_MoonStar = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_MoonStar, _Array_Manual_MoonStar, _Array_Toggle_MoonStar)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_ProjectAHO, _Array_Manual_ProjectAHO, _Array_Toggle_ProjectAHO)
+	endif
 	
 	_Array_Name_ProjectAHO = new String[128]
-	_Array_Manual_ProjectAHO = new String[128]
-	_Array_Toggle_ProjectAHO = new Bool[128]
+	_Array_Manual_ProjectAHO = new string[128]
+	_Array_Toggle_ProjectAHO = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_ProjectAHO, _Array_Manual_ProjectAHO, _Array_Toggle_ProjectAHO)
+	endif
+	
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_WheelsofLull, _Array_Manual_WheelsofLull, _Array_Toggle_WheelsofLull)
+	endif
 	
 	_Array_Name_WheelsofLull = new String[128]
-	_Array_Manual_WheelsofLull = new String[128]
-	_Array_Toggle_WheelsofLull = new Bool[128]
+	_Array_Manual_WheelsofLull = new string[128]
+	_Array_Toggle_WheelsofLull = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_WheelsofLull, _Array_Manual_WheelsofLull, _Array_Toggle_WheelsofLull)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_GrayCowl, _Array_Manual_GrayCowl, _Array_Toggle_GrayCowl)
+	endif
+	
 	_Array_Name_GrayCowl = new String[128]
-	_Array_Manual_GrayCowl = new String[128]
-	_Array_Toggle_GrayCowl = new Bool[128]
+	_Array_Manual_GrayCowl = new string[128]
+	_Array_Toggle_GrayCowl = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_GrayCowl, _Array_Manual_GrayCowl, _Array_Toggle_GrayCowl)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Undeath, _Array_Manual_Undeath, _Array_Toggle_Undeath)
+	endif
 	
 	_Array_Name_Undeath = new String[128]
-	_Array_Manual_Undeath = new String[128]
-	_Array_Toggle_Undeath = new Bool[128]
+	_Array_Manual_Undeath = new string[128]
+	_Array_Toggle_Undeath = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Undeath, _Array_Manual_Undeath, _Array_Toggle_Undeath)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Wyrmstooth, _Array_Manual_Wyrmstooth, _Array_Toggle_Wyrmstooth)
+	endif
 	
 	_Array_Name_Wyrmstooth = new String[128]
-	_Array_Manual_Wyrmstooth = new String[128]
-	_Array_Toggle_Wyrmstooth = new Bool[128]
+	_Array_Manual_Wyrmstooth = new string[128]
+	_Array_Toggle_Wyrmstooth = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Wyrmstooth, _Array_Manual_Wyrmstooth, _Array_Toggle_Wyrmstooth)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_Underground, _Array_Manual_Underground, _Array_Toggle_Underground)
+	endif
 	
 	_Array_Name_Underground = new String[128]
-	_Array_Manual_Underground = new String[128]
-	_Array_Toggle_Underground = new Bool[128]
+	_Array_Manual_Underground = new string[128]
+	_Array_Toggle_Underground = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Underground, _Array_Manual_Underground, _Array_Toggle_Underground)
+	endif
+	
+;-- Quest Data --------------
 
+	if saveData
+		SaveState(_Array_Name_Teldryn, _Array_Manual_Teldryn, _Array_Toggle_Teldryn)
+	endif
+	
 	_Array_Name_Teldryn = new String[128]
-	_Array_Manual_Teldryn = new String[128]
-	_Array_Toggle_Teldryn = new Bool[128]
+	_Array_Manual_Teldryn = new string[128]
+	_Array_Toggle_Teldryn = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_Teldryn, _Array_Manual_Teldryn, _Array_Toggle_Teldryn)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_3DNPC_Main, _Array_Manual_3DNPC_Main, _Array_Toggle_3DNPC_Main)
+	endif
 	
 	_Array_Name_3DNPC_Main = new String[128]
-	_Array_Name_3DNPC_BOK = new String[128]
-	_Array_Name_3DNPC_DS = new String[128]
-	_Array_Name_3DNPC_Misc = new String[128]
+	_Array_Manual_3DNPC_Main = new string[128]
+	_Array_Toggle_3DNPC_Main = new bool[128]
 	
-	_Array_Manual_3DNPC_Main = new String[128]
-	_Array_Manual_3DNPC_BOK = new String[128]
-	_Array_Manual_3DNPC_DS = new String[128]
-	_Array_Manual_3DNPC_Misc = new String[128]
-	
-	_Array_Toggle_3DNPC_Main = new Bool[128]
-	_Array_Toggle_3DNPC_BOK = new Bool[128]
-	_Array_Toggle_3DNPC_DS = new Bool[128]
-	_Array_Toggle_3DNPC_Misc = new Bool[128]
+	if saveData
+		LoadState(_Array_Name_3DNPC_Main, _Array_Manual_3DNPC_Main, _Array_Toggle_3DNPC_Main)
+	endif
 
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_3DNPC_BOK, _Array_Manual_3DNPC_BOK, _Array_Toggle_3DNPC_BOK)
+	endif
+	
+	_Array_Name_3DNPC_BOK = new String[128]
+	_Array_Manual_3DNPC_BOK = new string[128]
+	_Array_Toggle_3DNPC_BOK = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_3DNPC_BOK, _Array_Manual_3DNPC_BOK, _Array_Toggle_3DNPC_BOK)
+	endif
+	
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_3DNPC_DS, _Array_Manual_3DNPC_DS, _Array_Toggle_3DNPC_DS)
+	endif
+	
+	_Array_Name_3DNPC_DS = new String[128]
+	_Array_Manual_3DNPC_DS = new string[128]
+	_Array_Toggle_3DNPC_DS = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_3DNPC_DS, _Array_Manual_3DNPC_DS, _Array_Toggle_3DNPC_DS)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_3DNPC_Misc, _Array_Manual_3DNPC_Misc, _Array_Toggle_3DNPC_Misc)
+	endif
+	
+	_Array_Name_3DNPC_Misc = new String[128]
+	_Array_Manual_3DNPC_Misc = new string[128]
+	_Array_Toggle_3DNPC_Misc = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_3DNPC_Misc, _Array_Manual_3DNPC_Misc, _Array_Toggle_3DNPC_Misc)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_VigilantActs, _Array_Manual_VigilantActs, _Array_Toggle_VigilantActs)
+	endif
+	
 	_Array_Name_VigilantActs = new String[128]
+	_Array_Manual_VigilantActs = new string[128]
+	_Array_Toggle_VigilantActs = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_VigilantActs, _Array_Manual_VigilantActs, _Array_Toggle_VigilantActs)
+	endif
+	
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_VigilantMem, _Array_Manual_VigilantMem, _Array_Toggle_VigilantMem)
+	endif
+	
 	_Array_Name_VigilantMem = new String[128]
+	_Array_Manual_VigilantMem = new string[128]
+	_Array_Toggle_VigilantMem = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_VigilantMem, _Array_Manual_VigilantMem, _Array_Toggle_VigilantMem)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_VigilantRadiant, _Array_Manual_VigilantRadiant, _Array_Toggle_VigilantRadiant)
+	endif
+	
 	_Array_Name_VigilantRadiant = new String[128]
+	_Array_Manual_VigilantRadiant = new string[128]
+	_Array_Toggle_VigilantRadiant = new bool[128]
+	
+	if saveData
+		LoadState(_Array_Name_VigilantRadiant, _Array_Manual_VigilantRadiant, _Array_Toggle_VigilantRadiant)
+	endif
+
+;-- Quest Data --------------
+
+	if saveData
+		SaveState(_Array_Name_VigilantSide, _Array_Manual_VigilantSide, _Array_Toggle_VigilantSide)
+	endif
+	
 	_Array_Name_VigilantSide = new String[128]
+	_Array_Manual_VigilantSide = new string[128]
+	_Array_Toggle_VigilantSide = new bool[128]
 	
-	_Array_Manual_VigilantActs = new String[128]
-	_Array_Manual_VigilantMem = new String[128]
-	_Array_Manual_VigilantSide = new String[128]
-	_Array_Manual_VigilantRadiant = new String[128]
-	
-	_Array_Toggle_VigilantActs = new Bool[128]
-	_Array_Toggle_VigilantMem = new Bool[128]
-	_Array_Toggle_VigilantRadiant = new Bool[128]
-	_Array_Toggle_VigilantSide = new Bool[128]
+	if saveData
+		LoadState(_Array_Name_VigilantSide, _Array_Manual_VigilantSide, _Array_Toggle_VigilantSide)
+	endif	
 endFunction
 	
 ;-- Functions --------------------------------------
 
-Function _Build_Quest_Arrays()	
+function InitialiseQuests()
 
 	MainClockwork_ID = new string[7]
 	MainClockwork_ID[0] = "CLWKicker01Quest"
@@ -949,7 +1222,7 @@ Function _Build_Quest_Arrays()
 	MainHelgenReborn_Giver[3] = "Marcus Jannus"
 	MainHelgenReborn_Giver[4] = "Valerius during 'A City On A Hill'."
 	MainHelgenReborn_Giver[5] = "Cienna"
-	MainHelgenReborn_Giver[6] = "Froki"
+	MainHelgenReborn_Giver[6] = "Automatic Start"
 	MainHelgenReborn_Giver[7] = "Korst"
 	MainHelgenReborn_Giver[8] = "Korst"
 	MainHelgenReborn_Giver[9] = "Korst"
@@ -1056,8 +1329,8 @@ Function _Build_Quest_Arrays()
 	MainHelgenReborn_Final[2] = 130
 	MainHelgenReborn_Final[3] = 500
 	MainHelgenReborn_Final[4] = 270
-	MainHelgenReborn_Final[5] = 210
-	MainHelgenReborn_Final[6] = 40
+	MainHelgenReborn_Final[5] = 170
+	MainHelgenReborn_Final[6] = 35
 	MainHelgenReborn_Final[7] = 60
 	MainHelgenReborn_Final[8] = 60
 	MainHelgenReborn_Final[9] = 60

@@ -7,6 +7,8 @@ Ic0n_Completionist_Arrays property Util auto
 Ic0n_CompletionistSM_Arrays property SMUtil auto
 
 message property UpdateMessage auto
+message property UpdateRequired auto
+message property ReloadMessage auto
 
 string[] Dawnguard_Faction
 int State_Menu_Faction
@@ -27,6 +29,11 @@ int posLeft
 string[] staticPage	
 string[] dynamicPage	
 
+bool property Update auto hidden
+bool SaveData
+int Tracker
+int count
+
 ;-- Events --------------------------------------
 
 event OnConfigInit()
@@ -40,40 +47,33 @@ endevent
 
 function Maintenance()
 	
-	Float curVersion = 2.8
+	Float curVersion = 2.9
 	
 	if (fVersion < curVersion)
-	
-		if (fVersion < 2.7)
-			fVersion = 2.7
-			Util._Build_Quest_Toggles(true)
-			SMUtil._Build_Quest_Toggles(true)
-		endif
-		
-		if (fVersion < 2.8)
-			fVersion = 2.8
-			While Utility.IsInMenuMode()
-				Utility.Wait(1)
-			endWhile
-		endif
-		UpdateMessage.Show(fVersion)			
+		fVersion = curVersion
+		Update = True
+		SaveData = True
+		UpdateRequired.Show()
+		Build_Pages()
+		Build_Pages_Dynamic()			
+		return
 	endif
 	
 	Build_Pages()
 	Build_Pages_Dynamic()		
 
-	Util._Reset_Arrays()
-	Util._Build_Quest_Arrays()
+	Util.Reset_Arrays()
+	Util.InitialiseQuests()
 	
-	SMUtil._Reset_Arrays()
-	SMUtil._Build_Quest_Arrays()
+	SMUtil.Reset_Arrays()
+	SMUtil.InitialiseQuests()
 endfunction
 
 ;-- Functions --------------------------------------
 
 function Build_Pages()
 	
-	dynamicPage = new string[28]	
+	dynamicPage = new string[28]
 	dynamicPage[0] = "Main Quests"
 	dynamicPage[1] = "Main Quests (CW)"
 	dynamicPage[2] = "Main Quests (DG)"
@@ -109,6 +109,13 @@ endfunction
 function Build_Pages_Dynamic()
 
 	ModName = "Completionist: Quest Tracker"
+
+	if Update
+		staticPage = new string[1]
+		staticPage[0] = "Settings" 
+		return
+	endif
+	
 	staticPage = new string[128]	
 	
 	staticPage[0] = "Settings" 
@@ -166,16 +173,76 @@ endfunction
 
 ;-- Events --------------------------------------
 
+event OnConfigOpen()
+	if Update
+		if ShowMessage("An update is required to maintain mod functionality, do you want to update the mod now?", true, "Update Now", "Update Later")
+			ShowMessage("Please exit the MCM and wait for an update complete notification", false, "Ok")
+			While Utility.IsInMenuMode()
+				Utility.Wait(1)
+			endWhile
+			
+			GoToState("Updating")
+			Tracker = 1
+			RegisterForSingleUpdate(0)
+		else
+			ShowMessage("Please return to the MCM and complete the update to continue using the mod", false, "Ok")
+			Build_Pages_Dynamic()
+			return
+		endif
+	endif
+endevent
+
+;-- Events --------------------------------------
+
+event OnUpdate()
+	
+	if Tracker == 0
+		if Count == 2
+			Count = 0
+			if Update
+				UpdateMessage.Show(fVersion)	
+				Update = False
+			else
+				ReloadMessage.Show()	
+				SaveData = True
+			endif
+			GoToState("")
+		else
+			RegisterForSingleUpdate(0)
+		endif
+
+	elseif Tracker == 1
+		Tracker = 2
+		RegisterForSingleUpdate(0)
+		Util.Reset_Arrays()
+		Util.InitialiseAll(SaveData)
+		Util.InitialiseQuests()
+		Count += 1
+		
+	elseif	Tracker == 2
+		Tracker = 0
+		RegisterForSingleUpdate(0)
+		SMUtil.Reset_Arrays()
+		SMUtil.InitialiseAll(SaveData)
+		SMUtil.InitialiseQuests()
+		Count += 1
+	endif
+endevent
+		
+;-- Events --------------------------------------
+
 event OnPageReset(string page)
 	
-	Build_Pages()
-	Build_Pages_Dynamic()
-	Build_Page_Settings()
-	Build_Menu_Faction()
-
-	if CurrentPage != "Settings" 
-		Util._Reset_Arrays()
-		QST._Build_Quests(CurrentPage)
+	if !Update
+		Build_Pages()
+		Build_Pages_Dynamic()
+		Build_Page_Settings()
+		Build_Menu_Faction()
+		
+		if CurrentPage != "Settings" 
+			Util.Reset_Arrays()
+			QST._Build_Quests(CurrentPage)
+		endif
 	endif
 endevent
 
@@ -220,7 +287,7 @@ function Build_Page_Settings()
 		AddTextOption("an automatic MCM quest tracker for Skyrim & its DLC.", "", 0)
 		AddEmptyOption()
 		AddEmptyOption()
-		AddTextOption("", "Completionist Version: 2.8", 0)
+		AddTextOption("", "Completionist Version: 2.9", 0)
 		AddTextOption("", "Developed by [Ic0n]ic0de", 0)
 		AddEmptyOption()		
 		AddHeaderOption("")
@@ -235,29 +302,26 @@ endfunction
 state RefreshMCM
 
 	event OnSelectST()
-		bool bRefresh = True
 		SetTitleText("===PLEASE WAIT===")
-		While bRefresh
-			Build_Pages()
-			Build_Pages_Dynamic()
-
-			Util._Reset_Arrays()
-			Util._Build_Quest_Toggles(true)
-			Util._Build_Quest_Arrays()
-
-			SMUtil._Reset_Arrays()
-			SMUtil._Build_Quest_Toggles(true)
-			SMUtil._Build_Quest_Arrays()
+		if ShowMessage("Would you like to store and reload manually completed quest data?", true, "Yes", "No")
+			SaveData = True
+		else
+			SaveData = False
+		endif
 			
-			bRefresh = false
-			ShowMessage("MCM Reload Complete", false, "Ok") 
-			ForcePageReset()
-		endWhile
+		ShowMessage("Please exit the MCM and wait for a reload complete notification", false, "Ok")
+		While Utility.IsInMenuMode()
+			Utility.Wait(1)
+		endWhile	
+		
+		GoToState("Updating")
+		Tracker = 1
+		RegisterForSingleUpdate(0)
 	endevent
 
 	function OnHighlightST()
 
-		SetInfoText("Force reload the MCM - use if quest data is missing or incorrect \nReloading the MCM will revert all manually completed quests to their default state, it is advised you make a note of any quests which are 'Complete(M)' before reloading the MCM.")
+		SetInfoText("Force reload the MCM - use if quest data is missing or incorrect \nReloading the MCM will revert all manually completed quests to their default state unless you choose to save data, it is advised you make a note of any quests which are 'Complete(M)' before reloading the MCM.")
 	endfunction
 endState
 	

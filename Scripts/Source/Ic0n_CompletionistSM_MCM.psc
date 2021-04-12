@@ -29,6 +29,13 @@ event OnConfigInit()
 	Build_Pages_Dynamic()
 endevent
 
+event OnConfigOpen()
+	if MCM.Update
+		ShowMessage("An update is required to maintain mod functionality, please go to the main MCM and complete the update", false, "Ok")
+		Build_Pages_Dynamic()
+	endif
+endevent
+
 ;-- Functions --------------------------------------
 
 function Build_Pages()
@@ -66,6 +73,13 @@ endfunction
 function Build_Pages_Dynamic()
 
 	ModName = "Completionist: Supported Mods"
+
+	if MCM.Update
+		staticPage = new string[1]
+		staticPage[0] = "Settings" 
+		return
+	endif
+	
 	staticPage = new string[128]	
 	
 	staticPage[0] = "Settings" 
@@ -248,14 +262,16 @@ endfunction
 
 event OnPageReset(string page)
 	
-	Build_Pages()
-	Build_Pages_Dynamic()
-	Build_Page_Settings()
-	Build_Menu_Faction()
+	if !MCM.Update
+		Build_Pages()
+		Build_Pages_Dynamic()
+		Build_Page_Settings()
+		Build_Menu_Faction()
 
-	if CurrentPage != "Settings" 
-		Util._Reset_Arrays()
-		QST._Build_Quests(CurrentPage)
+		if CurrentPage != "Settings" 
+			Util.Reset_Arrays()
+			QST._Build_Quests(CurrentPage)
+		endif
 	endif
 endevent
 
