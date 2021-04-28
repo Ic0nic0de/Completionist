@@ -2922,7 +2922,7 @@ function InitialiseQuests()
 	MainWinterhold_Name[0] = "Drowned Sorrows"
 	MainWinterhold_Name[1] = "A Few Words With You (Haran)"
 	MainWinterhold_Name[2] = "Dungeon Delving (Jarl Korir)"
-	MainWinterhold_Name[3] = "Have a drink (Razelan)"
+	MainWinterhold_Name[3] = "Have a drink (Ranmir)"
 	MainWinterhold_Name[4] = "Some Light Theft (Malur)"
 	MainWinterhold_Name[5] = "Thane of Winterhold"
 	
@@ -2930,7 +2930,7 @@ function InitialiseQuests()
 	MainWinterhold_Giver[0] = "Dagur"
 	MainWinterhold_Giver[1] = "Haran"
 	MainWinterhold_Giver[2] = "Jarl Korir"
-	MainWinterhold_Giver[3] = "Razelan"
+	MainWinterhold_Giver[3] = "Ranmir"
 	MainWinterhold_Giver[4] = "Malur Seloth"
 	MainWinterhold_Giver[5] = "Jarl of Winterhold"
 			
@@ -2938,7 +2938,7 @@ function InitialiseQuests()
 	MainWinterhold_Overview[0] = "Find Ranmir's lost love"
 	MainWinterhold_Overview[1] = "Talk to Ranmir for Haran"
 	MainWinterhold_Overview[2] = "Retrieve the Helm of Winterhold"
-	MainWinterhold_Overview[3] = "Buy a drink for Razelan"
+	MainWinterhold_Overview[3] = "Buy a drink for Ranmir"
 	MainWinterhold_Overview[4] = "Steal the Staff of Arcane Authority for Malur Seloth"
 	MainWinterhold_Overview[5] = "Become the Thane of Winterhold"
 	
@@ -3218,7 +3218,7 @@ function InitialiseQuests()
 	MainRavenRock_Notes[6] = ""
 	MainRavenRock_Notes[7] = ""
 	MainRavenRock_Notes[8] = "NOTE: It is recommended to complete this quest as soon as possible"
-	MainRavenRock_Notes[9] = ""
+	MainRavenRock_Notes[9] = "NOTE: This quest can not be completed without killing Fethis Alor or using a mod, complete the quest manually if neither of these options suit you."
 	MainRavenRock_Notes[10] = ""
 	MainRavenRock_Notes[11] = ""
 		
@@ -4919,7 +4919,7 @@ function InitialiseQuests()
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 		
-	MainMisc_ID = new string[61]
+	MainMisc_ID = new string[62]
 	MainMisc_ID[0] = "FreeformCaravansA"
 	MainMisc_ID[1] = "DarkwaterCrossingDerkeethusRescueQuest"
 	MainMisc_ID[2] = "FreeformDushnikhYalA"
@@ -4980,9 +4980,10 @@ function InitialiseQuests()
 	MainMisc_ID[57] = ""
 	MainMisc_ID[58] = ""
 	MainMisc_ID[59] = ""	
-	MainMisc_ID[60] = "NN01"
+	MainMisc_ID[60] = ""
+	MainMisc_ID[61] = "NN01"
 		
-	MainMisc_Name = new string[61]
+	MainMisc_Name = new string[62]
 	MainMisc_Name[0] = "Amulet of the Moon"
 	MainMisc_Name[1] = "Extracting an Argonian"
 	MainMisc_Name[2] = "Gharol's Message"
@@ -5033,19 +5034,20 @@ function InitialiseQuests()
 	MainMisc_Name[47] = "Harvest Crops (Vigdis)"
 	MainMisc_Name[48] = "Harvest Crops (Avrusa)"
 	MainMisc_Name[49] = "Harvest Crops (Addvild)"
-	MainMisc_Name[50] = "Hide and Seek I"
-	MainMisc_Name[51] = "Kill the Bandit Leader"
-	MainMisc_Name[52] = "Mine Ore (Orc Strongholds)"
-	MainMisc_Name[53] = "Mine Ore (Mines)"
-	MainMisc_Name[54] = "Mine Ore (Towns)"
-	MainMisc_Name[55] = "Fight! (Chief Burguk)"
-	MainMisc_Name[56] = "Fight! (Chief Larak)"
-	MainMisc_Name[57] = "Fight! (Chief Mauhulakh)"
-	MainMisc_Name[58] = "Tag, you're it!"
-	MainMisc_Name[59] = "Wizard Duel"
-	MainMisc_Name[60] = "A Return To Your Roots"
+	MainMisc_Name[50] = "have a drink (Razelan)"
+	MainMisc_Name[51] = "Hide and Seek I"
+	MainMisc_Name[52] = "Kill the Bandit Leader"
+	MainMisc_Name[53] = "Mine Ore (Orc Strongholds)"
+	MainMisc_Name[54] = "Mine Ore (Mines)"
+	MainMisc_Name[55] = "Mine Ore (Towns)"
+	MainMisc_Name[56] = "Fight! (Chief Burguk)"
+	MainMisc_Name[57] = "Fight! (Chief Larak)"
+	MainMisc_Name[58] = "Fight! (Chief Mauhulakh)"
+	MainMisc_Name[59] = "Tag, you're it!"
+	MainMisc_Name[60] = "Wizard Duel"
+	MainMisc_Name[61] = "A Return To Your Roots"
 	
-	MainMisc_Giver = new string[61]
+	MainMisc_Giver = new string[62]
 	MainMisc_Giver[0] = "Kharjo"
 	MainMisc_Giver[1] = "World Encounter"
 	MainMisc_Giver[2] = "Gharol"
@@ -5096,20 +5098,21 @@ function InitialiseQuests()
 	MainMisc_Giver[47] = "Vigdis Salvius"
 	MainMisc_Giver[48] = "Avrusa Sarethi"
 	MainMisc_Giver[49] = "Addvild"
-	MainMisc_Giver[50] = "Children"
-	MainMisc_Giver[51] = "Annekke Crag-Jumper"
-	MainMisc_Giver[52] = "Various"
+	MainMisc_Giver[50] = "Razelan"
+	MainMisc_Giver[51] = "Children"
+	MainMisc_Giver[52] = "Annekke Crag-Jumper"
 	MainMisc_Giver[53] = "Various"
 	MainMisc_Giver[54] = "Various"
-	MainMisc_Giver[55] = "Chief Burguk"
-	MainMisc_Giver[56] = "Chief Larak"
-	MainMisc_Giver[57] = "Chief Mauhulakh"
-	MainMisc_Giver[58] = "Children"
-	MainMisc_Giver[59] = "World Encounter"
-	MainMisc_Giver[60] = "Sinderion's Field Journal in his Field Laboratory, Blackreach or picking up a Crimson Nirnroot"
+	MainMisc_Giver[55] = "Various"
+	MainMisc_Giver[56] = "Chief Burguk"
+	MainMisc_Giver[57] = "Chief Larak"
+	MainMisc_Giver[58] = "Chief Mauhulakh"
+	MainMisc_Giver[59] = "Children"
+	MainMisc_Giver[60] = "World Encounter"
+	MainMisc_Giver[61] = "Sinderion's Field Journal in his Field Laboratory, Blackreach or picking up a Crimson Nirnroot"
 		
 		
-	MainMisc_Overview = new string[61]
+	MainMisc_Overview = new string[62]
 	MainMisc_Overview[0] = "Retrieve the Moon Amulet for Kharjo\n Location: Khajit Caravan"
 	MainMisc_Overview[1] = "Rescue Derkeethus\n Location: Darkwater Crossing"
 	MainMisc_Overview[2] = "Deliver Gharol's sword to Lash\n Location: Dushnikh Yal"
@@ -5160,19 +5163,20 @@ function InitialiseQuests()
 	MainMisc_Overview[47] = "Get paid to harvest crops\n Location: Salvius Farm"
 	MainMisc_Overview[48] = "Get paid to harvest crops\n Location: Sarethi Farm"
 	MainMisc_Overview[49] = "Get paid to harvest crops\n Location: Snow-Shod Farm"
-	MainMisc_Overview[50] = "Play a round of Hide and Seek with some children in town\n Location: Any City"
-	MainMisc_Overview[51] = "Kill the bandit leader\n Location: Darkwater Crossing"
-	MainMisc_Overview[52] = "Get paid to mine ore\n Location: Dushnikh Yal, Mor Khazgur, Narzulbur"
-	MainMisc_Overview[53] = "Get paid to mine ore\n Location: Goldenrock Mine, Kolskeggr Mine, Left Hand Mine, Whistling Mine, Stonehills"
-	MainMisc_Overview[54] = "Get paid to mine ore\n Location: Kynesgrove, Shor's Stone, Soljund's Sinkhole"
-	MainMisc_Overview[55] = "Fight Chief Burguk and prove your worth!\n Location: Dushnikh Yal"
-	MainMisc_Overview[56] = "Fight Chief Larak and prove your worth!\n Location: Mor Khazgur"
-	MainMisc_Overview[57] = "Fight Chief Mauhulakh and prove your worth!\n Location: Narzulbur"
-	MainMisc_Overview[58] = "Play a round of Tag with the children of a city\n Location: Any City"
-	MainMisc_Overview[59] = "Fend off and defeat a challenger\n Location: Any City"
-	MainMisc_Overview[60] = "Collect thirty samples of the mysterious Crimson Nirnroot"
+	MainMisc_Overview[50] = "Buy a drink for Razelan"
+	MainMisc_Overview[51] = "Play a round of Hide and Seek with some children in town\n Location: Any City"
+	MainMisc_Overview[52] = "Kill the bandit leader\n Location: Darkwater Crossing"
+	MainMisc_Overview[53] = "Get paid to mine ore\n Location: Dushnikh Yal, Mor Khazgur, Narzulbur"
+	MainMisc_Overview[54] = "Get paid to mine ore\n Location: Goldenrock Mine, Kolskeggr Mine, Left Hand Mine, Whistling Mine, Stonehills"
+	MainMisc_Overview[55] = "Get paid to mine ore\n Location: Kynesgrove, Shor's Stone, Soljund's Sinkhole"
+	MainMisc_Overview[56] = "Fight Chief Burguk and prove your worth!\n Location: Dushnikh Yal"
+	MainMisc_Overview[57] = "Fight Chief Larak and prove your worth!\n Location: Mor Khazgur"
+	MainMisc_Overview[58] = "Fight Chief Mauhulakh and prove your worth!\n Location: Narzulbur"
+	MainMisc_Overview[59] = "Play a round of Tag with the children of a city\n Location: Any City"
+	MainMisc_Overview[60] = "Fend off and defeat a challenger\n Location: Any City"
+	MainMisc_Overview[61] = "Collect thirty samples of the mysterious Crimson Nirnroot"
 	
-	MainMisc_Notes = new string[61]
+	MainMisc_Notes = new string[62]
 	MainMisc_Notes[0] = ""
 	MainMisc_Notes[1] = ""
 	MainMisc_Notes[2] = ""
@@ -5223,19 +5227,20 @@ function InitialiseQuests()
 	MainMisc_Notes[47] = ""
 	MainMisc_Notes[48] = ""
 	MainMisc_Notes[49] = ""
-	MainMisc_Notes[50] = ""
+	MainMisc_Notes[50] = "NOTE: It is recommended to complete this quest as soon as possible during the main quest 'Displomatic Immunity'"
 	MainMisc_Notes[51] = ""
 	MainMisc_Notes[52] = ""
 	MainMisc_Notes[53] = ""
-	MainMisc_Notes[54] = "Note Do not mine ore in Shor's Stone until 'The Forgemaster's Fingers' has been started"
-	MainMisc_Notes[55] = ""
+	MainMisc_Notes[54] = ""
+	MainMisc_Notes[55] = "Note Do not mine ore in Shor's Stone until 'The Forgemaster's Fingers' has been started"
 	MainMisc_Notes[56] = ""
 	MainMisc_Notes[57] = ""
 	MainMisc_Notes[58] = ""
 	MainMisc_Notes[59] = ""
 	MainMisc_Notes[60] = ""
+	MainMisc_Notes[61] = ""
 		
-	MainMisc_First = new int[61]	
+	MainMisc_First = new int[62]	
 	MainMisc_First[0] = -999
 	MainMisc_First[1] = -999
 	MainMisc_First[2] = -999
@@ -5296,9 +5301,10 @@ function InitialiseQuests()
 	MainMisc_First[57] = -999
 	MainMisc_First[58] = -999
 	MainMisc_First[59] = -999
-	MainMisc_First[60] = 15
+	MainMisc_First[60] = -999
+	MainMisc_First[61] = 15
 	
-	MainMisc_Final = new int[61]	
+	MainMisc_Final = new int[62]	
 	MainMisc_Final[0] = 15
 	MainMisc_Final[1] = 999
 	MainMisc_Final[2] = 10
@@ -5359,9 +5365,10 @@ function InitialiseQuests()
 	MainMisc_Final[57] = 999
 	MainMisc_Final[58] = 999
 	MainMisc_Final[59] = 999
-	MainMisc_Final[60] = 190
+	MainMisc_Final[60] = 999
+	MainMisc_Final[61] = 190
 	
-	MainMisc_Radiant = new bool[61]
+	MainMisc_Radiant = new bool[62]
 	MainMisc_Radiant[0] = false
 	MainMisc_Radiant[1] = false
 	MainMisc_Radiant[2] = false
@@ -5422,7 +5429,8 @@ function InitialiseQuests()
 	MainMisc_Radiant[57] = true
 	MainMisc_Radiant[58] = true
 	MainMisc_Radiant[59] = true
-	MainMisc_Radiant[60] = false
+	MainMisc_Radiant[60] = true
+	MainMisc_Radiant[61] = false
 	
 ;;------------------------------------------------------------------------------------------------------------------------------------------------
 ;;------------------------------------------------------------------------------------------------------------------------------------------------

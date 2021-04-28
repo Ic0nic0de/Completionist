@@ -30,6 +30,7 @@ string[] staticPage
 string[] dynamicPage	
 
 bool property Update auto hidden
+
 bool SaveData
 int Tracker
 int count
@@ -37,37 +38,33 @@ int count
 ;-- Events --------------------------------------
 
 event OnConfigInit()
-
-	Maintenance()
+	
+	InitialSetup()
 	Build_Pages()
 	Build_Pages_Dynamic()
 endevent
 
-;-- Functions --------------------------------------
+;-- Events --------------------------------------
 
-function Maintenance()
-	
-	Float curVersion = 2.9
-	
-	if (fVersion < curVersion)
-		fVersion = curVersion
-		Update = True
-		SaveData = True
-		UpdateRequired.Show()
-		Build_Pages()
-		Build_Pages_Dynamic()			
-		return
+event OnConfigOpen()
+
+	if Update
+		if ShowMessage("A main array update is required to maintain mod functionality, do you want to update the mod now?", true, "Update Now", "Update Later")
+			ShowMessage("Please exit the MCM and wait for an update complete notification", false, "Ok")
+			While Utility.IsInMenuMode()
+				Utility.Wait(1)
+			endWhile
+			
+			GoToState("Updating")
+			Tracker = 1
+			RegisterForSingleUpdate(0)
+		else
+			ShowMessage("Please return to the MCM and complete the update to continue using the mod", false, "Ok")
+			Build_Pages_Dynamic()
+			return
+		endif
 	endif
-	
-	Build_Pages()
-	Build_Pages_Dynamic()		
-
-	Util.Reset_Arrays()
-	Util.InitialiseQuests()
-	
-	SMUtil.Reset_Arrays()
-	SMUtil.InitialiseQuests()
-endfunction
+endevent
 
 ;-- Functions --------------------------------------
 
@@ -78,30 +75,30 @@ function Build_Pages()
 	dynamicPage[1] = "Main Quests (CW)"
 	dynamicPage[2] = "Main Quests (DG)"
 	dynamicPage[3] = "Main Quests (DB)"	
-	dynamicPage[4] = "Whiterun"
+	dynamicPage[4] = "Dawnstar"
 	dynamicPage[5] = "Falkreath"
-	dynamicPage[6] = "Riften"
-	dynamicPage[7] = "Windhelm"	
-	dynamicPage[8] = "Dawnstar"
-	dynamicPage[9] = "Markarth"
-	dynamicPage[10] = "Morthal"
+	dynamicPage[6] = "Markarth"
+	dynamicPage[7] = "Morthal"	
+	dynamicPage[8] = "Raven Rock"
+	dynamicPage[9] = "Riften"
+	dynamicPage[10] = "Skaal Village"
 	dynamicPage[11] = "Solitude"
-	dynamicPage[12] = "Winterhold"
-	dynamicPage[13] = "Raven Rock"
-	dynamicPage[14] = "Skaal Village"
-	dynamicPage[15] = "Tel Mithryn"
-	dynamicPage[16] = "Thirsk"
-	dynamicPage[17] = "Small Towns / Villages"
-	dynamicPage[18] = "Companions" 
-	dynamicPage[19] = "College of Winterhold"
-	dynamicPage[20] = "Thieves Guild" 	
-	dynamicPage[21] = "Dark Brotherhood" 
-	dynamicPage[22] = "Dawnguard" 
-	dynamicPage[23] = "Vampires" 	
-	dynamicPage[24] = "Dungeons"
-	dynamicPage[25] = "Miscellaneous" 
-	dynamicPage[26] = "Miscellaneous (DG)" 
-	dynamicPage[27] = "Miscellaneous (DB)" 
+	dynamicPage[12] = "Tel Mithryn"
+	dynamicPage[13] = "Thirsk"	
+	dynamicPage[14] = "Whiterun"
+	dynamicPage[15] = "Windhelm"	
+	dynamicPage[16] = "Winterhold"
+	dynamicPage[17] = "Companions" 
+	dynamicPage[18] = "College of Winterhold"
+	dynamicPage[19] = "Thieves Guild" 	
+	dynamicPage[20] = "Dark Brotherhood" 
+	dynamicPage[21] = "Dawnguard" 
+	dynamicPage[22] = "Vampires" 	
+	dynamicPage[23] = "Dungeons"
+	dynamicPage[24] = "Miscellaneous" 
+	dynamicPage[25] = "Miscellaneous (DG)" 
+	dynamicPage[26] = "Miscellaneous (DB)" 
+	dynamicPage[27] = "Small Towns / Villages"
 endfunction
 
 ;-- Functions --------------------------------------
@@ -128,36 +125,35 @@ function Build_Pages_Dynamic()
 	staticPage[6] = " "
 	
 	staticPage[7] = "~~ Towns & Cities ~~"	
-	staticPage[8] = "Whiterun"
+	staticPage[8] = "Dawnstar"
 	staticPage[9] = "Falkreath"
-	staticPage[10] = "Riften"
-	staticPage[11] = "Windhelm"	
-	staticPage[12] = "Dawnstar"
-	staticPage[13] = "Markarth"
-	staticPage[14] = "Morthal"
+	staticPage[10] = "Markarth"
+	staticPage[11] = "Morthal"	
+	staticPage[12] = "Raven Rock"
+	staticPage[13] = "Riften"
+	staticPage[14] = "Skaal Village"
 	staticPage[15] = "Solitude"
-	staticPage[16] = "Winterhold"
-	staticPage[17] = "Raven Rock"
-	staticPage[18] = "Skaal Village"
-	staticPage[19] = "Tel Mithryn"
-	staticPage[20] = "Thirsk"
-	staticPage[21] = "Small Towns / Villages"
-	staticPage[22] = " "
+	staticPage[16] = "Tel Mithryn"
+	staticPage[17] = "Thirsk"	
+	staticPage[18] = "Whiterun"
+	staticPage[19] = "Windhelm"	
+	staticPage[20] = "Winterhold"
+	staticPage[21] = " "
+	staticPage[22] = "~~ Guilds & Factions ~~"
+	staticPage[23] = "Companions" 
+	staticPage[24] = "College of Winterhold" 	
+	staticPage[25] = "Thieves Guild" 	
+	staticPage[26] = "Dark Brotherhood" 
+	staticPage[27] = "Dawnguard" 
+	staticPage[28] = "Vampires" 
+	staticPage[29] = " "
 	
-	staticPage[23] = "~~ Guilds & Factions ~~"
-	staticPage[24] = "Companions" 
-	staticPage[25] = "College of Winterhold" 	
-	staticPage[26] = "Thieves Guild" 	
-	staticPage[27] = "Dark Brotherhood" 
-	staticPage[28] = "Dawnguard" 
-	staticPage[29] = "Vampires" 
-	staticPage[30] = " "
-	
-	staticPage[31] = "~~ Dungeons & Misc ~~"	
-	staticPage[32] = "Dungeons"
-	staticPage[33] = "Miscellaneous" 
-	staticPage[34] = "Miscellaneous (DG)" 
-	staticPage[35] = "Miscellaneous (DB)" 
+	staticPage[30] = "~~ Dungeons & Misc ~~"	
+	staticPage[31] = "Dungeons"
+	staticPage[32] = "Miscellaneous" 
+	staticPage[33] = "Miscellaneous (DG)" 
+	staticPage[34] = "Miscellaneous (DB)" 
+	staticPage[35] = "Small Towns / Villages"
 
 	int Page = 36
 
@@ -171,26 +167,46 @@ function Build_Pages_Dynamic()
 	EndWhile
 endfunction
 
-;-- Events --------------------------------------
+;-- Functions --------------------------------------
 
-event OnConfigOpen()
-	if Update
-		if ShowMessage("An update is required to maintain mod functionality, do you want to update the mod now?", true, "Update Now", "Update Later")
-			ShowMessage("Please exit the MCM and wait for an update complete notification", false, "Ok")
-			While Utility.IsInMenuMode()
-				Utility.Wait(1)
-			endWhile
-			
-			GoToState("Updating")
-			Tracker = 1
-			RegisterForSingleUpdate(0)
-		else
-			ShowMessage("Please return to the MCM and complete the update to continue using the mod", false, "Ok")
-			Build_Pages_Dynamic()
-			return
-		endif
+function InitialSetup()
+
+	Util.Reset_Arrays()
+	Util.InitialiseQuests()
+
+	SMUtil.Reset_Arrays()
+	SMUtil.InitialiseQuests()
+
+	fVersion = 3.0
+	Update = False
+	SaveData = False
+endfunction
+
+;-- Functions --------------------------------------
+
+function Maintenance()
+	
+	Float curVersion = 3.0
+	
+	if (fVersion < curVersion)
+		fVersion = curVersion
+		Update = True
+		SaveData = True
+		UpdateRequired.Show()
+		Build_Pages()
+		Build_Pages_Dynamic()			
+		return
 	endif
-endevent
+	
+	Build_Pages()
+	Build_Pages_Dynamic()		
+
+	Util.Reset_Arrays()
+	Util.InitialiseQuests()
+	
+	SMUtil.Reset_Arrays()
+	SMUtil.InitialiseQuests()
+endfunction
 
 ;-- Events --------------------------------------
 
@@ -199,6 +215,7 @@ event OnUpdate()
 	if Tracker == 0
 		if Count == 2
 			Count = 0
+			
 			if Update
 				UpdateMessage.Show(fVersion)	
 				Update = False
@@ -287,7 +304,7 @@ function Build_Page_Settings()
 		AddTextOption("an automatic MCM quest tracker for Skyrim & its DLC.", "", 0)
 		AddEmptyOption()
 		AddEmptyOption()
-		AddTextOption("", "Completionist Version: 2.9", 0)
+		AddTextOption("", "Completionist Version: 3.0", 0)
 		AddTextOption("", "Developed by [Ic0n]ic0de", 0)
 		AddEmptyOption()		
 		AddHeaderOption("")
