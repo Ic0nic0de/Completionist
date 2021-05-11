@@ -48,10 +48,10 @@ endevent
 
 event OnConfigOpen()
 
-	if Update
-		if ShowMessage("A main array update is required to maintain mod functionality, do you want to update the mod now?", true, "Update Now", "Update Later")
+	if (Update)
+		if (ShowMessage("A main array update is required to maintain mod functionality, do you want to update the mod now?", true, "Update Now", "Update Later"))
 			ShowMessage("Please exit the MCM and wait for an update complete notification", false, "Ok")
-			While Utility.IsInMenuMode()
+			While (Utility.IsInMenuMode())
 				Utility.Wait(1)
 			endWhile
 			
@@ -107,7 +107,7 @@ function Build_Pages_Dynamic()
 
 	ModName = "Completionist: Quest Tracker"
 
-	if Update
+	if (Update)
 		staticPage = new string[1]
 		staticPage[0] = "Settings" 
 		return
@@ -161,7 +161,7 @@ function Build_Pages_Dynamic()
 	
 	int x = Page
 	
-	While x >= 1
+	While (x >= 1)
 		x -= 1 
 		Pages[x] = staticPage[x]  
 	EndWhile
@@ -177,7 +177,7 @@ function InitialSetup()
 	SMUtil.Reset_Arrays()
 	SMUtil.InitialiseQuests()
 
-	fVersion = 3.0
+	fVersion = 3.1
 	Update = False
 	SaveData = False
 endfunction
@@ -186,7 +186,7 @@ endfunction
 
 function Maintenance()
 	
-	Float curVersion = 3.0
+	Float curVersion = 3.1
 	
 	if (fVersion < curVersion)
 		fVersion = curVersion
@@ -212,11 +212,11 @@ endfunction
 
 event OnUpdate()
 	
-	if Tracker == 0
-		if Count == 2
+	if (Tracker == 0)
+		if (Count == 2)
 			Count = 0
 			
-			if Update
+			if (Update)
 				UpdateMessage.Show(fVersion)	
 				Update = False
 			else
@@ -228,7 +228,7 @@ event OnUpdate()
 			RegisterForSingleUpdate(0)
 		endif
 
-	elseif Tracker == 1
+	elseif (Tracker == 1)
 		Tracker = 2
 		RegisterForSingleUpdate(0)
 		Util.Reset_Arrays()
@@ -236,7 +236,7 @@ event OnUpdate()
 		Util.InitialiseQuests()
 		Count += 1
 		
-	elseif	Tracker == 2
+	elseif (Tracker == 2)
 		Tracker = 0
 		RegisterForSingleUpdate(0)
 		SMUtil.Reset_Arrays()
@@ -250,13 +250,13 @@ endevent
 
 event OnPageReset(string page)
 	
-	if !Update
+	if (!Update)
 		Build_Pages()
 		Build_Pages_Dynamic()
 		Build_Page_Settings()
 		Build_Menu_Faction()
 		
-		if CurrentPage != "Settings" 
+		if (CurrentPage != "Settings")
 			Util.Reset_Arrays()
 			QST._Build_Quests(CurrentPage)
 		endif
@@ -282,7 +282,7 @@ endfunction
 
 function Build_Page_Settings()
 
-	if CurrentPage == "Settings"
+	if (CurrentPage == "Settings")
 		SetCursorFillMode(TOP_TO_BOTTOM)
 		SetCursorPosition(0)
 		AddHeaderOption("Mod Settings:")
@@ -304,7 +304,7 @@ function Build_Page_Settings()
 		AddTextOption("an automatic MCM quest tracker for Skyrim & its DLC.", "", 0)
 		AddEmptyOption()
 		AddEmptyOption()
-		AddTextOption("", "Completionist Version: 3.0", 0)
+		AddTextOption("", "Completionist Version: 3.1", 0)
 		AddTextOption("", "Developed by [Ic0n]ic0de", 0)
 		AddEmptyOption()		
 		AddHeaderOption("")
@@ -320,14 +320,14 @@ state RefreshMCM
 
 	event OnSelectST()
 		SetTitleText("===PLEASE WAIT===")
-		if ShowMessage("Would you like to store and reload manually completed quest data?", true, "Yes", "No")
+		if (ShowMessage("Would you like to store and reload manually completed quest data?", true, "Yes", "No"))
 			SaveData = True
 		else
 			SaveData = False
 		endif
 			
 		ShowMessage("Please exit the MCM and wait for a reload complete notification", false, "Ok")
-		While Utility.IsInMenuMode()
+		While (Utility.IsInMenuMode())
 			Utility.Wait(1)
 		endWhile	
 		
@@ -481,7 +481,7 @@ function buildpageLayout(string sectionInfo)
 	SetCursorFillMode(LEFT_TO_RIGHT)
 	posLeft = 0
 	posRight = 1					
-	if sectionInfo == ("Main")
+	if (sectionInfo == ("Main"))
 		buildSection(true, "Available Quests (Main)", 0, Util._M_Quest_Title_Incomplete, false)	
 		buildSection(false, "Quests (In Progress)", 0, Util._M_Quest_Title_Ongoing, false)			
 		buildSection(false, "Quests (Completed)", 1, Util._M_Quest_Title_Completed, true)
@@ -499,12 +499,12 @@ endfunction
 function buildSection(bool pageLeft, string headerString, int intPos, string[] questArray, bool completed)
 
 	int Index = 0
-	if pageLeft
+	if (pageLeft)
 		posLeft += intPos * 2
 		SetCursorPosition(posLeft)
 		AddHeaderOption(headerString)
 		posLeft += 2
-		while Index < questArray.length && questArray[Index] != ""
+		while ((Index < questArray.length) && (questArray[Index] != ""))
 			SetCursorPosition(posLeft)
 			Util.OptionSlot[Util.OptionIndex] = AddTextOption(questArray[Index], convertToggle(completed, questArray[Index]), 0)
 			Util.OptionName[Util.OptionIndex] = questArray[Index]
@@ -518,7 +518,7 @@ function buildSection(bool pageLeft, string headerString, int intPos, string[] q
 		SetCursorPosition(posRight)
 		AddHeaderOption(headerString)
 		posRight += 2
-		while Index < questArray.length && questArray[Index] != ""
+		while ((Index < questArray.length) && (questArray[Index] != ""))
 			SetCursorPosition(posRight)
 			Util.OptionSlot[Util.OptionIndex] = AddTextOption(questArray[Index], convertToggle(completed, questArray[Index]), 0)
 			Util.OptionName[Util.OptionIndex] = questArray[Index]
@@ -537,9 +537,9 @@ function questAlloc(string[] questNames, bool[] toggleStates, string sectionInfo
 	Util._Array_Quest_Toggle = manualToggles
 	
 	int Index = 0
-	while Index < Util._Array_Quest_Name.length && Util._Array_Quest_Name[Index] != ""
+	while ((Index < Util._Array_Quest_Name.length) && (Util._Array_Quest_Name[Index] != ""))
 		
-		if !Util._Array_Quest_Radiant[Index]
+		if (!Util._Array_Quest_Radiant[Index])
 			Quest _Quest = Quest.GetQuest(Util._Array_Quest_ID[Index])
 			if (_Quest)
 				if (_Quest.IsCompleted()) || (_Quest.GetStage() > Util._Array_Stage_Final[Index]) || (Player_Toggled(Util._Array_Quest_Name[Index], questNames, toggleStates))
@@ -556,7 +556,7 @@ function questAlloc(string[] questNames, bool[] toggleStates, string sectionInfo
 				endif
 			endif
 		else
-			if Player_Toggled(Util._Array_Quest_Name[Index], questNames, toggleStates)
+			if (Player_Toggled(Util._Array_Quest_Name[Index], questNames, toggleStates))
 				Util._M_Quest_Title_Completed[Util._M_Quest_Title_Index_Completed] = Util._Array_Quest_Name[Index]
 				Util._M_Quest_Title_Index_Completed += 1
 			else
@@ -575,7 +575,7 @@ endfunction
 event OnOptionHighlight(int val)
 		   
     int Index = dynamicPage.find(CurrentPage)
-	if Index != -1
+	if (Index != -1)
 		SetInfoText("Quest Giver: " + Get_Quest_Info(val, Get_Quest_Name(val), "Giver") + "\nOverview: " + Get_Quest_Info(val, Get_Quest_Name(val), "Overview") + "\n" + Get_Quest_Info(val, Get_Quest_Name(val), "Notes"))
 	endif
 endevent
@@ -584,9 +584,9 @@ endevent
 
 event OnOptionSelect(int val)
 	
-	if CurrentPage != "Settings"
-		if DevDebugVal
-			if ShowMessage("Quest Name: " + Get_Quest_Name(val) + "\nQuest ID: " + Get_Quest_Info(val, Get_Quest_Name(val), "ID") + "\nQuest Stages: " + Get_Quest_Info(val, Get_Quest_Name(val), "Stages"), True, "Move", "Cancel")
+	if (CurrentPage != "Settings")
+		if (DevDebugVal)
+			if (ShowMessage("Quest Name: " + Get_Quest_Name(val) + "\nQuest ID: " + Get_Quest_Info(val, Get_Quest_Name(val), "ID") + "\nQuest Stages: " + Get_Quest_Info(val, Get_Quest_Name(val), "Stages"), True, "Move", "Cancel"))
 				ContinueSelect(val)
 			endif
 		else
@@ -602,13 +602,13 @@ function ContinueSelect(int val)
 	string questName = Get_Quest_Name(val)
 	bool Toggle = Get_Quest_State(val, questName, "Auto")
 	bool ToggleM = Get_Quest_State(val, questName, "")
-	if Toggle && !ToggleM
+	if ((Toggle) && (!ToggleM))
 		showmessage("Unable to move (" + questName + ") as it has already been completed", false, "Ok")
 		return
 	endif
 	switchToggle(questName, !Toggle)
 	SetToggleState(val, !Toggle, questName)
-	if ResetPage
+	if (ResetPage)
 		SetTextOptionValue(val, "Processing")
 		ForcePageReset()
 	else
@@ -628,15 +628,15 @@ function SetToggleState(int val, bool _Quest_State, string questName)
 	Util.OptionToggle[Index] = _Quest_State
 	
 	Index = Util._Array_Quest_Toggle.Find(questName)
-	if Index != -1		
+	if (Index != -1)		
 		Util._Array_Quest_Toggle[Index] = ""
-		if DevDebugVal
+		if (DevDebugVal)
 			ShowMessage("Quest found in array at position " + Index + " Quest name set to (" + Util._Array_Quest_Toggle[Index] + ")", false, "Ok")
 		endif
 	else	
 		Index = Util._Array_Quest_Toggle.Find("")
 		Util._Array_Quest_Toggle[Index] = questName
-		if DevDebugVal
+		if (DevDebugVal)
 			ShowMessage("Quest not found in array, position " + Index + " set to (" + Util._Array_Quest_Toggle[Index] + ")", false, "Ok")
 		endif
 	endif
@@ -646,10 +646,10 @@ endfunction
 
 function updateToggle(string curPage, string questName, bool curToggleState, string[] questNames, bool[] toggleStates)
 	
-	if CurrentPage == curPage
+	if (CurrentPage == curPage)
 		int Index = questNames.find(questName)
 		
-		if Index != -1
+		if (Index != -1)
 			toggleStates[Index] = curToggleState
 		else
 			Index = questNames.find("")
@@ -664,7 +664,7 @@ endfunction
 bool function Player_Toggled(string questName, string[] questNames, bool[] toggleStates)
 
 	int Index = questNames.find(questName)
-	if Index != -1
+	if (Index != -1)
 		return toggleStates[Index]
 	endif
 	
@@ -676,7 +676,7 @@ endfunction
 string function Get_Quest_Name(int val)
 	
 	int Index = Util.OptionSlot.Find(val)
-	if Index != -1
+	if (Index != -1)
 		return Util.OptionName[Index]
 	endif
 		
@@ -687,14 +687,14 @@ endfunction
 
 bool function Get_Quest_State(int val, string questName, string _section)
 	
-	if _Section == "Auto"
+	if (_Section == "Auto")
 		int Index = Util.OptionSlot.Find(val)
-		if Index != -1
+		if (Index != -1)
 			return Util.OptionToggle[Index]
 		endif
 	else
 		int Index = Util._Array_Quest_Toggle.Find(questName)
-		if Index != -1
+		if (Index != -1)
 			return true
 		endif	
 	endif
@@ -707,16 +707,16 @@ endfunction
 string function Get_Quest_Info(int val, string questName, string _Info)
 	
 	int Index = Util._Array_Quest_Name.Find(questName)
-	if Index != -1
-		if _Info == "Stages"
+	if (Index != -1)
+		if (_Info == "Stages")
 			return Util._Array_Stage_First[Index] + " , " + Util._Array_Stage_Final[Index]
-		elseif _Info == "ID"
+		elseif (_Info == "ID")
 			return Util._Array_Quest_ID[Index]
-		elseif _Info == "Notes"
+		elseif (_Info == "Notes")
 			return Util._Array_Quest_Notes[Index]	
-		elseif _Info == "Overview"
+		elseif (_Info == "Overview")
 			return Util._Array_Quest_Overview[Index]
-		elseif _Info == "Giver"
+		elseif (_Info == "Giver")
 			return Util._Array_Quest_Giver[Index]	
 		endif
 	endif
@@ -729,10 +729,10 @@ endfunction
 string function convertToggle(bool completed, string questname)
 
 	int Index = Util._Array_Quest_Toggle.Find(questName)
-	if Index != -1
+	if (Index != -1)
 		return "Complete(M)"
 		
-	elseif completed
+	elseif (completed)
 		return "Complete"
 	endif
 	

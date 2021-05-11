@@ -2142,7 +2142,7 @@ function InitialiseQuests()
 	MainWyrmstooth_Giver[9] = "Shargam (Imperial Mining Settlement)"
 	MainWyrmstooth_Giver[10] = "Athir (Imperial Mining Settlement)"
 	MainWyrmstooth_Giver[11] = "Daenlit (Imperial Mining Settlement)"
-	MainWyrmstooth_Giver[12] = "Read the book 'History of MainWyrmstooth_' or enter the Tomb of Vulom"
+	MainWyrmstooth_Giver[12] = "Read the book 'History of Wyrmstooth' or enter the Tomb of Vulom"
 	MainWyrmstooth_Giver[13] = "Alberthor"
 	MainWyrmstooth_Giver[14] = "Alberthor"
 	MainWyrmstooth_Giver[15] = "Read Fjeimir's Note next to his body at Chillbone Camp."

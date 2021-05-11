@@ -3314,7 +3314,7 @@ function InitialiseQuests()
 	MainSkaalVillage_Final = new int[5]	
 	MainSkaalVillage_Final[0] = 30
 	MainSkaalVillage_Final[1] = 20
-	MainSkaalVillage_Final[2] = 50
+	MainSkaalVillage_Final[2] = 999
 	MainSkaalVillage_Final[3] = 30
 	MainSkaalVillage_Final[4] = 20
 	
